@@ -1,0 +1,3 @@
+- Keep the project focused on a confidential, explainable case-routing workflow.
+- Prefer simple, maintainable structure over premature optimization.
+- Use a deterministic ranking model for the first version.
