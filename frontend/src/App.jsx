@@ -1,9 +1,30 @@
 import { useState } from 'react';
 
 function App() {
-  const [rawText, setRawText] = useState(
-    'An employee was terminated without notice. Under the Employment Protection Act (KSchG) and Working Hours Act (ArbZG), a legal complaint must be filed. The brief submission deadline ends on 2026-08-25.'
-  );
+  const DEMO_CASES = [
+    {
+      label: 'Employment',
+      text: 'An employee was terminated without notice. Under the Employment Protection Act (KSchG) and Working Hours Act (ArbZG), a legal complaint must be filed. The brief submission deadline ends on 2026-08-25.'
+    },
+    {
+      label: 'Medical Malpractice',
+      text: 'Patient suffered severe injuries due to a surgical error at the Munich Hospital. We are pursuing a medical malpractice claim under the BGB. The statute of limitations for the claim expires on 2027-01-15.'
+    },
+    {
+      label: 'Commercial (HGB)',
+      text: 'Breach of contract regarding a commercial goods delivery. The supplier failed to deliver on time. We need to file a lawsuit under the HGB. The hearing date is set for 2026-10-10.'
+    },
+    {
+      label: 'Criminal',
+      text: 'Client is accused of theft and fraud under the StGB. The police have issued an arrest warrant. We need to prepare for the court hearing scheduled for 2026-09-12.'
+    },
+    {
+      label: 'Data Protection',
+      text: 'A company leaked user data. We are filing a claim based on the DSGVO (GDPR). The data protection authority must be notified by 2026-09-01.'
+    }
+  ];
+
+  const [rawText, setRawText] = useState(DEMO_CASES[0].text);
   const [caseInput, setCaseInput] = useState({
     title: 'Employment Termination Claim',
     practiceArea: 'Employment',
@@ -140,7 +161,21 @@ function App() {
               </div>
               <div className="card-body p-4">
                 <div className="mb-3">
-                  <label className="form-label text-slate-300 fw-medium">Enter Case Description or Legal Text</label>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <label className="form-label text-slate-300 fw-medium mb-0">Enter Case Description or Legal Text</label>
+                    <div className="d-flex gap-2">
+                      {DEMO_CASES.map((demo, idx) => (
+                        <button
+                          key={idx}
+                          className="btn btn-outline-secondary btn-sm"
+                          onClick={() => setRawText(demo.text)}
+                          title="Load demo text to test fallback"
+                        >
+                          {demo.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <textarea
                     className="form-control form-control-custom"
                     rows={6}

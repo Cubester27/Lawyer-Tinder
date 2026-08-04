@@ -70,19 +70,21 @@ export function detectApplicableCode(text) {
 
 export function detectPracticeArea(text) {
   if (/medical malpractice|doctor|hospital|patient|nurse|treatment|diagnosis/i.test(text)) return 'Medical';
-  if (/murder|homicide|manslaughter/i.test(text)) return 'Murder';
+  if (/murder|homicide|manslaughter|theft|fraud|stgb|criminal/i.test(text)) return 'Criminal Law';
   if (/employment|wrongful termination|retaliation|arbeitsrecht|kündigung/i.test(text)) return 'Employment';
   if (/contract|breach|hgb|kaufvertrag/i.test(text)) return 'Commercial Litigation';
   if (/family|custody|divorce/i.test(text)) return 'Family Law';
+  if (/dsgvo|gdpr|data protection|privacy/i.test(text)) return 'Data Protection';
   return 'General Litigation';
 }
 
 export function detectCaseFocus(text) {
   if (/medical malpractice|doctor|hospital|patient|nurse|treatment|diagnosis/i.test(text)) return 'Medical';
-  if (/murder|homicide|manslaughter/i.test(text)) return 'Murder';
+  if (/murder|homicide|manslaughter|theft|fraud|stgb|criminal/i.test(text)) return 'Criminal Law';
   if (/employment|wrongful termination|retaliation|arbeitsrecht|kündigung/i.test(text)) return 'Employment';
   if (/contract|breach|hgb|kaufvertrag/i.test(text)) return 'Commercial Litigation';
   if (/family|custody|divorce/i.test(text)) return 'Family Law';
+  if (/dsgvo|gdpr|data protection|privacy/i.test(text)) return 'Data Protection';
   return 'General Litigation';
 }
 
