@@ -1,40 +1,302 @@
 [
   {
     "id": "1",
-    "name": "Ava Patel",
+    "name": "Dr. Ava Patel",
     "practiceAreas": [
       "Employment",
-      "Civil Rights"
+      "Civil Rights",
+      "Arbeitsrecht"
     ],
     "jurisdictions": [
+      "Germany",
       "New York",
       "New Jersey"
     ],
-    "caseHistory": 23,
+    "specialties": [
+      "KSchG",
+      "ArbZG",
+      "BetrVG",
+      "Wrongful Termination"
+    ],
+    "caseHistory": 39,
     "workload": 3
   },
   {
     "id": "2",
-    "name": "Marcus Lee",
+    "name": "Marcus Lee, Esq.",
     "practiceAreas": [
-      "Commercial Litigation"
+      "Commercial Litigation",
+      "Handelsrecht",
+      "Vertragsrecht"
     ],
     "jurisdictions": [
-      "New York"
+      "New York",
+      "Germany"
     ],
-    "caseHistory": 12,
-    "workload": 5
+    "specialties": [
+      "HGB",
+      "BGB",
+      "Contract Disputes",
+      "Mergers"
+    ],
+    "caseHistory": 18,
+    "workload": 4
   },
   {
     "id": "3",
     "name": "Sofia Ramirez",
     "practiceAreas": [
+      "Employment",
+      "Labor Law"
+    ],
+    "jurisdictions": [
+      "California",
+      "Federal"
+    ],
+    "specialties": [
+      "Retaliation",
+      "Wage & Hour",
+      "Labor Code"
+    ],
+    "caseHistory": 29,
+    "workload": 2
+  },
+  {
+    "id": "4",
+    "name": "Dr. Maximilian von Berg",
+    "practiceAreas": [
+      "Zivilrecht",
+      "Vertragsrecht",
+      "Mietrecht"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "Germany / Federal"
+    ],
+    "specialties": [
+      "BGB",
+      "Mietrecht",
+      "Kaufrecht",
+      "Schadensersatz"
+    ],
+    "caseHistory": 42,
+    "workload": 3
+  },
+  {
+    "id": "5",
+    "name": "Prof. Dr. Elena Schneider",
+    "practiceAreas": [
+      "Strafrecht",
+      "Murder",
+      "Criminal Law"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "Germany / Federal"
+    ],
+    "specialties": [
+      "StGB",
+      "StPO",
+      "Kapitalverbrechen",
+      "Strafverteidigung"
+    ],
+    "caseHistory": 51,
+    "workload": 2
+  },
+  {
+    "id": "6",
+    "name": "Lukas Weber",
+    "practiceAreas": [
+      "Arbeitsrecht",
       "Employment"
     ],
     "jurisdictions": [
+      "Germany"
+    ],
+    "specialties": [
+      "ArbZG",
+      "KSchG",
+      "Abmahnung",
+      "Kündigungsschutz"
+    ],
+    "caseHistory": 27,
+    "workload": 1
+  },
+  {
+    "id": "7",
+    "name": "Sarah Jenkins",
+    "practiceAreas": [
+      "Medical",
+      "Medical Malpractice"
+    ],
+    "jurisdictions": [
+      "New York",
+      "Germany"
+    ],
+    "specialties": [
+      "BGB",
+      "Behandlungsfehler",
+      "Arzthaftung"
+    ],
+    "caseHistory": 31,
+    "workload": 3
+  },
+  {
+    "id": "8",
+    "name": "Dr. Christian Lindner-Hoffmann",
+    "practiceAreas": [
+      "Datenschutz",
+      "Data Protection",
+      "IT-Recht"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "EU",
+      "Germany / Federal"
+    ],
+    "specialties": [
+      "DSGVO",
+      "GDPR",
+      "BDSG",
+      "Auskunftsanspruch"
+    ],
+    "caseHistory": 38,
+    "workload": 2
+  },
+  {
+    "id": "9",
+    "name": "Katharina Meier",
+    "practiceAreas": [
+      "Handelsrecht",
+      "Gesellschaftsrecht",
+      "Commercial Litigation"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "Frankfurt"
+    ],
+    "specialties": [
+      "HGB",
+      "GmbHG",
+      "Kaufmannsrecht"
+    ],
+    "caseHistory": 23,
+    "workload": 4
+  },
+  {
+    "id": "10",
+    "name": "David Althaus",
+    "practiceAreas": [
+      "Verwaltungsrecht",
+      "Public Law"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "Berlin"
+    ],
+    "specialties": [
+      "VwGO",
+      "Verwaltungsakt",
+      "Widerspruch"
+    ],
+    "caseHistory": 19,
+    "workload": 2
+  },
+  {
+    "id": "11",
+    "name": "Julia Fischer",
+    "practiceAreas": [
+      "Zivilprozessrecht",
+      "General Litigation"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "München"
+    ],
+    "specialties": [
+      "ZPO",
+      "Klageschrift",
+      "Mahnverfahren"
+    ],
+    "caseHistory": 35,
+    "workload": 3
+  },
+  {
+    "id": "12",
+    "name": "Alexander Kovac",
+    "practiceAreas": [
+      "Family Law",
+      "Familienrecht"
+    ],
+    "jurisdictions": [
+      "Germany",
       "California"
     ],
-    "caseHistory": 22,
+    "specialties": [
+      "BGB",
+      "Scheidung",
+      "Sorgerecht"
+    ],
+    "caseHistory": 40,
+    "workload": 1
+  },
+  {
+    "id": "13",
+    "name": "Dr. Hannah Neumann",
+    "practiceAreas": [
+      "Strafrecht",
+      "Wirtschaftsstrafrecht"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "Hamburg"
+    ],
+    "specialties": [
+      "StGB",
+      "Betrug",
+      "Untreue",
+      "StPO"
+    ],
+    "caseHistory": 28,
+    "workload": 2
+  },
+  {
+    "id": "14",
+    "name": "Thomas Wagner",
+    "practiceAreas": [
+      "Arbeitsrecht",
+      "Betriebsverfassungsrecht"
+    ],
+    "jurisdictions": [
+      "Germany",
+      "NRW"
+    ],
+    "specialties": [
+      "BetrVG",
+      "ArbZG",
+      "KSchG",
+      "Betriebsrat"
+    ],
+    "caseHistory": 45,
+    "workload": 3
+  },
+  {
+    "id": "15",
+    "name": "Rachel Zane",
+    "practiceAreas": [
+      "Commercial Litigation",
+      "Corporate Law"
+    ],
+    "jurisdictions": [
+      "New York",
+      "California"
+    ],
+    "specialties": [
+      "CPLR",
+      "Contract Disputes",
+      "Securities"
+    ],
+    "caseHistory": 30,
     "workload": 2
   }
 ]

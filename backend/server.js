@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
+import { PDFParse } from 'pdf-parse';
 import { approveRecommendation, rankLawyersForCase } from './src/services/caseMatcher.js';
-import { extractCaseSummary } from './src/services/documentParser.js';
+import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -13,6 +14,16 @@ app.use(express.json());
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
+});
+
+app.post('/api/extract', async (req, res) => {
+  const { text, fileName } = req.body;
+  if (!text || typeof text !== 'string') {
+    return res.status(400).json({ error: 'Text required for extraction' });
+  }
+
+  const caseInput = await extractLegalInfoWithAI(text, fileName || 'Legal Text');
+  res.json({ caseInput });
 });
 
 app.post('/api/recommend', async (req, res) => {
@@ -27,18 +38,32 @@ app.post('/api/approve', (req, res) => {
   res.json({ approval });
 });
 
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) => {
   const file = req.file;
 
   if (!file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }
 
-  const text = file.buffer.toString('utf8').trim();
-  const summary = extractCaseSummary(text, file.originalname);
+  let text = '';
+  const isPdf = file.mimetype === 'application/pdf' || file.originalname.toLowerCase().endsWith('.pdf');
+
+  if (isPdf) {
+    try {
+      const parser = new PDFParse({ data: file.buffer });
+      const pdfData = await parser.getText();
+      text = pdfData.text || '';
+    } catch (error) {
+      text = file.buffer.toString('utf8').replace(/[^\x20-\x7E\s]/g, ' ').trim();
+    }
+  } else {
+    text = file.buffer.toString('utf8').trim();
+  }
+
+  const caseInput = await extractLegalInfoWithAI(text, file.originalname);
 
   res.json({
-    caseInput: summary,
+    caseInput,
     fileName: file.originalname,
     contentType: file.mimetype
   });

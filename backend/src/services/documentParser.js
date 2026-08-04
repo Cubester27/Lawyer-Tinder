@@ -15,13 +15,14 @@ const MONTH_LOOKUP = {
   december: 11
 };
 
-export function extractCaseSummary(text, fileName) {
+export function extractCaseSummary(text, fileName = 'Case Document') {
   const normalizedText = text.replace(/\s+/g, ' ').trim();
   const firstSentence = normalizedText.split(/[.!?](?:\s|$)/)[0] || normalizedText;
-  const title = fileName.replace(/\.[^.]+$/, '');
+  const title = fileName ? fileName.replace(/\.[^.]+$/, '') : 'Untitled Case';
   const practiceArea = detectPracticeArea(normalizedText);
   const caseFocus = detectCaseFocus(normalizedText);
   const jurisdiction = detectJurisdiction(normalizedText);
+  const applicableCode = detectApplicableCode(normalizedText);
   const deadlines = extractDeadlines(normalizedText);
 
   return {
@@ -29,17 +30,49 @@ export function extractCaseSummary(text, fileName) {
     practiceArea,
     caseFocus,
     jurisdiction,
+    applicableCode,
     summary: firstSentence.slice(0, 280),
     deadlines,
     primaryDeadlineDate: deadlines[0]?.date || ''
   };
 }
 
+export function detectApplicableCode(text) {
+  if (/dsgvo|gdpr|datenschutz|data protection/i.test(text)) {
+    return 'DSGVO / GDPR - General Data Protection Regulation';
+  }
+  if (/arbzg|kschg|betrvg|arbeitsrecht|employment|wrongful termination|retaliation|notice period|overtime/i.test(text)) {
+    return 'ArbZG / KSchG - Employment & Dismissal Protection Act';
+  }
+  if (/medical malpractice|doctor|hospital|patient|treatment|contract|breach|civil code|\bbgb\b|damages|kaufvertrag|mietrecht|schadensersatz/i.test(text)) {
+    return 'BGB - Civil Code';
+  }
+  if (/stgb|murder|homicide|manslaughter|strafrecht|\bstgb\b|criminal code|theft|diebstahl|betrug|körperverletzung/i.test(text)) {
+    return 'StGB - Criminal Code';
+  }
+  if (/hgb|handelsgesetzbuch|kaufmann|commercial code|corporate/i.test(text)) {
+    return 'HGB - Commercial Code';
+  }
+  if (/zpo|zivilprozess|civil procedure|klageschrift|default judgment/i.test(text)) {
+    return 'ZPO - Code of Civil Procedure';
+  }
+  if (/stpo|strafprozess|criminal procedure|arrest warrant|haftbefehl/i.test(text)) {
+    return 'StPO - Code of Criminal Procedure';
+  }
+  if (/vwgo|administrative court|widerspruchsbescheid/i.test(text)) {
+    return 'VwGO - Code of Administrative Court Procedure';
+  }
+  if (/cplr|civil practice law/i.test(text)) {
+    return 'CPLR - New York Civil Practice Law and Rules';
+  }
+  return 'BGB - Civil Code';
+}
+
 export function detectPracticeArea(text) {
   if (/medical malpractice|doctor|hospital|patient|nurse|treatment|diagnosis/i.test(text)) return 'Medical';
   if (/murder|homicide|manslaughter/i.test(text)) return 'Murder';
-  if (/employment|wrongful termination|retaliation/i.test(text)) return 'Employment';
-  if (/contract|breach/i.test(text)) return 'Commercial Litigation';
+  if (/employment|wrongful termination|retaliation|arbeitsrecht|kündigung/i.test(text)) return 'Employment';
+  if (/contract|breach|hgb|kaufvertrag/i.test(text)) return 'Commercial Litigation';
   if (/family|custody|divorce/i.test(text)) return 'Family Law';
   return 'General Litigation';
 }
@@ -47,17 +80,18 @@ export function detectPracticeArea(text) {
 export function detectCaseFocus(text) {
   if (/medical malpractice|doctor|hospital|patient|nurse|treatment|diagnosis/i.test(text)) return 'Medical';
   if (/murder|homicide|manslaughter/i.test(text)) return 'Murder';
-  if (/employment|wrongful termination|retaliation/i.test(text)) return 'Employment';
-  if (/contract|breach/i.test(text)) return 'Commercial Litigation';
+  if (/employment|wrongful termination|retaliation|arbeitsrecht|kündigung/i.test(text)) return 'Employment';
+  if (/contract|breach|hgb|kaufvertrag/i.test(text)) return 'Commercial Litigation';
   if (/family|custody|divorce/i.test(text)) return 'Family Law';
   return 'General Litigation';
 }
 
 export function detectJurisdiction(text) {
+  if (/deutschland|germany|berlin|munich|hamburg|frankfurt/i.test(text)) return 'Germany';
   if (/new york/i.test(text)) return 'New York';
   if (/new jersey/i.test(text)) return 'New Jersey';
   if (/california/i.test(text)) return 'California';
-  return 'New York';
+  return 'Germany / Federal';
 }
 
 export function extractDeadlines(text) {
@@ -79,12 +113,21 @@ export function extractDeadlines(text) {
 
     seen.add(dedupeKey);
 
-    const start = Math.max(0, (match.index || 0) - 30);
-    const end = Math.min(text.length, (match.index || 0) + match[1].length + 30);
+    const start = Math.max(0, (match.index || 0) - 40);
+    const end = Math.min(text.length, (match.index || 0) + match[1].length + 40);
+    const sourceText = text.slice(start, end).trim();
+
+    let label = 'General Deadline';
+    if (/klage|complaint|file by|einreichen/i.test(sourceText)) label = 'Filing Deadline';
+    else if (/stellungnahme|motion|suppression|antrag/i.test(sourceText)) label = 'Motion / Brief Due';
+    else if (/kündigung|termination|notice/i.test(sourceText)) label = 'Termination Notice Deadline';
+    else if (/arraignment|hearing|termin|verhandlung|court/i.test(sourceText)) label = 'Hearing / Court Date';
+    else if (/einspruch|appeal|widerspruch/i.test(sourceText)) label = 'Appeal Deadline';
 
     deadlines.push({
       date: parsedDate.date,
-      sourceText: text.slice(start, end).trim()
+      label,
+      sourceText
     });
   }
 
