@@ -31,10 +31,10 @@ export async function extractLegalInfoWithAI(text, fileName = 'Legal Document') 
         messages: [
           {
             role: 'system',
-            content: `You are an expert legal assistant. Analyze the provided legal text and extract structured information in JSON format in ENGLISH.
+            content: `You are an expert legal secretary / paralegal. Analyze the provided legal text and extract structured information in JSON format in ENGLISH.
 You MUST extract:
 - "applicableCode": The primary law book / legal code in application (e.g. "BGB - Civil Code", "StGB - Criminal Code", "ArbZG / KSchG - Employment & Protection Against Dismissal Act", "DSGVO / GDPR - General Data Protection Regulation", "HGB - Commercial Code", "ZPO", "StPO", "CPLR", etc.) along with a concise explanation.
-- "deadlines": Array of objects with {"date": "YYYY-MM-DD", "label": "e.g. Filing Deadline / Motion Due", "sourceText": "snippet from document", "urgency": "high"|"medium"|"low"}.
+- "deadlines": Array of objects with {"date": "YYYY-MM-DD", "label": "e.g. Filing Deadline / Motion Due", "sourceText": "snippet from document", "urgency": "high"|"medium"|"low"}. The deadline dates will be defined in the text as such.
 - "primaryDeadlineDate": The earliest or most critical deadline in YYYY-MM-DD format (or empty string if none).
 - "title": A concise title derived from document or topic.
 - "practiceArea": Area of practice (e.g. Employment, Civil, Criminal, Medical, Commercial, Data Protection).

@@ -43,7 +43,31 @@ function App() {
     extractedBy: 'openrouter'
   });
 
-  const [recommendations, setRecommendations] = useState([]);
+  const DEFAULT_RECOMMENDATIONS = [
+    {
+      id: '1',
+      name: 'Dr. Ava Patel',
+      score: 16,
+      reason: 'Matches Employment practice area, Germany jurisdiction [Specialized in: ArbZG / KSchG] with 39 relevant matters handled.',
+      source: 'heuristic'
+    },
+    {
+      id: '6',
+      name: 'Lukas Weber',
+      score: 13,
+      reason: 'Matches Employment practice area, Germany jurisdiction [Specialized in: ArbZG / KSchG] with 27 relevant matters handled.',
+      source: 'heuristic'
+    },
+    {
+      id: '14',
+      name: 'Thomas Wagner',
+      score: 13,
+      reason: 'Matches Employment practice area, Germany jurisdiction [Specialized in: ArbZG / KSchG] with 45 relevant matters handled.',
+      source: 'heuristic'
+    }
+  ];
+
+  const [recommendations, setRecommendations] = useState(DEFAULT_RECOMMENDATIONS);
   const [approvalMessage, setApprovalMessage] = useState('');
   const [notes, setNotes] = useState('Urgent deadline - Please prioritize case intake.');
   const [statusMessage, setStatusMessage] = useState('');
@@ -63,7 +87,10 @@ function App() {
       const data = await response.json();
       if (data.caseInput) {
         setCaseInput(data.caseInput);
-        setStatusMessage(`Analysis complete! Applicable Legal Code: ${data.caseInput.applicableCode}`);
+        const recs = data.recommendations || data.caseInput.recommendations || [];
+        setRecommendations(recs);
+        setApprovalMessage('');
+        setStatusMessage(`Analysis & Lawyer Matching complete! Code: ${data.caseInput.applicableCode} (${recs.length} lawyers suggested)`);
       }
     } catch (err) {
       setStatusMessage('Error performing AI extraction.');
@@ -89,7 +116,10 @@ function App() {
       const data = await response.json();
       if (data.caseInput) {
         setCaseInput(data.caseInput);
-        setStatusMessage(`File "${data.fileName}" analyzed! Legal Code: ${data.caseInput.applicableCode}`);
+        const recs = data.recommendations || data.caseInput.recommendations || [];
+        setRecommendations(recs);
+        setApprovalMessage('');
+        setStatusMessage(`File "${data.fileName}" analyzed & Lawyers matched! Code: ${data.caseInput.applicableCode} (${recs.length} lawyers suggested)`);
       }
     } catch (err) {
       setStatusMessage('Error uploading document.');
@@ -135,7 +165,7 @@ function App() {
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div>
               <h1 className="h2 fw-bold text-white mb-1">
-                ⚖️ Lawyer Tinder <span className="badge bg-primary fs-6 align-middle ms-2">AI Extraction</span>
+                ⚖️ Lawyer Tinder <span className="badge bg-primary fs-6 align-middle ms-2">AI Extraction & Matching</span>
               </h1>
               <p className="text-secondary mb-0">
                 Automated AI extraction of applicable legal codes, deadlines & attorney routing.
@@ -195,10 +225,10 @@ function App() {
                     {isLoading ? (
                       <>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Extracting with AI...
+                        Extracting & Matching...
                       </>
                     ) : (
-                      <>✨ Extract with AI (Legal Code & Deadlines)</>
+                      <>✨ Extract with AI (Legal Code, Deadlines & Lawyer Matching)</>
                     )}
                   </button>
                 </div>

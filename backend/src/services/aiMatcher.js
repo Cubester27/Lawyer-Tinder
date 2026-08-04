@@ -3,14 +3,14 @@ import { loadLawyerProfiles } from './lawyerStore.js';
 
 dotenv.config();
 
-const API_KEY = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
 const BASE_URL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions';
 const MODEL = process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini';
 
 export async function rankLawyersWithAI(caseInput) {
   const lawyerProfiles = loadLawyerProfiles();
+  const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
 
-  if (!API_KEY) {
+  if (!apiKey) {
     return rankLawyersWithHeuristics(caseInput, lawyerProfiles);
   }
 
@@ -19,7 +19,7 @@ export async function rankLawyersWithAI(caseInput) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'HTTP-Referer': 'http://localhost:3001',
         'X-Title': 'Lawyer Tinder App'
       },

@@ -80,7 +80,8 @@ export function detectPracticeArea(text) {
 
 export function detectCaseFocus(text) {
   if (/medical malpractice|doctor|hospital|patient|nurse|treatment|diagnosis/i.test(text)) return 'Medical';
-  if (/murder|homicide|manslaughter|theft|fraud|stgb|criminal/i.test(text)) return 'Criminal Law';
+  if (/murder|homicide|manslaughter/i.test(text)) return 'Murder';
+  if (/theft|fraud|stgb|criminal/i.test(text)) return 'Criminal Law';
   if (/employment|wrongful termination|retaliation|arbeitsrecht|kündigung/i.test(text)) return 'Employment';
   if (/contract|breach|hgb|kaufvertrag/i.test(text)) return 'Commercial Litigation';
   if (/family|custody|divorce/i.test(text)) return 'Family Law';

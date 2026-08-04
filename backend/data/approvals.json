@@ -102,5 +102,37 @@
     "lawyerId": "1",
     "notes": "Needs a fast response",
     "approvedAt": "2026-08-04T10:04:12.401Z"
+  },
+  {
+    "id": "1785840164117",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-04T10:42:44.117Z"
+  },
+  {
+    "id": "1785840182129",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-04T10:43:02.129Z"
+  },
+  {
+    "id": "1785840267427",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-04T10:44:27.427Z"
+  },
+  {
+    "id": "1785840311991",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-04T10:45:11.991Z"
   }
 ]

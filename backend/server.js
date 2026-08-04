@@ -23,7 +23,7 @@ app.post('/api/extract', async (req, res) => {
   }
 
   const caseInput = await extractLegalInfoWithAI(text, fileName || 'Legal Text');
-  res.json({ caseInput });
+  res.json({ caseInput, recommendations: caseInput.recommendations || [] });
 });
 
 app.post('/api/recommend', async (req, res) => {
@@ -64,6 +64,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 
   res.json({
     caseInput,
+    recommendations: caseInput.recommendations || [],
     fileName: file.originalname,
     contentType: file.mimetype
   });
