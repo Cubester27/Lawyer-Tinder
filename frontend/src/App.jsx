@@ -4,8 +4,11 @@ function App() {
   const [caseInput, setCaseInput] = useState({
     title: 'Employment discrimination claim',
     practiceArea: 'Employment',
+    caseFocus: 'Employment',
     jurisdiction: 'New York',
-    summary: 'A former employee alleges wrongful termination and retaliation.'
+    summary: 'A former employee alleges wrongful termination and retaliation.',
+    deadlines: [],
+    primaryDeadlineDate: ''
   });
   const [recommendations, setRecommendations] = useState([]);
   const [approvalMessage, setApprovalMessage] = useState('');
@@ -61,7 +64,7 @@ function App() {
 
               <form onSubmit={handleSubmit} className="row g-3">
                 <div className="col-12">
-                  <label className="form-label">Upload case document</label>
+                  <label className="form-label">Upload case document </label>
                   <input type="file" className="form-control" accept=".txt,.md,.csv" onChange={handleUpload} />
                   {uploadMessage ? <div className="form-text text-success">{uploadMessage}</div> : null}
                 </div>
@@ -75,12 +78,40 @@ function App() {
                   <input className="form-control" value={caseInput.practiceArea} onChange={(e) => setCaseInput({ ...caseInput, practiceArea: e.target.value })} placeholder="Practice area" />
                 </div>
                 <div className="col-md-6">
+                  <label className="form-label">Case focus</label>
+                  <input className="form-control" value={caseInput.caseFocus || ''} onChange={(e) => setCaseInput({ ...caseInput, caseFocus: e.target.value })} placeholder="Case focus" />
+                </div>
+                <div className="col-md-6">
                   <label className="form-label">Jurisdiction</label>
                   <input className="form-control" value={caseInput.jurisdiction} onChange={(e) => setCaseInput({ ...caseInput, jurisdiction: e.target.value })} placeholder="Jurisdiction" />
+                </div>
+                <div className="col-md-6">
+                  <label className="form-label">Primary deadline</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    value={caseInput.primaryDeadlineDate || ''}
+                    onChange={(e) => setCaseInput({ ...caseInput, primaryDeadlineDate: e.target.value })}
+                  />
                 </div>
                 <div className="col-12">
                   <label className="form-label">Case summary</label>
                   <textarea className="form-control" value={caseInput.summary} onChange={(e) => setCaseInput({ ...caseInput, summary: e.target.value })} placeholder="Case summary" rows={5} />
+                </div>
+                <div className="col-12">
+                  <label className="form-label">Extracted deadlines</label>
+                  {caseInput.deadlines?.length ? (
+                    <div className="list-group">
+                      {caseInput.deadlines.map((deadline) => (
+                        <div key={`${deadline.date}-${deadline.sourceText}`} className="list-group-item">
+                          <div className="fw-semibold">{deadline.date}</div>
+                          <div className="text-muted small">{deadline.sourceText}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-muted mb-0">No deadlines extracted yet.</p>
+                  )}
                 </div>
                 <div className="col-12">
                   <button type="submit" className="btn btn-primary">Recommend lawyer</button>

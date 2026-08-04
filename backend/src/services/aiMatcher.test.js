@@ -7,7 +7,10 @@ test('falls back to the heuristic matcher when no AI key is configured', async (
     title: 'Employment dispute',
     practiceArea: 'Employment',
     jurisdiction: 'New York',
-    summary: 'Wrongful termination claim.'
+    summary: 'Wrongful termination claim.',
+    caseFocus: 'Employment',
+    deadlines: [{ date: '2026-09-01', sourceText: 'file by September 1, 2026' }],
+    primaryDeadlineDate: '2026-09-01'
   };
 
   const results = await rankLawyersWithAI(caseInput);

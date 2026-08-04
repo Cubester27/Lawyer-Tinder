@@ -7,7 +7,10 @@ test('ranks lawyers by practice area, jurisdiction, and history', async () => {
     title: 'Employment discrimination claim',
     practiceArea: 'Employment',
     jurisdiction: 'New York',
-    summary: 'A former employee alleges wrongful termination and retaliation.'
+    summary: 'A former employee alleges wrongful termination and retaliation.',
+    caseFocus: 'Employment',
+    deadlines: [{ date: '2026-08-15', sourceText: 'due by August 15, 2026' }],
+    primaryDeadlineDate: '2026-08-15'
   };
 
   const results = await rankLawyersForCase(caseInput);
@@ -23,7 +26,10 @@ test('creates an approval record for the selected lawyer', () => {
     title: 'Employment discrimination claim',
     practiceArea: 'Employment',
     jurisdiction: 'New York',
-    summary: 'A former employee alleges wrongful termination and retaliation.'
+    summary: 'A former employee alleges wrongful termination and retaliation.',
+    caseFocus: 'Employment',
+    deadlines: [{ date: '2026-08-15', sourceText: 'due by August 15, 2026' }],
+    primaryDeadlineDate: '2026-08-15'
   };
 
   const approved = approveRecommendation(caseInput, '1', 'Needs a fast response');

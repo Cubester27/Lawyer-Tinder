@@ -30,5 +30,13 @@
     "lawyerId": "1",
     "notes": "Needs a fast response",
     "approvedAt": "2026-08-04T06:53:02.783Z"
+  },
+  {
+    "id": "1785829801646",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-04T07:50:01.646Z"
   }
 ]
