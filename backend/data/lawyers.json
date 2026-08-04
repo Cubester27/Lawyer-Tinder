@@ -1,0 +1,40 @@
+[
+  {
+    "id": "1",
+    "name": "Ava Patel",
+    "practiceAreas": [
+      "Employment",
+      "Civil Rights"
+    ],
+    "jurisdictions": [
+      "New York",
+      "New Jersey"
+    ],
+    "caseHistory": 22,
+    "workload": 3
+  },
+  {
+    "id": "2",
+    "name": "Marcus Lee",
+    "practiceAreas": [
+      "Commercial Litigation"
+    ],
+    "jurisdictions": [
+      "New York"
+    ],
+    "caseHistory": 12,
+    "workload": 5
+  },
+  {
+    "id": "3",
+    "name": "Sofia Ramirez",
+    "practiceAreas": [
+      "Employment"
+    ],
+    "jurisdictions": [
+      "California"
+    ],
+    "caseHistory": 22,
+    "workload": 2
+  }
+]
