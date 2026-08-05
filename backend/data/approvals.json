@@ -166,5 +166,13 @@
     "lawyerId": "1",
     "notes": "Needs a fast response",
     "approvedAt": "2026-08-05T08:31:07.531Z"
+  },
+  {
+    "id": "1785919893682",
+    "caseTitle": "Legal representation request regarding extraordinary termination and non-compete clause",
+    "selectedLawyer": "Lukas Weber",
+    "lawyerId": "6",
+    "notes": "Urgent deadline - Please prioritize case intake.",
+    "approvedAt": "2026-08-05T08:51:33.682Z"
   }
 ]
