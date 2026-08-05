@@ -1,5 +1,22 @@
 import { useState } from 'react';
 
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const isoMatch = String(dateStr).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) {
+    const [, yyyy, mm, dd] = isoMatch;
+    return `${dd}.${mm}.${yyyy}`;
+  }
+  const dateObj = new Date(dateStr);
+  if (!isNaN(dateObj.getTime())) {
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const year = dateObj.getFullYear();
+    return `${day}.${month}.${year}`;
+  }
+  return dateStr;
+}
+
 function App() {
   const DEMO_CASES = [
     {
@@ -205,6 +222,17 @@ function App() {
                     <div className="law-code-badge fs-6 mb-0 w-100 justify-content-center">📜 {caseInput.applicableCode || 'No code detected'}</div>
                   </div>
 
+                  {caseInput.summary && (
+                    <div className="mb-4">
+                      <h6 className="fw-bold text-white d-flex align-items-center gap-2 mb-2">
+                        📄 Case Summary
+                      </h6>
+                      <div className="p-3 bg-dark bg-opacity-50 rounded border border-secondary border-opacity-25 text-slate-300 small">
+                        {caseInput.summary}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="mb-4">
                     <h6 className="fw-bold text-white d-flex align-items-center gap-2 mb-3">
                       ⏰ Key Deadlines
@@ -216,7 +244,7 @@ function App() {
                           <div key={`${dl.date}-${idx}`} className="deadline-card p-3 border-0 bg-dark bg-opacity-50">
                             <div className="d-flex justify-content-between align-items-center mb-1">
                               <span className="fw-semibold text-white fs-6">{dl.label || 'Deadline'}</span>
-                              <span className="deadline-date-pill ms-2">📅 {dl.date}</span>
+                              <span className="deadline-date-pill ms-2">📅 {formatDate(dl.date)}</span>
                             </div>
                             {dl.sourceText && <p className="text-secondary small mb-0 mt-2 fst-italic">"{dl.sourceText}"</p>}
                           </div>
@@ -272,7 +300,7 @@ function App() {
                               <p className="text-slate-300 mb-4">{rec.reason}</p>
                             </div>
                             <button onClick={() => handleApprove(rec.id)} className="btn btn-outline-success w-100 fw-bold">
-                              Assign Case to {rec.name.split(' ')[0]}
+                              Assign Case to {rec.name}
                             </button>
                           </div>
                         </div>

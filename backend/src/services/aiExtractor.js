@@ -1,20 +1,25 @@
 import dotenv from 'dotenv';
 import { extractCaseSummary } from './documentParser.js';
+import { rankLawyersForCase } from './caseMatcher.js';
 
 dotenv.config();
 
-const API_KEY = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
 const BASE_URL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions';
 const MODEL = process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini';
 
 export async function extractLegalInfoWithAI(text, fileName = 'Legal Document') {
+  const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
+
   if (!text || typeof text !== 'string') {
-    return extractCaseSummary('', fileName);
+    const summary = extractCaseSummary('', fileName);
+    const recommendations = await rankLawyersForCase(summary);
+    return { ...summary, recommendations };
   }
 
-  if (!API_KEY) {
+  if (!apiKey) {
     const heuristicResult = extractCaseSummary(text, fileName);
-    return { ...heuristicResult, extractedBy: 'heuristic' };
+    const recommendations = await rankLawyersForCase(heuristicResult);
+    return { ...heuristicResult, recommendations, extractedBy: 'heuristic' };
   }
 
   try {
@@ -22,7 +27,7 @@ export async function extractLegalInfoWithAI(text, fileName = 'Legal Document') 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'HTTP-Referer': 'http://localhost:3001',
         'X-Title': 'Lawyer Tinder App'
       },
@@ -60,7 +65,7 @@ Format response as JSON with keys: applicableCode, deadlines, primaryDeadlineDat
     const data = await response.json();
     const parsed = JSON.parse(data.choices?.[0]?.message?.content || '{}');
 
-    return {
+    const caseResult = {
       title: parsed.title || fileName.replace(/\.[^.]+$/, '') || 'Legal Intake',
       applicableCode: parsed.applicableCode || 'BGB - Civil Code',
       deadlines: Array.isArray(parsed.deadlines) ? parsed.deadlines : [],
@@ -71,8 +76,13 @@ Format response as JSON with keys: applicableCode, deadlines, primaryDeadlineDat
       summary: parsed.summary || text.slice(0, 280),
       extractedBy: 'openrouter'
     };
+
+    const recommendations = await rankLawyersForCase(caseResult);
+    return { ...caseResult, recommendations };
   } catch (error) {
     const heuristicResult = extractCaseSummary(text, fileName);
-    return { ...heuristicResult, extractedBy: 'heuristic' };
+    const recommendations = await rankLawyersForCase(heuristicResult);
+    return { ...heuristicResult, recommendations, extractedBy: 'heuristic' };
   }
 }
+

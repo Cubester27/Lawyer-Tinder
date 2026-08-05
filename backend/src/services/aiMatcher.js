@@ -53,10 +53,13 @@ export async function rankLawyersWithAI(caseInput) {
     }
 
     return ranked.slice(0, 3).map((entry) => {
-      const lawyer = lawyerProfiles.find((profile) => profile.id === entry.lawyerId);
+      const targetId = entry.lawyerId ?? entry.id;
+      const lawyer = lawyerProfiles.find(
+        (profile) => String(profile.id) === String(targetId) || (entry.name && profile.name.toLowerCase() === String(entry.name).toLowerCase())
+      );
       return {
-        id: lawyer?.id || entry.lawyerId,
-        name: lawyer?.name || entry.lawyerId,
+        id: lawyer?.id || String(targetId),
+        name: lawyer?.name || entry.name || String(targetId),
         score: entry.score || 0,
         reason: entry.reason || 'AI-generated recommendation based on law code & deadlines',
         source: 'ai'
