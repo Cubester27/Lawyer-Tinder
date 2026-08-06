@@ -6,13 +6,15 @@ dotenv.config();
 const BASE_URL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions';
 const MODEL = process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini';
 
-export async function rankLawyersWithAI(caseInput) {
+export async function rankLawyersWithAI(caseInput, model = process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini') {
   const lawyerProfiles = loadLawyerProfiles();
   const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
     return rankLawyersWithHeuristics(caseInput, lawyerProfiles);
   }
+
+  const modelToUse = model || process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini';
 
   try {
     const response = await fetch(BASE_URL, {
@@ -24,7 +26,7 @@ export async function rankLawyersWithAI(caseInput) {
         'X-Title': 'Lawyer Tinder App'
       },
       body: JSON.stringify({
-        model: MODEL,
+        model: modelToUse,
         messages: [
           {
             role: 'system',

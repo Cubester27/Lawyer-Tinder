@@ -36,3 +36,14 @@ test('identifies BGB for general civil contract cases', async () => {
   assert.equal(result.primaryDeadlineDate, '2026-06-30');
   assert.equal(Array.isArray(result.recommendations), true);
 });
+
+test('attaches selected model to extraction result', async () => {
+  const result = await extractLegalInfoWithAI(
+    'Sample text for model extraction test',
+    'test.txt',
+    'anthropic/claude-3.5-sonnet'
+  );
+
+  assert.equal(result.usedModel, 'anthropic/claude-3.5-sonnet');
+});
+

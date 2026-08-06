@@ -53,12 +53,12 @@ export function recordApproval(caseInput, lawyerId, notes = '', lawyerPath = def
     lawyerId: selectedLawyer.id,
     notes,
     approvedAt: new Date().toISOString(),
-    status: 'Pending',
+    status: 'approved',
     caseDetails: caseInput
   };
   saveApprovals([...approvals, approvalRecord], approvalPath);
 
-  return { status: 'approved', ...approvalRecord };
+  return approvalRecord;
 }
 
 export function updateApprovalStatus(id, status, approvalPath = defaultApprovalPath) {

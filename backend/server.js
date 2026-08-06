@@ -20,18 +20,18 @@ app.get('/health', (req, res) => {
 });
 
 app.post('/api/extract', async (req, res) => {
-  const { text, fileName } = req.body;
+  const { text, fileName, model } = req.body;
   if (!text || typeof text !== 'string') {
     return res.status(400).json({ error: 'Text required for extraction' });
   }
 
-  const caseInput = await extractLegalInfoWithAI(text, fileName || 'Legal Text');
+  const caseInput = await extractLegalInfoWithAI(text, fileName || 'Legal Text', model);
   res.json({ caseInput, recommendations: caseInput.recommendations || [] });
 });
 
 app.post('/api/recommend', async (req, res) => {
-  const caseInput = req.body;
-  const recommendations = await rankLawyersForCase(caseInput);
+  const { caseInput, model } = req.body;
+  const recommendations = await rankLawyersForCase(caseInput, model);
   res.json({ recommendations });
 });
 
@@ -124,7 +124,8 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
     text = file.buffer.toString('utf8').trim();
   }
 
-  const caseInput = await extractLegalInfoWithAI(text, file.originalname);
+  const selectedModel = req.body?.model;
+  const caseInput = await extractLegalInfoWithAI(text, file.originalname, selectedModel);
 
   res.json({
     caseInput,

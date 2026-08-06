@@ -243,5 +243,74 @@
     "caseDetails": {
       "clientName": "Max Mustermann"
     }
+  },
+  {
+    "id": "1786012288235",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-06T10:31:28.235Z",
+    "status": "Pending",
+    "caseDetails": {
+      "title": "Employment discrimination claim",
+      "practiceArea": "Employment",
+      "jurisdiction": "New York",
+      "summary": "A former employee alleges wrongful termination and retaliation.",
+      "caseFocus": "Employment",
+      "deadlines": [
+        {
+          "date": "2026-08-15",
+          "sourceText": "due by August 15, 2026"
+        }
+      ],
+      "primaryDeadlineDate": "2026-08-15"
+    }
+  },
+  {
+    "id": "1786012310790",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-06T10:31:50.790Z",
+    "status": "approved",
+    "caseDetails": {
+      "title": "Employment discrimination claim",
+      "practiceArea": "Employment",
+      "jurisdiction": "New York",
+      "summary": "A former employee alleges wrongful termination and retaliation.",
+      "caseFocus": "Employment",
+      "deadlines": [
+        {
+          "date": "2026-08-15",
+          "sourceText": "due by August 15, 2026"
+        }
+      ],
+      "primaryDeadlineDate": "2026-08-15"
+    }
+  },
+  {
+    "id": "1786012336643",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-06T10:32:16.643Z",
+    "status": "approved",
+    "caseDetails": {
+      "title": "Employment discrimination claim",
+      "practiceArea": "Employment",
+      "jurisdiction": "New York",
+      "summary": "A former employee alleges wrongful termination and retaliation.",
+      "caseFocus": "Employment",
+      "deadlines": [
+        {
+          "date": "2026-08-15",
+          "sourceText": "due by August 15, 2026"
+        }
+      ],
+      "primaryDeadlineDate": "2026-08-15"
+    }
   }
 ]

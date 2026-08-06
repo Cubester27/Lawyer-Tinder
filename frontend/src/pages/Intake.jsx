@@ -18,6 +18,17 @@ function formatDate(dateStr) {
   return dateStr;
 }
 
+const OPENROUTER_MODELS = [
+  { id: 'openai/gpt-4o-mini', label: 'GPT-4o Mini (Default - Fast & Smart)' },
+  { id: 'openai/gpt-4o', label: 'GPT-4o (High Accuracy & Complex Analysis)' },
+  { id: 'anthropic/claude-3.5-sonnet', label: 'Claude 3.5 Sonnet (Superior Legal Reasoning)' },
+  { id: 'google/gemini-2.0-flash-001', label: 'Gemini 2.0 Flash (Ultra Fast Speed)' },
+  { id: 'deepseek/deepseek-chat', label: 'DeepSeek V3 (Advanced General AI)' },
+  { id: 'deepseek/deepseek-r1', label: 'DeepSeek R1 (Deep Legal Chain-of-Thought)' },
+  { id: 'meta-llama/llama-3.3-70b-instruct', label: 'Llama 3.3 70B (Open Weights Powerhouse)' },
+  { id: 'custom', label: '⚙️ Custom OpenRouter Model ID...' }
+];
+
 function Intake() {
   const DEMO_CASES = [
     {
@@ -49,6 +60,10 @@ function Intake() {
   const [notes, setNotes] = useState('Urgent deadline - Please prioritize case intake.');
   const [statusMessage, setStatusMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('openai/gpt-4o-mini');
+  const [customModel, setCustomModel] = useState('');
+
+  const activeModel = selectedModel === 'custom' ? (customModel.trim() || 'openai/gpt-4o-mini') : selectedModel;
 
   async function handleAnalyzeText(text = rawText) {
     if (!text.trim()) return;
@@ -59,7 +74,7 @@ function Intake() {
       const response = await fetch('/api/extract', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, fileName: 'Input Legal Text' })
+        body: JSON.stringify({ text, fileName: 'Input Legal Text', model: activeModel })
       });
       const data = await response.json();
       if (data.caseInput) {
@@ -84,6 +99,7 @@ function Intake() {
     setStatusMessage('');
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('model', activeModel);
 
     try {
       const response = await fetch('/api/upload', {
@@ -134,13 +150,13 @@ function Intake() {
                 ⚖️ Lawyer Tinder <span className="badge bg-primary fs-6 align-middle ms-2">AI Extraction & Matching</span>
               </h1>
               <p className="text-secondary mb-0 small">
-                Upload a case document or paste facts – one click matching.
+                Upload a case document or paste facts – one click matching with multi-model AI.
               </p>
             </div>
             {caseInput && caseInput.extractedBy && (
               <span className="extracted-pill d-inline-flex align-items-center gap-1">
                 <span className="spinner-grow spinner-grow-sm text-success" role="status" style={{ width: '8px', height: '8px' }}></span>
-                AI Mode: {caseInput.extractedBy === 'openrouter' ? 'OpenRouter API' : caseInput.extractedBy === 'ai' ? 'OpenAI GPT' : 'Heuristic Rules'}
+                AI Mode: {caseInput.extractedBy === 'openrouter' ? `OpenRouter (${caseInput.usedModel || activeModel})` : caseInput.extractedBy === 'ai' ? 'OpenAI GPT' : 'Heuristic Rules'}
               </span>
             )}
           </div>
@@ -157,8 +173,46 @@ function Intake() {
             <div className="col-lg-8">
               <div className="app-card text-center p-5 shadow-lg border-0" style={{background: 'linear-gradient(145deg, #1e293b, #0f172a)'}}>
                 <h2 className="text-white mb-3 fw-bold">Ready to match a new case?</h2>
-                <p className="text-slate-300 mb-4 fs-5">Paste your case details or upload a document.</p>
+                <p className="text-slate-300 mb-4 fs-5">Select your OpenRouter AI model, paste details, or upload a document.</p>
                 
+                {/* OpenRouter Model Selector */}
+                <div className="mb-4 text-start p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary border-opacity-50 shadow-sm">
+                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                    <label className="form-label text-slate-200 mb-0 fw-semibold d-flex align-items-center gap-2 small">
+                      <span>🌐</span> Choose OpenRouter Model:
+                    </label>
+                    <span className="badge bg-primary bg-opacity-20 text-primary text-white border border-primary border-opacity-30 small">
+                      Active: {activeModel}
+                    </span>
+                  </div>
+                  <select
+                    className="form-select form-select-custom bg-dark text-white border-secondary mb-2"
+                    value={selectedModel}
+                    onChange={(e) => setSelectedModel(e.target.value)}
+                  >
+                    {OPENROUTER_MODELS.map((m) => (
+                      <option key={m.id} value={m.id}>
+                        {m.label}
+                      </option>
+                    ))}
+                  </select>
+
+                  {selectedModel === 'custom' && (
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        className="form-control form-control-custom text-white"
+                        placeholder="e.g. mistralai/mistral-large-2411 or qwen/qwen-2.5-72b-instruct"
+                        value={customModel}
+                        onChange={(e) => setCustomModel(e.target.value)}
+                      />
+                      <span className="text-secondary small ms-1">
+                        Enter any valid model ID supported on OpenRouter.ai
+                      </span>
+                    </div>
+                  )}
+                </div>
+
                 <div className="mb-4">
                   <textarea
                     className="form-control form-control-custom text-start p-3 fs-5"
@@ -218,8 +272,11 @@ function Intake() {
             {/* AI Extracted Dashboard */}
             <div className="col-lg-4">
               <div className="app-card h-100 border-0 shadow">
-                <div className="app-card-header bg-transparent border-bottom border-secondary pb-3 pt-4 px-4">
+                <div className="app-card-header bg-transparent border-bottom border-secondary pb-3 pt-4 px-4 d-flex justify-content-between align-items-center">
                   <h5 className="mb-0 fw-semibold text-white">🔍 Case Details</h5>
+                  <span className="badge bg-secondary bg-opacity-50 text-slate-300 border border-secondary small" title="OpenRouter AI Model Used">
+                    🤖 {caseInput.usedModel || activeModel}
+                  </span>
                 </div>
                 <div className="card-body p-4">
                   <div className="law-code-card mb-4 border-0 shadow-sm" style={{background: 'rgba(59, 130, 246, 0.1)'}}>

@@ -18,7 +18,7 @@
       "Works Council Act",
       "Wrongful Termination"
     ],
-    "caseHistory": 27,
+    "caseHistory": 30,
     "workload": 3,
     "performance": {
       "Employment": {
@@ -156,16 +156,12 @@
     "workload": 2,
     "performance": {
       "Criminal Law": {
-        "cases": 5,
-        "successRate": 90
+        "cases": 9,
+        "successRate": 94
       },
       "Murder": {
         "cases": 8,
         "successRate": 80
-      },
-      "Criminal Law": {
-        "cases": 9,
-        "successRate": 94
       }
     }
   },
@@ -249,10 +245,6 @@
     "caseHistory": 30,
     "workload": 2,
     "performance": {
-      "Data Protection": {
-        "cases": 12,
-        "successRate": 81
-      },
       "Data Protection": {
         "cases": 6,
         "successRate": 92
@@ -374,10 +366,6 @@
     "caseHistory": 22,
     "workload": 1,
     "performance": {
-      "Family Law": {
-        "cases": 7,
-        "successRate": 94
-      },
       "Family Law": {
         "cases": 15,
         "successRate": 78
