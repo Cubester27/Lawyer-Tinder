@@ -19,20 +19,34 @@ function formatDate(dateStr) {
 
 function Dashboard() {
   const [cases, setCases] = useState([]);
+  const [lawyers, setLawyers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState('analytics');
+  
+  const [draftModalOpen, setDraftModalOpen] = useState(false);
+  const [currentDraft, setCurrentDraft] = useState('');
+  const [isDraftLoading, setIsDraftLoading] = useState(false);
 
   useEffect(() => {
-    fetchCases();
+    fetchData();
   }, []);
 
-  async function fetchCases() {
+  async function fetchData() {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/cases');
-      if (!response.ok) throw new Error('Failed to fetch cases');
-      const data = await response.json();
-      setCases(data.cases || []);
+      const [casesRes, lawyersRes] = await Promise.all([
+        fetch('/api/cases'),
+        fetch('/api/lawyers')
+      ]);
+      
+      if (!casesRes.ok || !lawyersRes.ok) throw new Error('Failed to fetch data');
+      
+      const casesData = await casesRes.json();
+      const lawyersData = await lawyersRes.json();
+      
+      setCases(casesData.cases || []);
+      setLawyers(lawyersData.lawyers || []);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -56,6 +70,29 @@ function Dashboard() {
     }
   }
 
+  function handleDownloadLetter(id) {
+    window.open(`/api/cases/${id}/engagement-letter`, '_blank');
+  }
+
+  async function handleGenerateDraft(id) {
+    setDraftModalOpen(true);
+    setCurrentDraft('');
+    setIsDraftLoading(true);
+    
+    try {
+      const res = await fetch(`/api/cases/${id}/draft`, { method: 'POST' });
+      const data = await res.json();
+      setCurrentDraft(data.draft);
+      
+      // Update local state if we want to cache the draft
+      setCases(cases.map(c => c.id === id ? { ...c, draft: data.draft } : c));
+    } catch (err) {
+      setCurrentDraft('Error generating draft. Please try again.');
+    } finally {
+      setIsDraftLoading(false);
+    }
+  }
+
   if (isLoading) {
     return <div className="text-center py-5 text-white">Loading cases...</div>;
   }
@@ -66,8 +103,62 @@ function Dashboard() {
 
   return (
     <div className="container py-4">
-      <h2 className="text-white mb-4 fw-bold">👨‍⚖️ Lawyer Dashboard</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="text-white mb-0 fw-bold">👨‍⚖️ Lawyer Dashboard</h2>
+      </div>
+
+      {/* Tabs */}
+      <ul className="nav nav-tabs border-secondary mb-4">
+        <li className="nav-item">
+          <button 
+            className={`nav-link fw-bold ${activeTab === 'analytics' ? 'active bg-primary text-white border-primary' : 'text-slate-300 hover-white border-transparent'}`}
+            onClick={() => setActiveTab('analytics')}
+            style={activeTab === 'analytics' ? {} : { background: 'transparent' }}
+          >
+            📈 Performance Analytics
+          </button>
+        </li>
+        <li className="nav-item">
+          <button 
+            className={`nav-link fw-bold ${activeTab === 'assignments' ? 'active bg-primary text-white border-primary' : 'text-slate-300 hover-white border-transparent'}`}
+            onClick={() => setActiveTab('assignments')}
+            style={activeTab === 'assignments' ? {} : { background: 'transparent' }}
+          >
+            📥 Recent Assignments
+          </button>
+        </li>
+      </ul>
       
+      {activeTab === 'analytics' && (
+        <div className="fade-in">
+        <h4 className="text-white mb-3 d-flex align-items-center gap-2">
+          📈 Lawyer Performance Analytics
+        </h4>
+        <div className="row g-3">
+          {lawyers.map(lawyer => (
+            <div key={lawyer.id} className="col-md-6 col-lg-4">
+              <div className="app-card p-3 border-0 shadow-sm h-100" style={{ background: 'rgba(30, 41, 59, 0.7)', borderRadius: '12px' }}>
+                <h6 className="fw-bold text-white mb-1">{lawyer.name}</h6>
+                <div className="text-slate-400 small mb-3">Total Cases Handled: <strong className="text-white fs-6">{lawyer.caseHistory}</strong></div>
+                
+                {lawyer.performance && Object.entries(lawyer.performance).map(([area, stats]) => (
+                  <div key={area} className="d-flex justify-content-between align-items-center mb-2 small pb-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    <span className="text-slate-300 fw-medium text-truncate me-2" style={{ maxWidth: '120px' }} title={area}>{area}</span>
+                    <div className="d-flex gap-2">
+                      <span className="badge bg-dark border border-secondary text-slate-300">{stats.cases} cases</span>
+                      <span className={`badge ${stats.successRate >= 80 ? 'bg-success' : 'bg-warning text-dark'}`}>{stats.successRate}% Success</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        </div>
+      )}
+
+      {activeTab === 'assignments' && (
+        <div className="fade-in">
       {cases.length === 0 ? (
         <div className="text-center py-5 text-secondary">
           No cases assigned yet.
@@ -124,10 +215,69 @@ function Dashboard() {
                       Reject
                     </button>
                   </div>
+                  
+                  {c.status === 'Accepted' && (
+                    <div className="mt-3 d-flex flex-column gap-2 pt-3" style={{ borderTop: '1px dashed rgba(255,255,255,0.1)' }}>
+                      <button 
+                        onClick={() => handleDownloadLetter(c.id)}
+                        className="btn btn-sm btn-outline-info w-100 fw-bold d-flex align-items-center justify-content-center gap-2"
+                      >
+                        📄 Download Engagement Letter
+                      </button>
+                      <button 
+                        onClick={() => handleGenerateDraft(c.id)}
+                        className="btn btn-sm btn-outline-warning w-100 fw-bold d-flex align-items-center justify-content-center gap-2"
+                      >
+                        ✍️ Generate First Draft
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      )}
+        </div>
+      )}
+
+      {/* Draft Modal */}
+      {draftModalOpen && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(4px)' }}>
+          <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content border-0 shadow-lg" style={{ background: '#0f172a' }}>
+              <div className="modal-header border-secondary border-opacity-25 py-3">
+                <h5 className="modal-title fw-bold text-white d-flex align-items-center gap-2">
+                  ✍️ AI Legal Draft
+                </h5>
+                <button type="button" className="btn-close btn-close-white" onClick={() => setDraftModalOpen(false)}></button>
+              </div>
+              <div className="modal-body p-4 text-slate-300" style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '0.9rem', lineHeight: '1.6' }}>
+                {isDraftLoading ? (
+                  <div className="text-center py-5">
+                    <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}></div>
+                    <div className="mt-3 fw-medium text-white fs-5">AI is drafting the document...</div>
+                    <div className="text-secondary small mt-1">Analyzing case facts and applying legal frameworks</div>
+                  </div>
+                ) : (
+                  currentDraft
+                )}
+              </div>
+              <div className="modal-footer border-secondary border-opacity-25 py-2">
+                <button type="button" className="btn btn-outline-light px-4" onClick={() => setDraftModalOpen(false)}>Close</button>
+                {!isDraftLoading && currentDraft && (
+                  <button type="button" className="btn btn-primary px-4" onClick={() => {
+                    const blob = new Blob([currentDraft], { type: 'text/markdown' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Legal_Draft.md';
+                    a.click();
+                  }}>💾 Download .md</button>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

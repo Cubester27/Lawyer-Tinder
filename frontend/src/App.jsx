@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Intake from './pages/Intake';
 import Dashboard from './pages/Dashboard';
+import Logo from './components/Logo';
 
 function Navigation() {
   const location = useLocation();
@@ -9,7 +10,8 @@ function Navigation() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
       <div className="container">
         <Link className="navbar-brand fw-bold d-flex align-items-center gap-2" to="/">
-          ⚖️ <span className="text-white">Lawyer Tinder</span>
+          <Logo size={36} />
+          <span className="text-white">Lawyer Tinder</span>
         </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>

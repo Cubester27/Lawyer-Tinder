@@ -55,8 +55,9 @@ You MUST extract:
 - "caseFocus": Specific case focus.
 - "jurisdiction": Jurisdiction (e.g. Germany, New York, California, Federal).
 - "summary": A concise 2-3 sentence summary of the case/text in English.
+- "clientName": The name of the client if identifiable, otherwise an empty string.
 
-Format response as JSON with keys: applicableCode, deadlines, primaryDeadlineDate, title, practiceArea, caseFocus, jurisdiction, summary.`
+Format response as JSON with keys: applicableCode, deadlines, primaryDeadlineDate, title, practiceArea, caseFocus, jurisdiction, summary, clientName.`
           },
           {
             role: 'user',
@@ -85,6 +86,7 @@ Format response as JSON with keys: applicableCode, deadlines, primaryDeadlineDat
       caseFocus: parsed.caseFocus || 'General Litigation',
       jurisdiction: parsed.jurisdiction || 'Germany',
       summary: parsed.summary || text.slice(0, 280),
+      clientName: parsed.clientName || 'Client',
       extractedBy: 'openrouter'
     };
 

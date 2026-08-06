@@ -79,3 +79,22 @@ export function updateApprovalStatus(id, status, approvalPath = defaultApprovalP
   
   return updatedRecord;
 }
+
+export function updateApprovalDraft(id, draftText, approvalPath = defaultApprovalPath) {
+  const approvals = loadApprovals(approvalPath);
+  let updatedRecord = null;
+  
+  const updatedApprovals = approvals.map(approval => {
+    if (approval.id === id) {
+      updatedRecord = { ...approval, draft: draftText };
+      return updatedRecord;
+    }
+    return approval;
+  });
+
+  if (updatedRecord) {
+    saveApprovals(updatedApprovals, approvalPath);
+  }
+  
+  return updatedRecord;
+}

@@ -5,7 +5,7 @@
     "practiceAreas": [
       "Employment",
       "Civil Rights",
-      "Arbeitsrecht"
+      "Employment Law"
     ],
     "jurisdictions": [
       "Germany",
@@ -13,34 +13,62 @@
       "New Jersey"
     ],
     "specialties": [
-      "KSchG",
-      "ArbZG",
-      "BetrVG",
+      "Dismissal Protection Act",
+      "Working Hours Act",
+      "Works Council Act",
       "Wrongful Termination"
     ],
-    "caseHistory": 47,
-    "workload": 3
+    "caseHistory": 27,
+    "workload": 3,
+    "performance": {
+      "Employment": {
+        "cases": 13,
+        "successRate": 73
+      },
+      "Civil Rights": {
+        "cases": 7,
+        "successRate": 87
+      },
+      "Employment Law": {
+        "cases": 7,
+        "successRate": 82
+      }
+    }
   },
   {
     "id": "2",
     "name": "Marcus Lee, Esq.",
     "practiceAreas": [
       "Commercial Litigation",
-      "Handelsrecht",
-      "Vertragsrecht"
+      "Commercial Law",
+      "Contract Law"
     ],
     "jurisdictions": [
       "New York",
       "Germany"
     ],
     "specialties": [
-      "HGB",
-      "BGB",
+      "Commercial Code",
+      "Civil Code",
       "Contract Disputes",
       "Mergers"
     ],
-    "caseHistory": 18,
-    "workload": 4
+    "caseHistory": 25,
+    "workload": 4,
+    "performance": {
+      "Commercial Litigation": {
+        "cases": 6,
+        "successRate": 83
+      },
+      "Commercial Law": {
+        "cases": 7,
+        "successRate": 73
+      },
+      "Contract Law": {
+        "cases": 12,
+        "successRate": 70
+      }
+    }
   },
   {
     "id": "3",
@@ -58,35 +86,59 @@
       "Wage & Hour",
       "Labor Code"
     ],
-    "caseHistory": 29,
-    "workload": 2
+    "caseHistory": 27,
+    "workload": 2,
+    "performance": {
+      "Employment": {
+        "cases": 13,
+        "successRate": 81
+      },
+      "Labor Law": {
+        "cases": 14,
+        "successRate": 71
+      }
+    }
   },
   {
     "id": "4",
     "name": "Dr. Maximilian von Berg",
     "practiceAreas": [
-      "Zivilrecht",
-      "Vertragsrecht",
-      "Mietrecht"
+      "Civil Law",
+      "Contract Law",
+      "Tenancy Law"
     ],
     "jurisdictions": [
       "Germany",
       "Germany / Federal"
     ],
     "specialties": [
-      "BGB",
-      "Mietrecht",
-      "Kaufrecht",
-      "Schadensersatz"
+      "Civil Code",
+      "Tenancy Law",
+      "Sales Law",
+      "Damages"
     ],
     "caseHistory": 42,
-    "workload": 3
+    "workload": 3,
+    "performance": {
+      "Civil Law": {
+        "cases": 17,
+        "successRate": 85
+      },
+      "Contract Law": {
+        "cases": 9,
+        "successRate": 88
+      },
+      "Tenancy Law": {
+        "cases": 16,
+        "successRate": 77
+      }
+    }
   },
   {
     "id": "5",
     "name": "Prof. Dr. Elena Schneider",
     "practiceAreas": [
-      "Strafrecht",
+      "Criminal Law",
       "Murder",
       "Criminal Law"
     ],
@@ -95,32 +147,56 @@
       "Germany / Federal"
     ],
     "specialties": [
-      "StGB",
-      "StPO",
-      "Kapitalverbrechen",
-      "Strafverteidigung"
+      "Criminal Code",
+      "Code of Criminal Procedure",
+      "Capital Crimes",
+      "Criminal Defense"
     ],
-    "caseHistory": 51,
-    "workload": 2
+    "caseHistory": 22,
+    "workload": 2,
+    "performance": {
+      "Criminal Law": {
+        "cases": 5,
+        "successRate": 90
+      },
+      "Murder": {
+        "cases": 8,
+        "successRate": 80
+      },
+      "Criminal Law": {
+        "cases": 9,
+        "successRate": 94
+      }
+    }
   },
   {
     "id": "6",
     "name": "Lukas Weber",
     "practiceAreas": [
-      "Arbeitsrecht",
+      "Employment Law",
       "Employment"
     ],
     "jurisdictions": [
       "Germany"
     ],
     "specialties": [
-      "ArbZG",
-      "KSchG",
-      "Abmahnung",
-      "Kündigungsschutz"
+      "Working Hours Act",
+      "Dismissal Protection Act",
+      "Warning Letter",
+      "Dismissal Protection"
     ],
-    "caseHistory": 28,
-    "workload": 1
+    "caseHistory": 30,
+    "workload": 1,
+    "performance": {
+      "Employment Law": {
+        "cases": 18,
+        "successRate": 73
+      },
+      "Employment": {
+        "cases": 12,
+        "successRate": 84
+      }
+    }
   },
   {
     "id": "7",
@@ -134,18 +210,28 @@
       "Germany"
     ],
     "specialties": [
-      "BGB",
-      "Behandlungsfehler",
-      "Arzthaftung"
+      "Civil Code",
+      "Treatment Error",
+      "Medical Liability"
     ],
-    "caseHistory": 31,
-    "workload": 3
+    "caseHistory": 18,
+    "workload": 3,
+    "performance": {
+      "Medical": {
+        "cases": 7,
+        "successRate": 80
+      },
+      "Medical Malpractice": {
+        "cases": 11,
+        "successRate": 77
+      }
+    }
   },
   {
     "id": "8",
     "name": "Dr. Christian Lindner-Hoffmann",
     "practiceAreas": [
-      "Datenschutz",
+      "Data Protection",
       "Data Protection",
       "IT-Recht"
     ],
@@ -155,20 +241,34 @@
       "Germany / Federal"
     ],
     "specialties": [
-      "DSGVO",
       "GDPR",
-      "BDSG",
-      "Auskunftsanspruch"
+      "GDPR",
+      "Federal Data Protection Act",
+      "Right to Information"
     ],
-    "caseHistory": 38,
-    "workload": 2
+    "caseHistory": 30,
+    "workload": 2,
+    "performance": {
+      "Data Protection": {
+        "cases": 12,
+        "successRate": 81
+      },
+      "Data Protection": {
+        "cases": 6,
+        "successRate": 92
+      },
+      "IT-Recht": {
+        "cases": 12,
+        "successRate": 71
+      }
+    }
   },
   {
     "id": "9",
     "name": "Katharina Meier",
     "practiceAreas": [
-      "Handelsrecht",
-      "Gesellschaftsrecht",
+      "Commercial Law",
+      "Corporate Law",
       "Commercial Litigation"
     ],
     "jurisdictions": [
@@ -176,18 +276,32 @@
       "Frankfurt"
     ],
     "specialties": [
-      "HGB",
-      "GmbHG",
-      "Kaufmannsrecht"
+      "Commercial Code",
+      "LLC Law",
+      "Merchant Law"
     ],
-    "caseHistory": 23,
-    "workload": 4
+    "caseHistory": 22,
+    "workload": 4,
+    "performance": {
+      "Commercial Law": {
+        "cases": 9,
+        "successRate": 88
+      },
+      "Corporate Law": {
+        "cases": 6,
+        "successRate": 88
+      },
+      "Commercial Litigation": {
+        "cases": 7,
+        "successRate": 70
+      }
+    }
   },
   {
     "id": "10",
     "name": "David Althaus",
     "practiceAreas": [
-      "Verwaltungsrecht",
+      "Administrative Law",
       "Public Law"
     ],
     "jurisdictions": [
@@ -195,90 +309,140 @@
       "Berlin"
     ],
     "specialties": [
-      "VwGO",
-      "Verwaltungsakt",
-      "Widerspruch"
+      "Code of Administrative Court Procedure",
+      "Administrative Act",
+      "Objection"
     ],
-    "caseHistory": 19,
-    "workload": 2
+    "caseHistory": 18,
+    "workload": 2,
+    "performance": {
+      "Administrative Law": {
+        "cases": 10,
+        "successRate": 77
+      },
+      "Public Law": {
+        "cases": 8,
+        "successRate": 77
+      }
+    }
   },
   {
     "id": "11",
     "name": "Julia Fischer",
     "practiceAreas": [
-      "Zivilprozessrecht",
+      "Civil Procedure Law",
       "General Litigation"
     ],
     "jurisdictions": [
       "Germany",
-      "München"
+      "Munich"
     ],
     "specialties": [
-      "ZPO",
-      "Klageschrift",
-      "Mahnverfahren"
+      "Code of Civil Procedure",
+      "Statement of Claim",
+      "Dunning Procedure"
     ],
-    "caseHistory": 35,
-    "workload": 3
+    "caseHistory": 31,
+    "workload": 3,
+    "performance": {
+      "Civil Procedure Law": {
+        "cases": 17,
+        "successRate": 82
+      },
+      "General Litigation": {
+        "cases": 14,
+        "successRate": 88
+      }
+    }
   },
   {
     "id": "12",
     "name": "Alexander Kovac",
     "practiceAreas": [
       "Family Law",
-      "Familienrecht"
+      "Family Law"
     ],
     "jurisdictions": [
       "Germany",
       "California"
     ],
     "specialties": [
-      "BGB",
-      "Scheidung",
-      "Sorgerecht"
+      "Civil Code",
+      "Divorce",
+      "Child Custody"
     ],
-    "caseHistory": 40,
-    "workload": 1
+    "caseHistory": 22,
+    "workload": 1,
+    "performance": {
+      "Family Law": {
+        "cases": 7,
+        "successRate": 94
+      },
+      "Family Law": {
+        "cases": 15,
+        "successRate": 78
+      }
+    }
   },
   {
     "id": "13",
     "name": "Dr. Hannah Neumann",
     "practiceAreas": [
-      "Strafrecht",
-      "Wirtschaftsstrafrecht"
+      "Criminal Law",
+      "White-Collar Crime"
     ],
     "jurisdictions": [
       "Germany",
       "Hamburg"
     ],
     "specialties": [
-      "StGB",
-      "Betrug",
-      "Untreue",
-      "StPO"
+      "Criminal Code",
+      "Fraud",
+      "Embezzlement",
+      "Code of Criminal Procedure"
     ],
-    "caseHistory": 28,
-    "workload": 2
+    "caseHistory": 27,
+    "workload": 2,
+    "performance": {
+      "Criminal Law": {
+        "cases": 14,
+        "successRate": 75
+      },
+      "White-Collar Crime": {
+        "cases": 13,
+        "successRate": 75
+      }
+    }
   },
   {
     "id": "14",
     "name": "Thomas Wagner",
     "practiceAreas": [
-      "Arbeitsrecht",
-      "Betriebsverfassungsrecht"
+      "Employment Law",
+      "Works Constitution Law"
     ],
     "jurisdictions": [
       "Germany",
-      "NRW"
+      "North Rhine-Westphalia"
     ],
     "specialties": [
-      "BetrVG",
-      "ArbZG",
-      "KSchG",
-      "Betriebsrat"
+      "Works Council Act",
+      "Working Hours Act",
+      "Dismissal Protection Act",
+      "Works Council"
     ],
-    "caseHistory": 45,
-    "workload": 3
+    "caseHistory": 26,
+    "workload": 3,
+    "performance": {
+      "Employment Law": {
+        "cases": 16,
+        "successRate": 91
+      },
+      "Works Constitution Law": {
+        "cases": 10,
+        "successRate": 70
+      }
+    }
   },
   {
     "id": "15",
@@ -296,7 +460,17 @@
       "Contract Disputes",
       "Securities"
     ],
-    "caseHistory": 30,
-    "workload": 2
+    "caseHistory": 19,
+    "workload": 2,
+    "performance": {
+      "Commercial Litigation": {
+        "cases": 10,
+        "successRate": 81
+      },
+      "Corporate Law": {
+        "cases": 9,
+        "successRate": 80
+      }
+    }
   }
 ]

@@ -4,7 +4,9 @@ import multer from 'multer';
 import { PDFParse } from 'pdf-parse';
 import { approveRecommendation, rankLawyersForCase } from './src/services/caseMatcher.js';
 import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
-import { loadApprovals, updateApprovalStatus } from './src/services/lawyerStore.js';
+import { loadApprovals, updateApprovalStatus, loadLawyerProfiles, updateApprovalDraft } from './src/services/lawyerStore.js';
+import { generateEngagementLetter } from './src/services/documentGenerator.js';
+import { generateLegalDraft } from './src/services/draftGenerator.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -44,6 +46,11 @@ app.get('/api/cases', (req, res) => {
   res.json({ cases });
 });
 
+app.get('/api/lawyers', (req, res) => {
+  const lawyers = loadLawyerProfiles();
+  res.json({ lawyers });
+});
+
 app.patch('/api/cases/:id/status', (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
@@ -58,6 +65,41 @@ app.patch('/api/cases/:id/status', (req, res) => {
   }
   
   res.json({ case: updated });
+});
+
+app.get('/api/cases/:id/engagement-letter', async (req, res) => {
+  const cases = loadApprovals();
+  const caseApproval = cases.find(c => c.id === req.params.id);
+  if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
+  try {
+    const pdfBuffer = await generateEngagementLetter(caseApproval);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="Engagement_Letter_${caseApproval.id}.pdf"`);
+    res.send(pdfBuffer);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to generate PDF' });
+  }
+});
+
+app.post('/api/cases/:id/draft', async (req, res) => {
+  const cases = loadApprovals();
+  const caseApproval = cases.find(c => c.id === req.params.id);
+  if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
+  
+  if (caseApproval.draft && !req.body.forceRegenerate) {
+    return res.json({ draft: caseApproval.draft });
+  }
+  
+  try {
+    const draftText = await generateLegalDraft({
+      title: caseApproval.caseTitle,
+      ...caseApproval.caseDetails
+    });
+    const updated = updateApprovalDraft(caseApproval.id, draftText);
+    res.json({ draft: updated.draft });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to generate draft' });
+  }
 });
 
 app.post('/api/upload', upload.single('file'), async (req, res) => {

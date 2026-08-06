@@ -5,7 +5,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-03T11:11:05.664Z"
+    "approvedAt": "2026-08-03T11:11:05.664Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785755724187",
@@ -13,7 +16,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-03T11:15:24.187Z"
+    "approvedAt": "2026-08-03T11:15:24.187Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785826333049",
@@ -21,7 +27,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T06:52:13.049Z"
+    "approvedAt": "2026-08-04T06:52:13.049Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785826382783",
@@ -29,7 +38,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T06:53:02.783Z"
+    "approvedAt": "2026-08-04T06:53:02.783Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785829801646",
@@ -37,7 +49,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T07:50:01.646Z"
+    "approvedAt": "2026-08-04T07:50:01.646Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837104176",
@@ -45,7 +60,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:51:44.176Z"
+    "approvedAt": "2026-08-04T09:51:44.176Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837179550",
@@ -53,7 +71,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:52:59.550Z"
+    "approvedAt": "2026-08-04T09:52:59.550Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837221297",
@@ -61,7 +82,10 @@
     "selectedLawyer": "Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:53:41.297Z"
+    "approvedAt": "2026-08-04T09:53:41.297Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837372945",
@@ -69,7 +93,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:56:12.945Z"
+    "approvedAt": "2026-08-04T09:56:12.945Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837451230",
@@ -77,7 +104,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:57:31.230Z"
+    "approvedAt": "2026-08-04T09:57:31.230Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837470145",
@@ -85,7 +115,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:57:50.145Z"
+    "approvedAt": "2026-08-04T09:57:50.145Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837682242",
@@ -93,7 +126,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:01:22.242Z"
+    "approvedAt": "2026-08-04T10:01:22.242Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785837852401",
@@ -101,7 +137,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:04:12.401Z"
+    "approvedAt": "2026-08-04T10:04:12.401Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785840164117",
@@ -109,7 +148,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:42:44.117Z"
+    "approvedAt": "2026-08-04T10:42:44.117Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785840182129",
@@ -117,7 +159,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:43:02.129Z"
+    "approvedAt": "2026-08-04T10:43:02.129Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785840267427",
@@ -125,7 +170,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:44:27.427Z"
+    "approvedAt": "2026-08-04T10:44:27.427Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785840311991",
@@ -133,7 +181,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:45:11.991Z"
+    "approvedAt": "2026-08-04T10:45:11.991Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785913613260",
@@ -141,7 +192,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T07:06:53.260Z"
+    "approvedAt": "2026-08-05T07:06:53.260Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785913829311",
@@ -149,7 +203,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T07:10:29.311Z"
+    "approvedAt": "2026-08-05T07:10:29.311Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785913900077",
@@ -157,7 +214,10 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T07:11:40.077Z"
+    "approvedAt": "2026-08-05T07:11:40.077Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   },
   {
     "id": "1785918667531",
@@ -165,7 +225,11 @@
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
     "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T08:31:07.531Z"
+    "approvedAt": "2026-08-05T08:31:07.531Z",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    },
+    "status": "Accepted"
   },
   {
     "id": "1785919893682",
@@ -173,6 +237,11 @@
     "selectedLawyer": "Lukas Weber",
     "lawyerId": "6",
     "notes": "Urgent deadline - Please prioritize case intake.",
-    "approvedAt": "2026-08-05T08:51:33.682Z"
+    "approvedAt": "2026-08-05T08:51:33.682Z",
+    "status": "Accepted",
+    "draft": "# LEGAL NOTICE\n\n**To:** [Recipient Name/Company Name]  \n**Address:** [Recipient Address]  \n**Date:** [Insert Date]\n\n**Re: Formal Legal Notice Regarding Extraordinary Termination and Enforcement of Non-Compete Clause**\n\nDear [Recipient Name],\n\nWe act on behalf of our client, **[Client Name]** , of **[Client Address]** , and are instructed to address the following matters, which we set out in the utmost seriousness.\n\n---\n\n## 1. BACKGROUND\n\nOur client was employed by your organisation under an employment agreement dated **[Date of Agreement]** (the \"Agreement\"). The Agreement governed, among other things, the terms of employment, grounds for termination, and post-employment restrictive covenants, including a non-compete clause (the \"Non-Compete Clause\").\n\nOn **[Date of Termination]** , you purportedly effected an **extraordinary termination** of our client's employment with immediate effect, citing **[state the grounds if known; otherwise: purported gross misconduct/breach of duty]** . Our client denies the validity and lawfulness of such termination. The circumstances of this termination and the subsequent enforcement of the Non-Compete Clause are the subject of this notice.\n\n---\n\n## 2. LEGAL GROUNDS FOR OBJECTION TO THE EXTRAORDINARY TERMINATION\n\nExtraordinary termination (termination for cause) is a measure of last resort, strictly construed in law. It requires the existence of a **material breach** of contractual or statutory obligations of such gravity that the continuation of the employment relationship cannot reasonably be expected.\n\nWe assert the following:\n\n1. **No valid cause exists.** Our client has at all times acted in good faith and in compliance with the Agreement. The grounds cited by you are unsubstantiated, lack evidentiary support, and do not constitute a valid basis for extraordinary termination. Purported grounds include **[list any alleged grounds: e.g., misconduct, disloyalty, breach of fiduciary duty]** , all of which are denied.\n\n2. **Procedural invalidity.** Any extraordinary termination requires compliance with procedural safeguards, including providing the employee an opportunity to respond to the allegations before termination. This was not afforded to our client, rendering the termination procedurally defective and void.\n\n3. **No prior warning or notice.** The law requires that such termination be preceded by a formal written warning and an opportunity for remediation, except in cases of egregious misconduct. No such steps were undertaken.\n\n4. **Lack of proportionality.** Extraordinary termination must be proportionate. Any alleged misconduct (which is denied) does not meet the high threshold required to justify the most severe sanction available.\n\nAccordingly, the purported extraordinary termination is **unlawful, unjustified, and of no legal effect**. Our client remains employed by you, or, alternatively, is entitled to full compensation for wrongful termination, including salary, benefits, and damages.\n\n---\n\n## 3. NON-COMPETE CLAUSE – NO VALIDITY OR ENFORCEABILITY\n\nYou have also notified our client of your intent to enforce the Non-Compete Clause contained in the Agreement. We hereby formally object to any such enforcement on the following grounds:\n\n1. **Invalidity of the underlying termination.** Where the termination is found to be unlawful, restrictive covenants such as non-compete clauses typically become unenforceable, as they are premised upon lawful termination of the employment relationship.\n\n2. **Unreasonable scope.** The Non-Compete Clause as drafted is overbroad and unreasonable. Its [geographic scope / duration / business scope] is excessive and does not serve a legitimate protectable business interest. It exceeds what is reasonably necessary to protect your confidential information, trade secrets, or client relationships.\n\n3. **No legitimate proprietary interest.** Our client's role and duties did not involve access to trade secrets, confidential client lists, or other proprietary information that would justify the enforcement of such a restrictive covenant. Your attempt to enforce the clause constitutes an unlawful restraint on trade.\n\n4. **Restraint of trade.** The Non-Compete Clause, as sought to be enforced, is an unreasonable restraint of trade and is contrary to public policy.\n\n5. **No consideration.** The Non-Compete Clause was not supported by fresh or adequate consideration at the time it was executed, nor does the clause provide for ongoing remuneration or compensation during the restricted period.\n\n---\n\n## 4. DEMANDS\n\nIn light of the foregoing, we hereby demand, on behalf of our client, that you:\n\n1. **Cease and desist** from any representation that the extraordinary termination is valid and of legal effect;\n\n2. **Retract** the purported termination and reinstate our client to their former position with full pay and restoration of benefits, effective immediately;\n\n3. **Refrain** from enforcing the Non-Compete Clause and provide written confirmation that you will not take any steps to restrict our client's right to seek engagement with competitors;\n\n4. **Pay** to our client all outstanding salary, bonuses, benefits, and any other entitlements due up to the date of the purported termination, together with statutory interest;\n\n5. **Compensate** our client for all losses and damages suffered as a result of the unlawful termination, including but not limited to loss of earnings, loss of reputation, and legal costs; and\n\n6. **Provide** a written response to this notice within **[Insert Number]** days of receipt, confirming your compliance with the demands set out above.\n\n---\n\n## 5. NOTICE OF LEGAL ACTION\n\nShould you fail to comply with the demands above within the stipulated period, our client shall, without further notice:\n\n- Institute legal proceedings against you for wrongful/unlawful termination and seek reinstatement or damages;\n- File a claim for breach of contract and seek compensation in full;\n- Seek a declaratory order that the Non-Compete Clause is void, invalid, and unenforceable;\n- Pursue all equitable and statutory remedies available at law, including but not limited to punitive damages and interest.\n\nAdditionally, we hereby place you on notice that you are to preserve all documents, communications, and records relating to our client's employment and termination, as these may be subject to discovery and production in legal proceedings.\n\n---\n\n## 6. LIMITATION AND DEADLINE\n\nPlease respond to this notice **in writing** within **[Insert Number]** days from the date of receipt. Absent a satisfactory and legally compliant response, we shall proceed with legal action without further notice, and we reserve the right to seek costs against you.\n\n---\n\n## 7. RESERVATION OF RIGHTS\n\nNothing in this notice shall be construed as a waiver, limitation, or release of any rights, claims, defenses, or remedies our client may have against you, whether at law or in equity, all of which are expressly reserved.\n\n---\n\nWe await your formal response.\n\nYours sincerely,\n\n---\n\n**[Attorney Name]**  \n**Attorney-at-Law**  \n**Law Firm:** [Firm Name]  \n**Address:** [Firm Address]  \n**Tel:** [Phone Number]  \n**Email:** [Email Address]  \n**Licence No.:** [Bar Number]\n\n---\n\n*This legal notice is prepared on the basis of the facts presented. The applicable law, case details, and deadlines were not provided and must be supplemented before filing any court proceedings.*",
+    "caseDetails": {
+      "clientName": "Max Mustermann"
+    }
   }
 ]

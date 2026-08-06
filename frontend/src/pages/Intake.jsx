@@ -21,23 +21,23 @@ function Intake() {
   const DEMO_CASES = [
     {
       label: 'Employment',
-      text: 'An employee was terminated without notice. Under the Employment Protection Act (KSchG) and Working Hours Act (ArbZG), a legal complaint must be filed. The brief submission deadline ends on 2026-08-25.'
+      text: 'Client John Doe was terminated without notice. Under the Employment Protection Act and Working Hours Act, a legal complaint must be filed. The brief submission deadline ends on 2026-08-25.'
     },
     {
       label: 'Medical Malpractice',
-      text: 'Patient suffered severe injuries due to a surgical error at the Munich Hospital. We are pursuing a medical malpractice claim under the BGB. The statute of limitations for the claim expires on 2027-01-15.'
+      text: 'Patient Jane Smith suffered severe injuries due to a surgical error at the Munich Hospital. We are pursuing a medical malpractice claim under the Civil Code. The statute of limitations for the claim expires on 2027-01-15.'
     },
     {
-      label: 'Commercial (HGB)',
-      text: 'Breach of contract regarding a commercial goods delivery. The supplier failed to deliver on time. We need to file a lawsuit under the HGB. The hearing date is set for 2026-10-10.'
+      label: 'Commercial',
+      text: 'Breach of contract regarding a commercial goods delivery for client Acme Corp. The supplier failed to deliver on time. We need to file a lawsuit under the Commercial Code. The hearing date is set for 2026-10-10.'
     },
     {
       label: 'Criminal',
-      text: 'Client is accused of theft and fraud under the StGB. The police have issued an arrest warrant. We need to prepare for the court hearing scheduled for 2026-09-12.'
+      text: 'Client Michael Johnson is accused of theft and fraud under the Criminal Code. The police have issued an arrest warrant. We need to prepare for the court hearing scheduled for 2026-09-12.'
     },
     {
       label: 'Data Protection',
-      text: 'A company leaked user data. We are filing a claim based on the DSGVO (GDPR). The data protection authority must be notified by 2026-09-01.'
+      text: 'A company leaked user data of client Alice Brown. We are filing a claim based on the GDPR. The data protection authority must be notified by 2026-09-01.'
     }
   ];
 
