@@ -134,6 +134,15 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   });
 });
 
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'admin') {
+    res.json({ success: true, token: 'mock-jwt-token', user: { username: 'admin' } });
+  } else {
+    res.status(401).json({ error: 'Invalid credentials' });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Backend running on http://localhost:${port}`);
 });
