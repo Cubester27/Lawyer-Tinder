@@ -14,6 +14,60 @@ The **Lawyer App** is a confidential law firm workflow platform with a modern da
 
 ---
 
+## 🔄 Application Workflow
+
+```mermaid
+flowchart TD
+    %% Swimlanes
+    subgraph User["User (Client / Admin)"]
+        direction TB
+        Start((Start))
+        ProvideInput("Upload case documents or paste facts\n(Intake Portal)")
+    end
+
+    subgraph System["Backend & AI Engine"]
+        direction TB
+        ExtractDetails("AI extracts case details\n(OpenRouter/GPT)")
+        MatchAttorneys("Match best-fitting attorneys\n(based on expertise & performance)")
+        RouteCase("Route case to Lawyer Dashboard")
+    end
+
+    subgraph Lawyer["Lawyer Dashboard"]
+        direction TB
+        ReviewCase("View case in Recent Assignments")
+        Decision{"Accept Case?"}
+        GeneratePDF("Generate Engagement Letter\n(PDF via pdfkit)")
+        GenerateDraft("Generate First Draft Legal Notice\n(AI via OpenRouter)")
+        DownloadDoc("Download / View Documents")
+    end
+
+    subgraph Data["Local Persistence"]
+        direction TB
+        SaveData[("approvals.json")]
+    end
+
+    %% Flow
+    Start --> ProvideInput
+    ProvideInput --> ExtractDetails
+    ExtractDetails --> MatchAttorneys
+    MatchAttorneys --> RouteCase
+    RouteCase --> ReviewCase
+    ReviewCase --> Decision
+
+    Decision -->|Reject| EndReject(((End:\nCase Rejected)))
+    Decision -->|Accept| GeneratePDF
+    Decision -->|Accept| GenerateDraft
+
+    GeneratePDF --> DownloadDoc
+    GenerateDraft --> DownloadDoc
+    DownloadDoc --> EndSuccess(((End:\nCase Processing\nComplete)))
+
+    %% Data persistence relationships
+    GenerateDraft -.->|Cache draft via\nupdateApprovalDraft| SaveData
+```
+
+---
+
 ## ✨ Key Features
 
 ### 1. 📥 Intake Portal
