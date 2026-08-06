@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AdvertPlayerCard } from '../components/AdvertPlayer';
 
 const Login = ({ setAuth }) => {
   const [username, setUsername] = useState('');
@@ -40,12 +41,12 @@ const Login = ({ setAuth }) => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6 col-lg-5">
-          <div className="card bg-dark border-secondary shadow">
+    <div className="container py-5">
+      <div className="row g-4 align-items-center justify-content-center">
+        <div className="col-lg-5 col-md-6">
+          <div className="card bg-dark border-secondary shadow-lg">
             <div className="card-body p-4">
-              <h2 className="text-center mb-4">Login</h2>
+              <h2 className="text-center mb-4 fw-bold">Lawyer Tinder Login</h2>
               {error && <div className="alert alert-danger p-2">{error}</div>}
               <form onSubmit={handleLogin}>
                 <div className="mb-3">
@@ -70,7 +71,7 @@ const Login = ({ setAuth }) => {
                 </div>
                 <button 
                   type="submit" 
-                  className="btn btn-primary w-100"
+                  className="btn btn-primary w-100 py-2 fw-semibold"
                   disabled={loading}
                 >
                   {loading ? 'Logging in...' : 'Login'}
@@ -81,6 +82,10 @@ const Login = ({ setAuth }) => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="col-lg-6 col-md-6">
+          <AdvertPlayerCard title="Lawyer Tinder - Commercial Showcase" />
         </div>
       </div>
     </div>

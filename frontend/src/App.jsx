@@ -4,8 +4,9 @@ import Intake from './pages/Intake';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Logo from './components/Logo';
+import { AdvertModal } from './components/AdvertPlayer';
 
-function Navigation({ isAuthenticated, setAuth }) {
+function Navigation({ isAuthenticated, setAuth, onOpenAdvert }) {
   const location = useLocation();
   
   const handleLogout = () => {
@@ -25,6 +26,15 @@ function Navigation({ isAuthenticated, setAuth }) {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto gap-2 align-items-center">
+            <li className="nav-item">
+              <button 
+                onClick={onOpenAdvert}
+                className="btn btn-outline-warning btn-sm d-flex align-items-center gap-1 px-3 me-lg-2"
+                title="Watch Lawyer Tinder Commercial"
+              >
+                <span>🎬</span> Watch Advert
+              </button>
+            </li>
             <li className="nav-item">
               <Link 
                 className={`nav-link px-3 rounded ${location.pathname === '/' ? 'active bg-primary text-white' : 'text-slate-300 hover-text-white'}`} 
@@ -75,6 +85,7 @@ const ProtectedRoute = ({ isAuthenticated, children }) => {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdvertOpen, setIsAdvertOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
@@ -86,15 +97,19 @@ function App() {
   return (
     <Router>
       <div className="min-vh-100 d-flex flex-column bg-dark text-white">
-        <Navigation isAuthenticated={isAuthenticated} setAuth={setIsAuthenticated} />
+        <Navigation 
+          isAuthenticated={isAuthenticated} 
+          setAuth={setIsAuthenticated} 
+          onOpenAdvert={() => setIsAdvertOpen(true)}
+        />
         <div className="flex-grow-1">
           <Routes>
-            <Route path="/login" element={<Login setAuth={setIsAuthenticated} />} />
+            <Route path="/login" element={<Login setAuth={setIsAuthenticated} onOpenAdvert={() => setIsAdvertOpen(true)} />} />
             <Route 
               path="/" 
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Intake />
+                  <Intake onOpenAdvert={() => setIsAdvertOpen(true)} />
                 </ProtectedRoute>
               } 
             />
@@ -102,13 +117,14 @@ function App() {
               path="/dashboard" 
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <Dashboard />
+                  <Dashboard onOpenAdvert={() => setIsAdvertOpen(true)} />
                 </ProtectedRoute>
               } 
             />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
+        <AdvertModal isOpen={isAdvertOpen} onClose={() => setIsAdvertOpen(false)} />
       </div>
     </Router>
   );

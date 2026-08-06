@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { AdvertPlayerCard } from '../components/AdvertPlayer';
 
 function formatDate(dateStr) {
   if (!dateStr) return '';
@@ -127,6 +128,15 @@ function Dashboard() {
             📥 Recent Assignments
           </button>
         </li>
+        <li className="nav-item">
+          <button 
+            className={`nav-link fw-bold ${activeTab === 'advert' ? 'active bg-warning text-dark border-warning' : 'text-slate-300 hover-white border-transparent'}`}
+            onClick={() => setActiveTab('advert')}
+            style={activeTab === 'advert' ? {} : { background: 'transparent' }}
+          >
+            🎬 Commercial Advert
+          </button>
+        </li>
       </ul>
       
       {activeTab === 'analytics' && (
@@ -238,6 +248,16 @@ function Dashboard() {
           ))}
         </div>
       )}
+        </div>
+      )}
+
+      {activeTab === 'advert' && (
+        <div className="fade-in py-2">
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              <AdvertPlayerCard title="Lawyer Tinder - Commercial Showcase" />
+            </div>
+          </div>
         </div>
       )}
 

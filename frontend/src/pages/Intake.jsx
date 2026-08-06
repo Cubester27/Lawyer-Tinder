@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AdvertPlayerCard } from '../components/AdvertPlayer';
 
 function formatDate(dateStr) {
   if (!dateStr) return '';
@@ -197,6 +198,10 @@ function Intake() {
                       </button>
                     ))}
                   </div>
+                </div>
+
+                <div className="mt-5 text-start">
+                  <AdvertPlayerCard title="Lawyer Tinder - Commercial Showcase" />
                 </div>
               </div>
             </div>
