@@ -52,9 +52,30 @@ export function recordApproval(caseInput, lawyerId, notes = '', lawyerPath = def
     selectedLawyer: selectedLawyer.name,
     lawyerId: selectedLawyer.id,
     notes,
-    approvedAt: new Date().toISOString()
+    approvedAt: new Date().toISOString(),
+    status: 'Pending',
+    caseDetails: caseInput
   };
   saveApprovals([...approvals, approvalRecord], approvalPath);
 
   return { status: 'approved', ...approvalRecord };
+}
+
+export function updateApprovalStatus(id, status, approvalPath = defaultApprovalPath) {
+  const approvals = loadApprovals(approvalPath);
+  let updatedRecord = null;
+  
+  const updatedApprovals = approvals.map(approval => {
+    if (approval.id === id) {
+      updatedRecord = { ...approval, status };
+      return updatedRecord;
+    }
+    return approval;
+  });
+
+  if (updatedRecord) {
+    saveApprovals(updatedApprovals, approvalPath);
+  }
+  
+  return updatedRecord;
 }

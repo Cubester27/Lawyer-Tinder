@@ -4,6 +4,7 @@ import multer from 'multer';
 import { PDFParse } from 'pdf-parse';
 import { approveRecommendation, rankLawyersForCase } from './src/services/caseMatcher.js';
 import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
+import { loadApprovals, updateApprovalStatus } from './src/services/lawyerStore.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -36,6 +37,27 @@ app.post('/api/approve', (req, res) => {
   const { caseInput, lawyerId, notes } = req.body;
   const approval = approveRecommendation(caseInput, lawyerId, notes);
   res.json({ approval });
+});
+
+app.get('/api/cases', (req, res) => {
+  const cases = loadApprovals();
+  res.json({ cases });
+});
+
+app.patch('/api/cases/:id/status', (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  
+  if (!status) {
+    return res.status(400).json({ error: 'Status is required' });
+  }
+  
+  const updated = updateApprovalStatus(id, status);
+  if (!updated) {
+    return res.status(404).json({ error: 'Case not found' });
+  }
+  
+  res.json({ case: updated });
 });
 
 app.post('/api/upload', upload.single('file'), async (req, res) => {

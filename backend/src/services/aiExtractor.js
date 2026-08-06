@@ -23,8 +23,17 @@ export async function extractLegalInfoWithAI(text, fileName = 'Legal Document') 
   }
 
   try {
+    // 1. Clean and compress text to maximize information density
+    const cleanText = text.replace(/\s+/g, ' ').trim();
+
+    // 2. Add a generous timeout to prevent hanging and vite proxy ECONNRESET
+    // Increased to 60 seconds since full documents take longer to process
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     const response = await fetch(BASE_URL, {
       method: 'POST',
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
@@ -51,12 +60,14 @@ Format response as JSON with keys: applicableCode, deadlines, primaryDeadlineDat
           },
           {
             role: 'user',
-            content: `Document filename: ${fileName}\n\nDocument Text:\n${text}`
+            content: `Document filename: ${fileName}\n\nDocument Text:\n${cleanText}`
           }
         ],
         response_format: { type: 'json_object' }
       })
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`OpenRouter API extraction failed with status ${response.status}`);
