@@ -1,4 +1,4 @@
-# Lawyer App - AI Legal Matching & Management Platform
+# Lawyer Tinder - AI Legal Matching & Management Platform
 
 An AI-powered legal matching and case management application designed to streamline case routing, attorney-client matching, and legal document automation.
 
@@ -11,7 +11,7 @@ An AI-powered legal matching and case management application designed to streaml
 
 ## 🏛️ Project Overview
 
-The **Lawyer App** is a confidential law firm workflow platform with a modern dark-themed glassmorphism UI.
+The **Lawyer Tinder** is a confidential law firm workflow platform with a modern dark-themed glassmorphism UI.
 
 - **Frontend**: Built with React (Vite), React Router, Bootstrap, and custom CSS for a sleek, responsive user interface.
 - **Backend**: Powered by Node.js and Express.
@@ -121,7 +121,7 @@ To run this application, you must install:
 1. **Clone the Repository**:
    ```bash
    git clone <repository-url>
-   cd "Lawyer App"
+   cd "Lawyer Tinder"
    ```
 
 2. **Install Dependencies**:
