@@ -2,6 +2,11 @@
 
 An AI-powered legal matching and case management application designed to streamline case routing, attorney-client matching, and legal document automation.
 
+> [!WARNING]
+> **Production Readiness & Compliance Disclaimer**:
+> All versions of this application are for demo purposes only and **NOT for production use**. 
+> Before using it for any real-world purpose, you must establish a structured plan to address **data security**, **data governance**, and **GDPR** compliance (and any other applicable regulatory requirements).
+
 ---
 
 ## 🏛️ Project Overview
@@ -100,40 +105,88 @@ Data is currently stored and persisted locally via JSON data files:
 
 ---
 
-## 🚀 Quick Start & Local Setup
+## 📦 System Prerequisites & Installation
 
-### 1. Install Dependencies
-```bash
-npm install
-```
-
-### 2. Configure Environment Variables
-Ensure `.env` in the backend directory contains your configuration (e.g., `OPENROUTER_API_KEY`, `PORT=3001`).
-
-### 3. Run Development Servers
-Start both backend and frontend concurrently:
-```bash
-npm run dev
-```
-- **Frontend App**: `http://localhost:5173`
-- **Backend API**: `http://localhost:3001`
-- **Backend Health Check**: `http://localhost:3001/health`
-
-> **Note**: To access the application, use the default credentials:
-> **Username**: `admin`
-> **Password**: `admin`
+### Prerequisites
+To run this application, you must install:
+1. **Node.js**: Version `18.x` or `20.x` LTS recommended. Download from [nodejs.org](https://nodejs.org/).
+2. **npm**: Included automatically with Node.js (`v9.x` or higher recommended).
 
 ---
 
-## 🧪 Verification & Building
+## 🚀 Setup & Execution
+
+### 💻 1. Development Environment
+
+1. **Clone the Repository**:
+   ```bash
+   git clone <repository-url>
+   cd "Lawyer App"
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**:
+   Create a `.env` file inside the `backend` directory:
+   ```env
+   PORT=3001
+   OPENROUTER_API_KEY=your_openrouter_api_key_here
+   ```
+
+4. **Run Development Server**:
+   Start both frontend and backend concurrently:
+   ```bash
+   npm run dev
+   ```
+   - **Frontend App**: `http://localhost:5173`
+   - **Backend API**: `http://localhost:3001`
+   - **Backend Health Check**: `http://localhost:3001/health`
+
+> **Note**: Default credentials: **Username**: `admin` | **Password**: `admin`
+
+---
+
+### 🏭 2. Production Environment
+
+Before deploying to a production server:
+
+1. **Install Production Dependencies**:
+   ```bash
+   npm ci --omit=dev
+   ```
+
+2. **Build Static Production Bundle**:
+   ```bash
+   npm run build
+   ```
+   *(Creates optimized static frontend build in `frontend/dist`)*
+
+3. **Set Environment Variables**:
+   Ensure system environment or `backend/.env` contains production variables:
+   ```env
+   NODE_ENV=production
+   PORT=3001
+   OPENROUTER_API_KEY=your_production_openrouter_api_key
+   ```
+
+4. **Run Production Server**:
+   - Serve `frontend/dist` via Nginx, Caddy, or an Express static file handler.
+   - Start backend using Node or a process manager like `pm2`:
+     ```bash
+     npx pm2 start backend/server.js --name "lawyer-app-backend"
+     ```
+     Or directly via workspace script:
+     ```bash
+     npm run start --workspace backend
+     ```
+
+---
+
+## 🧪 Verification & Testing
 
 - **Backend Unit Tests**: `npm test`
-- **Frontend Production Build**: `npm run build --workspace frontend`
+- **Frontend Production Build Check**: `npm run build --workspace frontend`
 
----
-
-## 🔜 Future Roadmap
-
-- **Database Migration**: Transition local JSON files (`lawyers.json`, `approvals.json`) to PostgreSQL or MongoDB.
-- **Role-Based Access Control (RBAC)**: Expand the current simple authentication system to support individualized attorney accounts and granular permissions.
-- **Export Enhancements**: Support exporting AI legal notice drafts directly to `.docx` and `.pdf` formats.
