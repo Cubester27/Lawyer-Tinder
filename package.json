@@ -1,13 +1,17 @@
 {
   "name": "law-firm-case-matcher",
   "private": true,
-  "workspaces": ["backend", "frontend"],
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
+    "dev": "concurrently -n \"backend,frontend\" -c \"blue,magenta\" \"npm run dev --workspace backend\" \"wait-on http-get://127.0.0.1:3001/health && npm run dev --workspace frontend\"",
     "test": "npm run test --workspace backend",
     "build": "npm run build --workspace frontend"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "wait-on": "^9.1.0"
   }
 }
