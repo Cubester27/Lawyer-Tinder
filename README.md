@@ -164,15 +164,7 @@ Before deploying to a production server:
    ```
    *(Creates optimized static frontend build in `frontend/dist`)*
 
-3. **Set Environment Variables**:
-   Ensure system environment or `backend/.env` contains production variables:
-   ```env
-   NODE_ENV=production
-   PORT=3001
-   OPENROUTER_API_KEY=your_production_openrouter_api_key
-   ```
-
-4. **Run Production Server**:
+3. **Run Production Server**:
    - Serve `frontend/dist` via Nginx, Caddy, or an Express static file handler.
    - Start backend using Node or a process manager like `pm2`:
      ```bash
