@@ -132,8 +132,8 @@ To run this application, you must install:
 3. **Configure Environment Variables**:
    Create a `.env` file inside the `backend` directory:
    ```env
-   PORT=3001
    OPENROUTER_API_KEY=your_openrouter_api_key_here
+   OPENROUTER_MODEL=your_preferred_ai_model_from_Openrouter_here
    ```
 
 4. **Run Development Server**:
