@@ -109,8 +109,8 @@ Data is currently stored and persisted locally via JSON data files:
 
 ### Prerequisites
 To run this application, you must install:
-1. **Node.js**: Version `18.x` or `20.x` LTS recommended. Download from [nodejs.org](https://nodejs.org/).
-2. **npm**: Included automatically with Node.js (`v9.x` or higher recommended).
+1. **Node.js**: Version ``24.x` LTS recommended. Download from [nodejs.org](https://nodejs.org/).
+2. **npm**: Included automatically with Node.js (`v11.x` or higher recommended).
 
 ---
 
