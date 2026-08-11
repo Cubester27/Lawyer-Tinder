@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AdvertPlayerCard } from '../components/AdvertPlayer';
+import { downloadIcsFile } from '../utils/icsExporter';
 
 function formatDate(dateStr) {
   if (!dateStr) return '';
@@ -296,17 +297,48 @@ function Intake() {
                   )}
 
                   <div className="mb-4">
-                    <h6 className="fw-bold text-white d-flex align-items-center gap-2 mb-3">
-                      ⏰ Key Deadlines
-                      <span className="badge bg-danger rounded-pill">{caseInput.deadlines?.length || 0}</span>
-                    </h6>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <h6 className="fw-bold text-white d-flex align-items-center gap-2 mb-0">
+                        ⏰ Key Deadlines
+                        <span className="badge bg-danger rounded-pill">{caseInput.deadlines?.length || 0}</span>
+                      </h6>
+                      {caseInput.deadlines?.length > 0 && (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-warning d-flex align-items-center gap-1 py-1 px-2 text-nowrap fw-semibold"
+                          style={{ fontSize: '0.78rem' }}
+                          onClick={() => downloadIcsFile(caseInput.deadlines, {
+                            caseTitle: caseInput.title || 'Case Intake',
+                            clientName: caseInput.clientName,
+                            applicableCode: caseInput.applicableCode
+                          }, `${caseInput.title || 'case'}_deadlines.ics`)}
+                        >
+                          📅 Export All (.ics)
+                        </button>
+                      )}
+                    </div>
                     {caseInput.deadlines?.length ? (
                       <div className="d-flex flex-column gap-2">
                         {caseInput.deadlines.map((dl, idx) => (
                           <div key={`${dl.date}-${idx}`} className="deadline-card p-3 border-0 bg-dark bg-opacity-50">
                             <div className="d-flex justify-content-between align-items-center mb-1">
                               <span className="fw-semibold text-white fs-6">{dl.label || 'Deadline'}</span>
-                              <span className="deadline-date-pill ms-2">📅 {formatDate(dl.date)}</span>
+                              <div className="d-flex align-items-center gap-2">
+                                <span className="deadline-date-pill">📅 {formatDate(dl.date)}</span>
+                                <button
+                                  type="button"
+                                  className="btn btn-xs btn-outline-info py-0 px-2 fw-medium"
+                                  style={{ fontSize: '0.75rem', borderRadius: '12px' }}
+                                  title="Download .ics for this deadline"
+                                  onClick={() => downloadIcsFile([dl], {
+                                    caseTitle: caseInput.title || 'Case Intake',
+                                    clientName: caseInput.clientName,
+                                    applicableCode: caseInput.applicableCode
+                                  }, `${dl.label || 'deadline'}.ics`)}
+                                >
+                                  📥 .ics
+                                </button>
+                              </div>
                             </div>
                             {dl.sourceText && <p className="text-secondary small mb-0 mt-2 fst-italic">"{dl.sourceText}"</p>}
                           </div>

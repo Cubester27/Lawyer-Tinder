@@ -75,6 +75,10 @@ function Dashboard() {
     window.open(`/api/cases/${id}/engagement-letter`, '_blank');
   }
 
+  function handleDownloadIcs(id) {
+    window.open(`/api/cases/${id}/ics`, '_blank');
+  }
+
   async function handleGenerateDraft(id) {
     setDraftModalOpen(true);
     setCurrentDraft('');
@@ -199,11 +203,20 @@ function Dashboard() {
                         {c.caseDetails.summary}
                       </p>
                       
-                      {c.caseDetails.primaryDeadlineDate && (
-                        <div className="mb-3">
+                      {(c.caseDetails.primaryDeadlineDate || c.caseDetails.deadlines?.length > 0) && (
+                        <div className="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
                           <span className="deadline-date-pill small">
-                            📅 Deadline: {formatDate(c.caseDetails.primaryDeadlineDate)}
+                            📅 Deadline: {formatDate(c.caseDetails.primaryDeadlineDate || c.caseDetails.deadlines[0]?.date)}
                           </span>
+                          <button
+                            type="button"
+                            onClick={() => handleDownloadIcs(c.id)}
+                            className="btn btn-xs btn-outline-warning py-1 px-2 fw-bold d-flex align-items-center gap-1"
+                            style={{ fontSize: '0.75rem', borderRadius: '12px' }}
+                            title="Download .ics Calendar File"
+                          >
+                            📅 .ics
+                          </button>
                         </div>
                       )}
                     </>
@@ -239,6 +252,12 @@ function Dashboard() {
                         className="btn btn-sm btn-outline-warning w-100 fw-bold d-flex align-items-center justify-content-center gap-2"
                       >
                         ✍️ Generate First Draft
+                      </button>
+                      <button 
+                        onClick={() => handleDownloadIcs(c.id)}
+                        className="btn btn-sm btn-outline-light w-100 fw-bold d-flex align-items-center justify-content-center gap-2"
+                      >
+                        📅 Download Calendar (.ics)
                       </button>
                     </div>
                   )}

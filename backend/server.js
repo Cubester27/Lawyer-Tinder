@@ -7,6 +7,7 @@ import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
 import { loadApprovals, updateApprovalStatus, loadLawyerProfiles, updateApprovalDraft } from './src/services/lawyerStore.js';
 import { generateEngagementLetter } from './src/services/documentGenerator.js';
 import { generateLegalDraft } from './src/services/draftGenerator.js';
+import { generateIcsContent } from './src/services/icsGenerator.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -79,6 +80,32 @@ app.get('/api/cases/:id/engagement-letter', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Failed to generate PDF' });
   }
+});
+
+app.get('/api/cases/:id/ics', (req, res) => {
+  const cases = loadApprovals();
+  const caseApproval = cases.find(c => c.id === req.params.id);
+  if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
+
+  const deadlines = caseApproval.caseDetails?.deadlines || [];
+  if (deadlines.length === 0 && caseApproval.caseDetails?.primaryDeadlineDate) {
+    deadlines.push({
+      date: caseApproval.caseDetails.primaryDeadlineDate,
+      label: 'Primary Case Deadline'
+    });
+  }
+
+  const icsString = generateIcsContent(deadlines, {
+    caseTitle: caseApproval.caseTitle,
+    clientName: caseApproval.caseDetails?.clientName,
+    applicableCode: caseApproval.caseDetails?.applicableCode,
+    id: caseApproval.id
+  });
+
+  const filename = `Deadlines_${caseApproval.id}.ics`;
+  res.setHeader('Content-Type', 'text/calendar; charset=utf-8');
+  res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+  res.send(icsString);
 });
 
 app.post('/api/cases/:id/draft', async (req, res) => {
