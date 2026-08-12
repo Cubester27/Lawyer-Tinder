@@ -63,8 +63,28 @@ function Intake() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState('openai/gpt-4o-mini');
   const [customModel, setCustomModel] = useState('');
+  const [riskAnalysis, setRiskAnalysis] = useState(null);
+  const [isRiskLoading, setIsRiskLoading] = useState(false);
 
   const activeModel = selectedModel === 'custom' ? (customModel.trim() || 'openai/gpt-4o-mini') : selectedModel;
+
+  async function fetchRiskAnalysis(cInput, modelToUse) {
+    setIsRiskLoading(true);
+    setRiskAnalysis(null);
+    try {
+      const res = await fetch('/api/analyze-risk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ caseInput: cInput, model: modelToUse })
+      });
+      const data = await res.json();
+      setRiskAnalysis(data.riskAnalysis);
+    } catch (err) {
+      console.error('Failed to analyze risk', err);
+    } finally {
+      setIsRiskLoading(false);
+    }
+  }
 
   async function handleAnalyzeText(text = rawText) {
     if (!text.trim()) return;
@@ -84,6 +104,7 @@ function Intake() {
         setRecommendations(recs);
         setApprovalMessage('');
         setStatusMessage(`Analysis & Lawyer Matching complete! Code: ${data.caseInput.applicableCode}`);
+        fetchRiskAnalysis(data.caseInput, activeModel);
       }
     } catch (err) {
       setStatusMessage('Error performing AI extraction.');
@@ -114,6 +135,7 @@ function Intake() {
         setRecommendations(recs);
         setApprovalMessage('');
         setStatusMessage(`File "${data.fileName}" analyzed! Code: ${data.caseInput.applicableCode}`);
+        fetchRiskAnalysis(data.caseInput, activeModel);
       }
     } catch (err) {
       setStatusMessage('Error uploading document.');
@@ -138,6 +160,7 @@ function Intake() {
     setRawText('');
     setStatusMessage('');
     setApprovalMessage('');
+    setRiskAnalysis(null);
   }
 
   return (
@@ -254,10 +277,6 @@ function Intake() {
                     ))}
                   </div>
                 </div>
-
-                <div className="mt-5 text-start">
-                  <AdvertPlayerCard title="Lawyer Tinder - Commercial Showcase" />
-                </div>
               </div>
             </div>
           </div>
@@ -349,6 +368,46 @@ function Intake() {
                         No specific deadline dates detected.
                       </div>
                     )}
+                  </div>
+
+                  {/* 🤖 AI Risk & Strategy Prediction Card */}
+                  <div className="mb-4">
+                    <h6 className="fw-bold text-info d-flex align-items-center gap-2 mb-2">
+                      🤖 AI Case Strategy & Win Predictor
+                    </h6>
+                    {isRiskLoading ? (
+                      <div className="p-3 bg-dark bg-opacity-50 rounded border border-info border-opacity-25 text-info small text-center">
+                        <span className="spinner-border spinner-border-sm me-2"></span> Calculating win probability & opponent strategy...
+                      </div>
+                    ) : riskAnalysis ? (
+                      <div className="p-3 bg-dark bg-opacity-75 rounded border border-info border-opacity-30 text-slate-300 small">
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                          <span className="fw-bold text-white">Estimated Win Rate:</span>
+                          <span className={`badge ${riskAnalysis.winProbability >= 75 ? 'bg-success' : riskAnalysis.winProbability >= 60 ? 'bg-warning text-dark' : 'bg-danger'}`}>
+                            🎯 {riskAnalysis.winProbability}%
+                          </span>
+                        </div>
+                        <div className="progress mb-3" style={{ height: '6px', background: '#334155' }}>
+                          <div className={`progress-bar ${riskAnalysis.winProbability >= 75 ? 'bg-success' : riskAnalysis.winProbability >= 60 ? 'bg-warning' : 'bg-danger'}`} style={{ width: `${riskAnalysis.winProbability}%` }}></div>
+                        </div>
+                        <div className="mb-2">
+                          <strong className="text-success">💪 Case Strengths:</strong>
+                          <ul className="ps-3 mb-0 text-slate-300 mt-1">
+                            {riskAnalysis.strengths?.map((s, idx) => <li key={idx}>{s}</li>)}
+                          </ul>
+                        </div>
+                        <div className="mb-2">
+                          <strong className="text-danger">⚠️ Risk Vulnerabilities:</strong>
+                          <ul className="ps-3 mb-0 text-slate-300 mt-1">
+                            {riskAnalysis.vulnerabilities?.map((v, idx) => <li key={idx}>{v}</li>)}
+                          </ul>
+                        </div>
+                        <div>
+                          <strong className="text-warning">⚔️ Predicted Opponent Counter:</strong>
+                          <p className="mb-0 text-slate-300 mt-1 fst-italic">"{riskAnalysis.opponentStrategy}"</p>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="row g-2 mt-auto">

@@ -83,10 +83,6 @@ const Login = ({ setAuth }) => {
             </div>
           </div>
         </div>
-
-        <div className="col-lg-6 col-md-6">
-          <AdvertPlayerCard title="Lawyer Tinder - Commercial Showcase" />
-        </div>
       </div>
     </div>
   );

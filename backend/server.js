@@ -6,8 +6,9 @@ import { approveRecommendation, rankLawyersForCase } from './src/services/caseMa
 import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
 import { loadApprovals, updateApprovalStatus, loadLawyerProfiles, updateApprovalDraft } from './src/services/lawyerStore.js';
 import { generateEngagementLetter } from './src/services/documentGenerator.js';
-import { generateLegalDraft } from './src/services/draftGenerator.js';
+import { generateLegalDraft, verifyDraftFactuality } from './src/services/draftGenerator.js';
 import { generateIcsContent } from './src/services/icsGenerator.js';
+import { analyzeCaseRiskWithAI } from './src/services/aiRiskAnalyzer.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -113,19 +114,67 @@ app.post('/api/cases/:id/draft', async (req, res) => {
   const caseApproval = cases.find(c => c.id === req.params.id);
   if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
   
-  if (caseApproval.draft && !req.body.forceRegenerate) {
-    return res.json({ draft: caseApproval.draft });
+  const tone = req.body.tone || 'standard';
+  
+  if (caseApproval.draft && !req.body.forceRegenerate && !req.body.tone) {
+    return res.json({ draft: caseApproval.draft, tone: 'standard' });
   }
   
   try {
     const draftText = await generateLegalDraft({
       title: caseApproval.caseTitle,
       ...caseApproval.caseDetails
-    });
+    }, tone);
     const updated = updateApprovalDraft(caseApproval.id, draftText);
-    res.json({ draft: updated.draft });
+    res.json({ draft: updated.draft, tone });
   } catch (err) {
     res.status(500).json({ error: 'Failed to generate draft' });
+  }
+});
+
+app.post('/api/cases/:id/risk-analysis', async (req, res) => {
+  const cases = loadApprovals();
+  const caseApproval = cases.find(c => c.id === req.params.id);
+  if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
+
+  try {
+    const riskAnalysis = await analyzeCaseRiskWithAI({
+      title: caseApproval.caseTitle,
+      ...caseApproval.caseDetails
+    }, req.body.model);
+    res.json({ riskAnalysis });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to analyze case risk' });
+  }
+});
+
+app.post('/api/analyze-risk', async (req, res) => {
+  try {
+    const riskAnalysis = await analyzeCaseRiskWithAI(req.body.caseInput || {}, req.body.model);
+    res.json({ riskAnalysis });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to analyze case risk' });
+  }
+});
+
+app.post('/api/cases/:id/verify-draft', async (req, res) => {
+  const cases = loadApprovals();
+  const caseApproval = cases.find(c => c.id === req.params.id);
+  if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
+
+  const draftText = req.body.draft || caseApproval.draft;
+  if (!draftText) {
+    return res.status(400).json({ error: 'No draft text to verify' });
+  }
+
+  try {
+    const verification = await verifyDraftFactuality(draftText, {
+      title: caseApproval.caseTitle,
+      ...caseApproval.caseDetails
+    });
+    res.json({ verification });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to verify draft factuality' });
   }
 });
 
