@@ -1,6 +1,7 @@
 {
   "name": "law-firm-case-matcher",
   "private": true,
+  "type": "module",
   "workspaces": [
     "backend",
     "frontend"

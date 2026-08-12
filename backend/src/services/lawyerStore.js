@@ -6,30 +6,53 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const defaultLawyerPath = join(__dirname, '..', '..', 'data', 'lawyers.json');
 const defaultApprovalPath = join(__dirname, '..', '..', 'data', 'approvals.json');
 
+let cachedLawyers = null;
+let cachedApprovals = null;
+
 export function loadLawyerProfiles(filePath = defaultLawyerPath) {
+  if (cachedLawyers) return cachedLawyers;
   if (!existsSync(filePath)) {
     return [];
   }
-
-  return JSON.parse(readFileSync(filePath, 'utf8'));
+  try {
+    cachedLawyers = JSON.parse(readFileSync(filePath, 'utf8'));
+    return cachedLawyers;
+  } catch (err) {
+    return cachedLawyers || [];
+  }
 }
 
 export function saveLawyerProfiles(profiles, filePath = defaultLawyerPath) {
-  mkdirSync(dirname(filePath), { recursive: true });
-  writeFileSync(filePath, JSON.stringify(profiles, null, 2));
+  cachedLawyers = profiles;
+  try {
+    mkdirSync(dirname(filePath), { recursive: true });
+    writeFileSync(filePath, JSON.stringify(profiles, null, 2));
+  } catch (err) {
+    console.warn('Persistent write skipped (read-only filesystem on Vercel):', err.message);
+  }
 }
 
 export function loadApprovals(filePath = defaultApprovalPath) {
+  if (cachedApprovals) return cachedApprovals;
   if (!existsSync(filePath)) {
     return [];
   }
-
-  return JSON.parse(readFileSync(filePath, 'utf8'));
+  try {
+    cachedApprovals = JSON.parse(readFileSync(filePath, 'utf8'));
+    return cachedApprovals;
+  } catch (err) {
+    return cachedApprovals || [];
+  }
 }
 
 export function saveApprovals(approvals, filePath = defaultApprovalPath) {
-  mkdirSync(dirname(filePath), { recursive: true });
-  writeFileSync(filePath, JSON.stringify(approvals, null, 2));
+  cachedApprovals = approvals;
+  try {
+    mkdirSync(dirname(filePath), { recursive: true });
+    writeFileSync(filePath, JSON.stringify(approvals, null, 2));
+  } catch (err) {
+    console.warn('Persistent write skipped (read-only filesystem on Vercel):', err.message);
+  }
 }
 
 export function recordApproval(caseInput, lawyerId, notes = '', lawyerPath = defaultLawyerPath, approvalPath = defaultApprovalPath) {
