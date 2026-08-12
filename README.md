@@ -1,6 +1,6 @@
 # Lawyer Tinder - AI Legal Matching & Management Platform
 
-An AI-powered legal matching and case management application designed to streamline case routing, attorney-client matching, and legal document automation.
+An AI-powered legal matching and case management application designed to streamline case routing, attorney-client matching, AI legal risk evaluation, multi-tone document generation, and factual audit guardrails.
 
 > [!WARNING]
 > **Production Readiness & Compliance Disclaimer**:
@@ -11,11 +11,11 @@ An AI-powered legal matching and case management application designed to streaml
 
 ## 🏛️ Project Overview
 
-The **Lawyer Tinder** is a confidential law firm workflow platform with a modern dark-themed glassmorphism UI.
+The **Lawyer Tinder** is a confidential law firm workflow platform with a modern dark-themed glassmorphism UI built for AI demonstrations and prototypes.
 
 - **Frontend**: Built with React (Vite), React Router, Bootstrap, and custom CSS for a sleek, responsive user interface.
 - **Backend**: Powered by Node.js and Express.
-- **AI & Automation**: Uses OpenRouter (GPT models) for intelligent case extraction and drafting legal notices, along with `pdfkit` for automated PDF document generation.
+- **AI Engine**: Powered by OpenRouter (LLMs) for intelligent case extraction, risk prediction, multi-tone drafting, and factual guardrail audits, alongside `pdfkit` for PDF generation and ICS calendar exports.
 
 ---
 
@@ -32,18 +32,20 @@ flowchart TD
 
     subgraph System["Backend & AI Engine"]
         direction TB
-        ExtractDetails("AI extracts case details\n(OpenRouter/GPT)")
+        ExtractDetails("AI extracts case details & deadlines\n(OpenRouter/GPT)")
+        PredictRisk["AI Risk & Win Probability Predictor\n(Win %, Strengths, Opponent Strategy)")
         MatchAttorneys("Match best-fitting attorneys\n(based on expertise & performance)")
         RouteCase("Route case to Lawyer Dashboard")
     end
 
     subgraph Lawyer["Lawyer Dashboard"]
         direction TB
-        ReviewCase("View case in Recent Assignments")
+        ReviewCase("View case & AI Strategy in Recent Assignments")
         Decision{"Accept Case?"}
         GeneratePDF("Generate Engagement Letter\n(PDF via pdfkit)")
-        GenerateDraft("Generate First Draft Legal Notice\n(AI via OpenRouter)")
-        DownloadDoc("Download / View Documents")
+        GenerateDraft("AI Persona Transformer\n(Aggressive / Diplomatic / Plain English)")
+        VerifyFacts("AI Factuality Guardrail Audit\n(Verify confidence & flag hallucinations)")
+        DownloadDoc("Download Documents (.pdf / .md / .ics)")
     end
 
     subgraph Data["Local Persistence"]
@@ -54,7 +56,8 @@ flowchart TD
     %% Flow
     Start --> ProvideInput
     ProvideInput --> ExtractDetails
-    ExtractDetails --> MatchAttorneys
+    ExtractDetails --> PredictRisk
+    PredictRisk --> MatchAttorneys
     MatchAttorneys --> RouteCase
     RouteCase --> ReviewCase
     ReviewCase --> Decision
@@ -63,8 +66,9 @@ flowchart TD
     Decision -->|Accept| GeneratePDF
     Decision -->|Accept| GenerateDraft
 
+    GenerateDraft --> VerifyFacts
+    VerifyFacts --> DownloadDoc
     GeneratePDF --> DownloadDoc
-    GenerateDraft --> DownloadDoc
     DownloadDoc --> EndSuccess(((End:\nCase Processing\nComplete)))
 
     %% Data persistence relationships
@@ -75,42 +79,74 @@ flowchart TD
 
 ## ✨ Key Features
 
-### 1. 📥 Intake Portal
-- Upload case documents or paste case facts.
-- **AI Information Extraction**: Automatically extracts relevant facts, key issues, and practice areas.
-- **Deterministic & AI Attorney Matching**: Ranks and matches the best-fitting attorneys based on expertise and performance data.
+### 1. 📥 AI Intake Portal
+- Upload case documents (PDF/Text) or paste raw case facts.
+- **AI Information Extraction**: Automatically extracts relevant facts, key issues, deadlines, client info, and applicable governing legal codes (e.g. *BGB - Civil Code*, *StGB*).
+- **Deterministic & AI Attorney Matching**: Ranks and matches the best-fitting attorneys based on practice area expertise and historic performance data.
 
 ### 2. 📊 Lawyer Dashboard & Analytics
 - **Performance Analytics**: Visualizes lawyer stats, case volume, and success rates per practice area.
 - **Recent Assignments**: Tabbed workflow allowing attorneys to view, accept, or reject incoming cases.
 
-### 3. 📄 Automated Document Generation
-- **Engagement Letters (PDF)**: Instantly generates and downloads tailored PDF retainer agreements using `pdfkit`, auto-filling client facts and assigned lawyer details.
-- **AI-Powered Legal Notice Drafting**: Generates formal first-draft legal notices (e.g., cease and desist) using OpenRouter AI. Drafts are displayed in a custom modal and can be downloaded as Markdown (`.md`).
+### 3. 🤖 AI Case Risk & Win Strategy Predictor
+- **Win Probability Assessment**: Generates an estimated **Win Rate %** (10-95%) with a visual color-coded progress gauge.
+- **Case Strengths & Vulnerabilities**: Highlights key factual advantages and potential legal risks.
+- **Opponent Strategy Forecast**: AI predicts the opposing counsel's likely counter-arguments or defense strategy.
 
-### 4. 🌍 Full English Localization
-- Cleanly localized legal terms, practice areas (e.g., *Employment Law*, *Civil Code*), and demo cases.
+### 4. 🎭 AI Persona & Multi-Tone Draft Transformer
+Generate or regenerate formal notice letters in 4 distinct AI tones:
+- 📜 **Standard Notice**: Formal legal notice and position statement.
+- ⚡ **Aggressive Demand**: Firm posture emphasizing legal penalties, statutory compliance deadlines, and immediate litigation intent.
+- 🤝 **Diplomatic Settlement**: Cooperative tone emphasizing pre-litigation negotiation and mutual resolution.
+- 🗣️ **Plain English Client Summary**: Jargon-free 5th-grade reading level explanation so clients clearly understand their case status.
 
-### 5. 🔒 Security & Authentication
-- **Protected Routes**: The entire application, including the Intake Portal and Lawyer Dashboard, is secured behind a login screen.
-- **Simple Login**: Employs a basic mock JWT authentication setup for quick testing and demonstration.
+### 5. 🔍 AI Factuality Verification Guardrail
+- Audits AI-generated drafts against original source intake facts.
+- Returns a **Verified Confidence Score (%)**, verification audit notes, and flags potential hallucinations or ungrounded claims (e.g., mismatched dates or fabricated names).
+
+### 6. 📄 Automated Document & Calendar Generation
+- **Engagement Letters (PDF)**: Instantly generates and downloads tailored PDF retainer agreements using `pdfkit`.
+- **Calendar Deadline Export (.ics)**: One-click export of case deadlines into iCal / Outlook / Google Calendar `.ics` files.
+- **Markdown Notice Downloads**: Download AI legal drafts as `.md` files.
+
+### 7. 🔒 Security & Authentication
+- **Protected Routes**: The application is secured behind a login screen (`admin` / `admin`).
+
+---
+
+## 🔌 API Endpoints Summary
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/extract` | Extract structured facts, legal code, and deadlines using AI |
+| `POST` | `/api/upload` | Upload PDF/text file for AI fact extraction |
+| `POST` | `/api/recommend` | Rank & match best-fitting lawyers for case details |
+| `POST` | `/api/approve` | Approve lawyer assignment and persist approval |
+| `GET` | `/api/cases` | Fetch all assigned cases |
+| `GET` | `/api/lawyers` | Fetch all lawyer profiles and performance metrics |
+| `POST` | `/api/cases/:id/risk-analysis` | Perform AI Win Probability & Strategy Analysis |
+| `POST` | `/api/analyze-risk` | Standalone AI Risk & Strategy analysis |
+| `POST` | `/api/cases/:id/draft` | Generate AI legal notice (supports `tone` parameter) |
+| `POST` | `/api/cases/:id/verify-draft` | Audit AI draft factuality against source facts |
+| `GET` | `/api/cases/:id/engagement-letter` | Download PDF engagement letter |
+| `GET` | `/api/cases/:id/ics` | Download `.ics` calendar deadline file |
 
 ---
 
 ## 💾 Data Architecture & Persistence
 
-Data is currently stored and persisted locally via JSON data files:
+Data is persisted locally via JSON data files:
 - `backend/data/lawyers.json`: Attorney profiles, practice areas, and performance metrics.
-- `backend/data/approvals.json`: Intake cases, approval statuses, and cached AI-generated draft documents.
+- `backend/data/approvals.json`: Intake cases, approval statuses, risk analyses, and cached AI-generated draft documents.
 
 ---
 
 ## 📦 System Prerequisites & Installation
 
 ### Prerequisites
-To run this application, you must install:
-1. **Node.js**: Version ``24.x` LTS recommended. Download from [nodejs.org](https://nodejs.org/).
-2. **npm**: Included automatically with Node.js (`v11.x` or higher recommended).
+To run this application:
+1. **Node.js**: Version `24.x` LTS recommended.
+2. **npm**: Included automatically with Node.js.
 
 ---
 
@@ -133,7 +169,7 @@ To run this application, you must install:
    Create a `.env` file inside the `backend` directory:
    ```env
    OPENROUTER_API_KEY=your_openrouter_api_key_here
-   OPENROUTER_MODEL=your_preferred_ai_model_from_Openrouter_here
+   OPENROUTER_MODEL=openai/gpt-4o-mini
    ```
 
 4. **Run Development Server**:
@@ -145,13 +181,11 @@ To run this application, you must install:
    - **Backend API**: `http://localhost:3001`
    - **Backend Health Check**: `http://localhost:3001/health`
 
-> **Note**: Default credentials: **Username**: `admin` | **Password**: `admin`
+> **Default credentials**: Username: `admin` | Password: `admin`
 
 ---
 
 ### 🏭 2. Production Environment
-
-Before deploying to a production server:
 
 1. **Install Production Dependencies**:
    ```bash
@@ -162,18 +196,11 @@ Before deploying to a production server:
    ```bash
    npm run build
    ```
-   *(Creates optimized static frontend build in `frontend/dist`)*
 
 3. **Run Production Server**:
-   - Serve `frontend/dist` via Nginx, Caddy, or an Express static file handler.
-   - Start backend using Node or a process manager like `pm2`:
-     ```bash
-     npx pm2 start backend/server.js --name "lawyer-app-backend"
-     ```
-     Or directly via workspace script:
-     ```bash
-     npm run start --workspace backend
-     ```
+   ```bash
+   npm run start --workspace backend
+   ```
 
 ---
 
@@ -181,4 +208,3 @@ Before deploying to a production server:
 
 - **Backend Unit Tests**: `npm test`
 - **Frontend Production Build Check**: `npm run build --workspace frontend`
-
