@@ -17,8 +17,8 @@ test('ranks lawyers by practice area, jurisdiction, and history', async () => {
 
   assert.equal(results.length, 3);
   assert.equal(results[0].name.includes('Ava Patel'), true);
-  assert.equal(typeof results[0].reason, 'string');
-  assert.ok(results[0].reason.length > 0);
+  assert.equal(results[0].reason.includes('Employment'), true);
+  assert.equal(results[0].reason.includes('New York'), true);
 });
 
 test('creates an approval record for the selected lawyer', () => {

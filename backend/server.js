@@ -15,21 +15,9 @@ const port = process.env.PORT || 3001;
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
-app.use((req, res, next) => {
-  if (req.body) {
-    if (typeof req.body === 'string') {
-      try {
-        req.body = JSON.parse(req.body);
-      } catch (e) {}
-    }
-    if (typeof req.body === 'object') {
-      return next();
-    }
-  }
-  express.json()(req, res, next);
-});
+app.use(express.json());
 
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
@@ -232,7 +220,7 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-if (!process.env.VERCEL) {
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
   app.listen(port, () => {
     console.log(`Backend running on http://localhost:${port}`);
   });

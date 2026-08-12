@@ -4,8 +4,7 @@
   "scripts": {
     "dev": "node --watch server.js",
     "start": "node server.js",
-    "test": "node --test",
-    "build": "echo 'No build required for backend'"
+    "test": "node --test"
   },
   "dependencies": {
     "cors": "^2.8.5",
