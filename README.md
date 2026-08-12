@@ -33,7 +33,7 @@ flowchart TD
     subgraph System["Backend & AI Engine"]
         direction TB
         ExtractDetails("AI extracts case details & deadlines\n(OpenRouter/GPT)")
-        PredictRisk["AI Risk & Win Probability Predictor\n(Win %, Strengths, Opponent Strategy)")
+        PredictRisk("AI Risk & Win Probability Predictor\n(Win %, Strengths, Opponent Strategy)")
         MatchAttorneys("Match best-fitting attorneys\n(based on expertise & performance)")
         RouteCase("Route case to Lawyer Dashboard")
     end
