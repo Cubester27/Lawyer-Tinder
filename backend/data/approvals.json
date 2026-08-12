@@ -1,488 +1,177 @@
 [
   {
-    "id": "1785755465664",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-03T11:11:05.664Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785755724187",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-03T11:15:24.187Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785826333049",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T06:52:13.049Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785826382783",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T06:53:02.783Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785829801646",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T07:50:01.646Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837104176",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:51:44.176Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837179550",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:52:59.550Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837221297",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:53:41.297Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837372945",
-    "caseTitle": "Employment discrimination claim",
+    "id": "1786522000001",
+    "caseTitle": "Extraordinary Termination & Non-Compete Dispute",
     "selectedLawyer": "Dr. Ava Patel",
     "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:56:12.945Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837451230",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:57:31.230Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837470145",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T09:57:50.145Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837682242",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:01:22.242Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785837852401",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:04:12.401Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785840164117",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:42:44.117Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785840182129",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:43:02.129Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785840267427",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:44:27.427Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785840311991",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-04T10:45:11.991Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785913613260",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T07:06:53.260Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785913829311",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T07:10:29.311Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785913900077",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T07:11:40.077Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    }
-  },
-  {
-    "id": "1785918667531",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-05T08:31:07.531Z",
-    "caseDetails": {
-      "clientName": "Max Mustermann"
-    },
-    "status": "Accepted"
-  },
-  {
-    "id": "1785919893682",
-    "caseTitle": "Legal representation request regarding extraordinary termination and non-compete clause",
-    "selectedLawyer": "Lukas Weber",
-    "lawyerId": "6",
-    "notes": "Urgent deadline - Please prioritize case intake.",
-    "approvedAt": "2026-08-05T08:51:33.682Z",
+    "notes": "Priority employment case. Employee terminated without statutory notice.",
+    "approvedAt": "2026-08-10T14:30:00.000Z",
     "status": "Accepted",
-    "draft": "# LEGAL NOTICE\n\n**To:** [Recipient Name/Company Name]  \n**Address:** [Recipient Address]  \n**Date:** [Insert Date]\n\n**Re: Formal Legal Notice Regarding Extraordinary Termination and Enforcement of Non-Compete Clause**\n\nDear [Recipient Name],\n\nWe act on behalf of our client, **[Client Name]** , of **[Client Address]** , and are instructed to address the following matters, which we set out in the utmost seriousness.\n\n---\n\n## 1. BACKGROUND\n\nOur client was employed by your organisation under an employment agreement dated **[Date of Agreement]** (the \"Agreement\"). The Agreement governed, among other things, the terms of employment, grounds for termination, and post-employment restrictive covenants, including a non-compete clause (the \"Non-Compete Clause\").\n\nOn **[Date of Termination]** , you purportedly effected an **extraordinary termination** of our client's employment with immediate effect, citing **[state the grounds if known; otherwise: purported gross misconduct/breach of duty]** . Our client denies the validity and lawfulness of such termination. The circumstances of this termination and the subsequent enforcement of the Non-Compete Clause are the subject of this notice.\n\n---\n\n## 2. LEGAL GROUNDS FOR OBJECTION TO THE EXTRAORDINARY TERMINATION\n\nExtraordinary termination (termination for cause) is a measure of last resort, strictly construed in law. It requires the existence of a **material breach** of contractual or statutory obligations of such gravity that the continuation of the employment relationship cannot reasonably be expected.\n\nWe assert the following:\n\n1. **No valid cause exists.** Our client has at all times acted in good faith and in compliance with the Agreement. The grounds cited by you are unsubstantiated, lack evidentiary support, and do not constitute a valid basis for extraordinary termination. Purported grounds include **[list any alleged grounds: e.g., misconduct, disloyalty, breach of fiduciary duty]** , all of which are denied.\n\n2. **Procedural invalidity.** Any extraordinary termination requires compliance with procedural safeguards, including providing the employee an opportunity to respond to the allegations before termination. This was not afforded to our client, rendering the termination procedurally defective and void.\n\n3. **No prior warning or notice.** The law requires that such termination be preceded by a formal written warning and an opportunity for remediation, except in cases of egregious misconduct. No such steps were undertaken.\n\n4. **Lack of proportionality.** Extraordinary termination must be proportionate. Any alleged misconduct (which is denied) does not meet the high threshold required to justify the most severe sanction available.\n\nAccordingly, the purported extraordinary termination is **unlawful, unjustified, and of no legal effect**. Our client remains employed by you, or, alternatively, is entitled to full compensation for wrongful termination, including salary, benefits, and damages.\n\n---\n\n## 3. NON-COMPETE CLAUSE – NO VALIDITY OR ENFORCEABILITY\n\nYou have also notified our client of your intent to enforce the Non-Compete Clause contained in the Agreement. We hereby formally object to any such enforcement on the following grounds:\n\n1. **Invalidity of the underlying termination.** Where the termination is found to be unlawful, restrictive covenants such as non-compete clauses typically become unenforceable, as they are premised upon lawful termination of the employment relationship.\n\n2. **Unreasonable scope.** The Non-Compete Clause as drafted is overbroad and unreasonable. Its [geographic scope / duration / business scope] is excessive and does not serve a legitimate protectable business interest. It exceeds what is reasonably necessary to protect your confidential information, trade secrets, or client relationships.\n\n3. **No legitimate proprietary interest.** Our client's role and duties did not involve access to trade secrets, confidential client lists, or other proprietary information that would justify the enforcement of such a restrictive covenant. Your attempt to enforce the clause constitutes an unlawful restraint on trade.\n\n4. **Restraint of trade.** The Non-Compete Clause, as sought to be enforced, is an unreasonable restraint of trade and is contrary to public policy.\n\n5. **No consideration.** The Non-Compete Clause was not supported by fresh or adequate consideration at the time it was executed, nor does the clause provide for ongoing remuneration or compensation during the restricted period.\n\n---\n\n## 4. DEMANDS\n\nIn light of the foregoing, we hereby demand, on behalf of our client, that you:\n\n1. **Cease and desist** from any representation that the extraordinary termination is valid and of legal effect;\n\n2. **Retract** the purported termination and reinstate our client to their former position with full pay and restoration of benefits, effective immediately;\n\n3. **Refrain** from enforcing the Non-Compete Clause and provide written confirmation that you will not take any steps to restrict our client's right to seek engagement with competitors;\n\n4. **Pay** to our client all outstanding salary, bonuses, benefits, and any other entitlements due up to the date of the purported termination, together with statutory interest;\n\n5. **Compensate** our client for all losses and damages suffered as a result of the unlawful termination, including but not limited to loss of earnings, loss of reputation, and legal costs; and\n\n6. **Provide** a written response to this notice within **[Insert Number]** days of receipt, confirming your compliance with the demands set out above.\n\n---\n\n## 5. NOTICE OF LEGAL ACTION\n\nShould you fail to comply with the demands above within the stipulated period, our client shall, without further notice:\n\n- Institute legal proceedings against you for wrongful/unlawful termination and seek reinstatement or damages;\n- File a claim for breach of contract and seek compensation in full;\n- Seek a declaratory order that the Non-Compete Clause is void, invalid, and unenforceable;\n- Pursue all equitable and statutory remedies available at law, including but not limited to punitive damages and interest.\n\nAdditionally, we hereby place you on notice that you are to preserve all documents, communications, and records relating to our client's employment and termination, as these may be subject to discovery and production in legal proceedings.\n\n---\n\n## 6. LIMITATION AND DEADLINE\n\nPlease respond to this notice **in writing** within **[Insert Number]** days from the date of receipt. Absent a satisfactory and legally compliant response, we shall proceed with legal action without further notice, and we reserve the right to seek costs against you.\n\n---\n\n## 7. RESERVATION OF RIGHTS\n\nNothing in this notice shall be construed as a waiver, limitation, or release of any rights, claims, defenses, or remedies our client may have against you, whether at law or in equity, all of which are expressly reserved.\n\n---\n\nWe await your formal response.\n\nYours sincerely,\n\n---\n\n**[Attorney Name]**  \n**Attorney-at-Law**  \n**Law Firm:** [Firm Name]  \n**Address:** [Firm Address]  \n**Tel:** [Phone Number]  \n**Email:** [Email Address]  \n**Licence No.:** [Bar Number]\n\n---\n\n*This legal notice is prepared on the basis of the facts presented. The applicable law, case details, and deadlines were not provided and must be supplemented before filing any court proceedings.*",
     "caseDetails": {
-      "clientName": "Max Mustermann"
+      "title": "Extraordinary Termination & Non-Compete Dispute",
+      "clientName": "Elena Rostova",
+      "practiceArea": "Employment Law",
+      "caseFocus": "Dismissal Protection & Post-Contractual Non-Compete",
+      "jurisdiction": "Germany",
+      "applicableCode": "KSchG - Dismissal Protection Act § 4",
+      "summary": "Client received an immediate extraordinary termination notice from TechCorp GmbH after 5 years of service. Employer alleges unauthorized work-from-home policy violation. Client demands statutory 3-week protection lawsuit filing and severance pay under KSchG § 4.",
+      "primaryDeadlineDate": "2026-08-25",
+      "deadlines": [
+        {
+          "date": "2026-08-25",
+          "label": "KSchG 3-Week Claim Filing Deadline",
+          "sourceText": "Lawsuit against dismissal must be filed within 3 weeks of receipt under KSchG § 4.",
+          "urgency": "high"
+        }
+      ]
+    },
+    "draft": "# FORMAL NOTICE OF WRONGFUL TERMINATION & CEASE AND DESIST\n\n**To:** TechCorp GmbH, Legal Department  \n**From:** Dr. Ava Patel, Attorney at Law  \n**Date:** August 12, 2026  \n**Re:** Extraordinary Termination of Ms. Elena Rostova  \n\nDear Sirs/Madams,\n\nWe represent Ms. Elena Rostova regarding the extraordinary termination letter dated August 4, 2026.\n\nUnder Section 4 of the German Dismissal Protection Act (KSchG), an extraordinary termination requires extraordinary cause under BGB § 626. The alleged remote work policy violation does not constitute sufficient grounds for summary dismissal without prior formal warning (Abmahnung).\n\nWe demand immediate reinstatement and written confirmation of continued salary payments by August 25, 2026. Failing this, a protection lawsuit will be filed with the Labor Court.\n\nSincerely,  \nDr. Ava Patel"
+  },
+  {
+    "id": "1786522000002",
+    "caseTitle": "SaaS License Agreement Breach & Royalty Claim",
+    "selectedLawyer": "Marcus Lee, Esq.",
+    "lawyerId": "2",
+    "notes": "Commercial contract dispute over unpaid Enterprise SaaS royalties.",
+    "approvedAt": "2026-08-11T09:15:00.000Z",
+    "status": "Accepted",
+    "caseDetails": {
+      "title": "SaaS License Agreement Breach & Royalty Claim",
+      "clientName": "Apex Cloud Solutions LLC",
+      "practiceArea": "Commercial Litigation",
+      "caseFocus": "Software Licensing & Unpaid License Fees",
+      "jurisdiction": "New York",
+      "applicableCode": "NY UCC § 2-709 - Action for the Price",
+      "summary": "Client provided Enterprise Cloud API infrastructure to Global Media Inc. Defendant breached the master service agreement by failing to pay Q1 and Q2 usage royalties totaling $145,000 despite full API availability.",
+      "primaryDeadlineDate": "2026-08-30",
+      "deadlines": [
+        {
+          "date": "2026-08-30",
+          "label": "Pre-Litigation Cure Period Expiration",
+          "sourceText": "Section 14.2 MSA provides 30 days written notice to cure monetary default.",
+          "urgency": "high"
+        }
+      ]
+    },
+    "draft": "# PRE-LITIGATION DEMAND FOR PAYMENT\n\n**To:** Global Media Inc., Accounts Payable  \n**From:** Marcus Lee, Esq.  \n**Date:** August 12, 2026  \n**Re:** Breach of Master SaaS Agreement – Overdue Royalties ($145,000)  \n\nDear Counsel,\n\nOur firm represents Apex Cloud Solutions LLC. Under NY UCC § 2-709 and Master Service Agreement Section 14.2, your client is currently in material default for unpaid API infrastructure services provided in Q1 and Q2 2026.\n\nTotal outstanding principal equals $145,000.00. Unless full remittal is wired by August 30, 2026, we will immediately initiate breach of contract litigation in NY Supreme Court seeking damages, contractual interest, and attorney fees.\n\nSincerely,  \nMarcus Lee, Esq."
+  },
+  {
+    "id": "1786522000003",
+    "caseTitle": "Tenancy Defect Rent Reduction & Repair Demand",
+    "selectedLawyer": "Dr. Maximilian von Berg",
+    "lawyerId": "4",
+    "notes": "Severe water damage and toxic mold in rented apartment.",
+    "approvedAt": "2026-08-08T16:00:00.000Z",
+    "status": "Accepted",
+    "caseDetails": {
+      "title": "Tenancy Defect Rent Reduction & Repair Demand",
+      "clientName": "Lukas Lindemann",
+      "practiceArea": "Tenancy Law",
+      "caseFocus": "BGB § 536 Rent Reduction & Defect Rectification",
+      "jurisdiction": "Germany",
+      "applicableCode": "BGB - Civil Code § 536 & § 536a",
+      "summary": "Tenant suffered severe ceiling water damage causing toxic black mold growth in master bedroom. Landlord property management ignored two formal repair notices. Client asserts statutory 30% rent reduction and demands professional remediation.",
+      "primaryDeadlineDate": "2026-08-20",
+      "deadlines": [
+        {
+          "date": "2026-08-20",
+          "label": "Landlord Remediation Deadline",
+          "sourceText": "Defect rectification deadline set under BGB § 536a.",
+          "urgency": "medium"
+        }
+      ]
     }
   },
   {
-    "id": "1786012288235",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-06T10:31:28.235Z",
+    "id": "1786522000004",
+    "caseTitle": "GDPR Article 82 Compensation Claim",
+    "selectedLawyer": "Dr. Christian Lindner-Hoffmann",
+    "lawyerId": "8",
+    "notes": "Unauthorized processing of sensitive medical customer data.",
+    "approvedAt": "2026-08-12T08:10:00.000Z",
     "status": "Pending",
     "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
+      "title": "GDPR Article 82 Compensation Claim",
+      "clientName": "Sophie Neumann",
+      "practiceArea": "Data Protection",
+      "caseFocus": "Article 82 GDPR Non-Material Damage Compensation",
+      "jurisdiction": "EU / Germany",
+      "applicableCode": "GDPR Art. 82 & Art. 15 Right of Access",
+      "summary": "E-Commerce health platform leaked client's personal medical transaction history to third-party ad brokers without consent. Client seeks full Art. 15 disclosure logs and Art. 82 non-material damages compensation.",
+      "primaryDeadlineDate": "2026-09-12",
       "deadlines": [
         {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
+          "date": "2026-09-12",
+          "label": "GDPR Art. 15 One-Month Response Deadline",
+          "sourceText": "Data controller must provide information within 1 month under GDPR Art. 12(3).",
+          "urgency": "medium"
         }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
+      ]
     }
   },
   {
-    "id": "1786012310790",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-06T10:31:50.790Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786012336643",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-06T10:32:16.643Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786352207539",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-10T08:56:47.539Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786445068456",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-11T10:44:28.456Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786445147148",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-11T10:45:47.148Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786445420219",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-11T10:50:20.219Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786445693900",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-11T10:54:53.900Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786521092240",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-12T07:51:32.241Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786521106052",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-12T07:51:46.052Z",
-    "status": "approved",
-    "caseDetails": {
-      "title": "Employment discrimination claim",
-      "practiceArea": "Employment",
-      "jurisdiction": "New York",
-      "summary": "A former employee alleges wrongful termination and retaliation.",
-      "caseFocus": "Employment",
-      "deadlines": [
-        {
-          "date": "2026-08-15",
-          "sourceText": "due by August 15, 2026"
-        }
-      ],
-      "primaryDeadlineDate": "2026-08-15"
-    }
-  },
-  {
-    "id": "1786521159723",
-    "caseTitle": "Employment discrimination claim",
-    "selectedLawyer": "Dr. Ava Patel",
-    "lawyerId": "1",
-    "notes": "Needs a fast response",
-    "approvedAt": "2026-08-12T07:52:39.723Z",
+    "id": "1786522000005",
+    "caseTitle": "Surgical Error & Informed Consent Violation",
+    "selectedLawyer": "Sarah Jenkins",
+    "lawyerId": "7",
+    "notes": "Orthopedic nerve damage post-surgery.",
+    "approvedAt": "2026-08-05T11:45:00.000Z",
     "status": "Accepted",
     "caseDetails": {
+      "title": "Surgical Error & Informed Consent Violation",
+      "clientName": "David Miller",
+      "practiceArea": "Medical Malpractice",
+      "caseFocus": "BGB § 630a Patient Rights & Treatment Error Liability",
+      "jurisdiction": "New York",
+      "applicableCode": "BGB § 630a et seq. & NY CPLR § 214-a",
+      "summary": "Client underwent routine knee arthroscopy resulting in permanent peroneal nerve paralysis due to improper surgical instrument positioning. Pre-op consent form omitted nerve injury risk disclosures.",
+      "primaryDeadlineDate": "2026-09-01",
+      "deadlines": [
+        {
+          "date": "2026-09-01",
+          "label": "Expert Medical Board Arbitration Submission",
+          "sourceText": "Submission of medical expert report to conciliation board.",
+          "urgency": "medium"
+        }
+      ]
+    }
+  },
+  {
+    "id": "1786522000006",
+    "caseTitle": "Commercial Fraud & Misappropriation Defense",
+    "selectedLawyer": "Dr. Hannah Neumann",
+    "lawyerId": "13",
+    "notes": "Allegations of corporate expense account inflation.",
+    "approvedAt": "2026-08-11T17:20:00.000Z",
+    "status": "Pending",
+    "caseDetails": {
+      "title": "Commercial Fraud & Misappropriation Defense",
+      "clientName": "Michael Sterling",
+      "practiceArea": "White-Collar Crime",
+      "caseFocus": "StGB § 263 Fraud & § 266 Breach of Trust",
+      "jurisdiction": "Germany / Hamburg",
+      "applicableCode": "StGB § 266 - Breach of Trust (Untreue)",
+      "summary": "Former Chief Financial Officer accused by audit committee of unauthorized wire transfers totaling €320,000 to offshore advisory entities. Client asserts transfers were pre-approved consultancy retainers.",
+      "primaryDeadlineDate": "2026-08-28",
+      "deadlines": [
+        {
+          "date": "2026-08-28",
+          "label": "Formal Statement to Prosecutor (StPO § 163a)",
+          "sourceText": "Defense statement submission date set by Public Prosecutor.",
+          "urgency": "high"
+        }
+      ]
+    }
+  },
+  {
+    "id": "1786526722356",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-12T09:25:22.356Z",
+    "status": "approved",
+    "caseDetails": {
       "title": "Employment discrimination claim",
       "practiceArea": "Employment",
       "jurisdiction": "New York",
@@ -495,7 +184,29 @@
         }
       ],
       "primaryDeadlineDate": "2026-08-15"
-    },
-    "draft": "# FORMAL DEMAND NOTICE  \n## Employment Discrimination, Retaliation, and Wrongful Termination\n\n**Date:** [Insert Date]  \n\n**To:** [Employer Legal Name]  \n**Attn:** General Counsel / Human Resources Director / Registered Agent  \n[Address]  \n\n**From:** [Former Employee Name]  \n[Address]  \n[Email] | [Telephone]  \n\n**Re:** **Notice of Claims; Demand for Immediate Compliance; Litigation Hold**\n\n---\n\n## NOTICE OF CLAIMS\n\nThis letter constitutes formal notice that **[Former Employee Name]** (“Claimant”) asserts claims against **[Employer Legal Name]** (“Company”) arising from the Company’s discriminatory, retaliatory, and wrongful termination of Claimant’s employment.\n\nClaimant alleges that the Company subjected Claimant to unlawful adverse treatment based on protected characteristics and/or protected activity, retaliated against Claimant for opposing, reporting, participating in, or otherwise engaging in legally protected conduct, and ultimately terminated Claimant’s employment for unlawful reasons. The Company’s actions caused substantial economic loss, reputational harm, emotional distress, and other recoverable damages.\n\nThe Company is on notice that its conduct may violate all applicable federal, state, and local employment laws, including laws prohibiting discrimination, retaliation, wrongful discharge, and interference with protected workplace rights.\n\nThe Company must immediately cease any further retaliatory, discriminatory, defamatory, or otherwise unlawful conduct directed toward Claimant.\n\n---\n\n## IMMEDIATE LITIGATION HOLD AND PRESERVATION DEMAND\n\nThe Company must immediately preserve all potentially relevant documents, electronically stored information (“ESI”), communications, metadata, and tangible evidence. This preservation obligation is immediate and extends to all Company personnel, agents, managers, supervisors, human-resources staff, information-technology personnel, outside vendors, and any other custodians of relevant material.\n\nThe Company must suspend all routine deletion, destruction, overwriting, recycling, alteration, or modification of relevant information, including automatic email deletion, chat-retention policies, backup-system overwrites, mobile-device replacement practices, and document-destruction procedures.\n\nThe preservation demand includes, without limitation:\n\n- Claimant’s complete personnel file;\n- All records concerning Claimant’s hiring, performance, compensation, discipline, complaints, investigations, leave, accommodations, evaluations, and termination;\n- Emails, text messages, instant messages, chat communications, collaboration-platform messages, voicemails, memoranda, notes, and correspondence concerning Claimant;\n- Communications among managers, supervisors, Human Resources, legal personnel, executives, and coworkers regarding Claimant;\n- Records concerning any complaint, report, investigation, or protected activity involving Claimant;\n- Documents identifying the persons involved in recommending, approving, investigating, or implementing Claimant’s termination;\n- Comparator employee records, including disciplinary, performance, compensation, promotion, termination, and complaint-related records;\n- Policies, handbooks, training materials, anti-discrimination policies, anti-retaliation policies, complaint procedures, and termination procedures in effect during Claimant’s employment;\n- Audit logs, access logs, metadata, system records, personnel-system entries, HRIS records, payroll data, timekeeping records, and electronic-file histories;\n- Audio or video recordings, surveillance footage, meeting recordings, and telephone records;\n- Documents relating to any asserted business justification for Claimant’s termination or other adverse employment action; and\n- All communications with third parties concerning Claimant’s employment, separation, performance, or alleged misconduct.\n\nAny destruction, alteration, concealment, or failure to preserve relevant evidence after receipt of this notice will be treated as intentional spoliation and will be raised in any administrative proceeding or litigation. Claimant will seek all available sanctions, adverse evidentiary inferences, cost-shifting, and other remedies arising from such conduct.\n\n---\n\n## DEMANDS\n\nClaimant demands that the Company, through authorized legal counsel, provide a written response addressing the following:\n\n1. **Confirm in writing that a litigation hold has been issued immediately** and identify the categories of records and custodians covered by that hold.\n\n2. **Identify all individuals involved** in the decision to discipline, investigate, suspend, demote, terminate, or otherwise take adverse action against Claimant.\n\n3. **State the Company’s complete factual and legal basis** for Claimant’s termination and any other adverse actions taken against Claimant.\n\n4. **Produce or make available for review** Claimant’s complete personnel file and all documents relied upon in connection with Claimant’s termination.\n\n5. **Identify all complaints, reports, investigations, or protected activity** involving Claimant, including the dates, participants, findings, and actions taken.\n\n6. **Preserve and identify all comparator evidence** concerning similarly situated employees who were treated more favorably or differently under comparable circumstances.\n\n7. **Cease all retaliatory or disparaging communications** concerning Claimant and ensure that no Company representative provides false, misleading, or retaliatory information to prospective employers, governmental agencies, or third parties.\n\n8. **Engage in prompt, good-faith resolution discussions** to compensate Claimant for all losses and damages caused by the Company’s unlawful conduct.\n\n---\n\n## COMPLIANCE DEADLINE\n\nThe Company must provide a substantive written response and written confirmation of preservation compliance **no later than August 15, 2026**.\n\nFailure to comply fully by this deadline will be treated as a refusal to resolve this matter informally and as further evidence of the Company’s disregard for its legal obligations.\n\n---\n\n## NOTICE OF INTENT TO PURSUE FORMAL REMEDIES\n\nIf the Company fails to provide timely, complete, and good-faith compliance with the above demands, Claimant intends to proceed without further notice to pursue all available remedies through appropriate administrative agencies and/or court proceedings.\n\nClaimant will seek all available relief, including but not limited to:\n\n- Back pay and lost wages;\n- Front pay and loss of future earning capacity;\n- Reinstatement, where appropriate;\n- Compensatory damages;\n- Emotional-distress damages;\n- Punitive damages, where permitted;\n- Statutory damages and penalties;\n- Prejudgment and post-judgment interest;\n- Attorneys’ fees and litigation costs;\n- Injunctive and declaratory relief;\n- Evidentiary sanctions and adverse inferences for spoliation; and\n- Any other relief available under applicable law.\n\nNothing in this notice constitutes a complete statement of Claimant’s claims, facts, damages, evidence, or legal theories. Claimant expressly reserves all rights, claims, causes of action, and remedies."
+    }
+  },
+  {
+    "id": "1786527669705",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-12T09:41:09.705Z",
+    "status": "approved",
+    "caseDetails": {
+      "title": "Employment discrimination claim",
+      "practiceArea": "Employment",
+      "jurisdiction": "New York",
+      "summary": "A former employee alleges wrongful termination and retaliation.",
+      "caseFocus": "Employment",
+      "deadlines": [
+        {
+          "date": "2026-08-15",
+          "sourceText": "due by August 15, 2026"
+        }
+      ],
+      "primaryDeadlineDate": "2026-08-15"
+    }
   }
 ]
