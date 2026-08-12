@@ -208,5 +208,51 @@
       ],
       "primaryDeadlineDate": "2026-08-15"
     }
+  },
+  {
+    "id": "1786527977018",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-12T09:46:17.018Z",
+    "status": "approved",
+    "caseDetails": {
+      "title": "Employment discrimination claim",
+      "practiceArea": "Employment",
+      "jurisdiction": "New York",
+      "summary": "A former employee alleges wrongful termination and retaliation.",
+      "caseFocus": "Employment",
+      "deadlines": [
+        {
+          "date": "2026-08-15",
+          "sourceText": "due by August 15, 2026"
+        }
+      ],
+      "primaryDeadlineDate": "2026-08-15"
+    }
+  },
+  {
+    "id": "1786527998112",
+    "caseTitle": "Employment discrimination claim",
+    "selectedLawyer": "Dr. Ava Patel",
+    "lawyerId": "1",
+    "notes": "Needs a fast response",
+    "approvedAt": "2026-08-12T09:46:38.112Z",
+    "status": "approved",
+    "caseDetails": {
+      "title": "Employment discrimination claim",
+      "practiceArea": "Employment",
+      "jurisdiction": "New York",
+      "summary": "A former employee alleges wrongful termination and retaliation.",
+      "caseFocus": "Employment",
+      "deadlines": [
+        {
+          "date": "2026-08-15",
+          "sourceText": "due by August 15, 2026"
+        }
+      ],
+      "primaryDeadlineDate": "2026-08-15"
+    }
   }
 ]
