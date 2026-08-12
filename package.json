@@ -7,7 +7,7 @@
     "frontend"
   ],
   "scripts": {
-    "dev": "concurrently -n \"backend,frontend\" -c \"blue,magenta\" \"npm run dev --workspace backend\" \"wait-on http-get://127.0.0.1:3001/health && npm run dev --workspace frontend\"",
+    "dev": "concurrently -n \"backend,frontend\" -c \"blue,magenta\" \"npm run dev --workspace backend\" \"wait-on http-get://127.0.0.1:3001/api/health && npm run dev --workspace frontend\"",
     "test": "npm run test --workspace backend",
     "build": "cd frontend && npm run build"
   },
