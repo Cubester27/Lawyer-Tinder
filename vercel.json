@@ -5,7 +5,7 @@
   "outputDirectory": "frontend/dist",
   "functions": {
     "api/index.js": {
-      "includeFiles": "backend/data/**"
+      "includeFiles": ["backend/data/**", "node_modules/pdfkit/js/data/**"]
     }
   },
   "rewrites": [

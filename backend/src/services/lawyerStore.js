@@ -3,8 +3,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const defaultLawyerPath = join(__dirname, '..', '..', 'data', 'lawyers.json');
-const defaultApprovalPath = join(__dirname, '..', '..', 'data', 'approvals.json');
+const defaultLawyerPath = join(process.cwd(), 'backend', 'data', 'lawyers.json');
+const defaultApprovalPath = join(process.cwd(), 'backend', 'data', 'approvals.json');
 
 let cachedLawyers = null;
 let cachedApprovals = null;
