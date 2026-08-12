@@ -15,7 +15,19 @@ const port = process.env.PORT || 3001;
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.body) {
+    if (typeof req.body === 'string') {
+      try {
+        req.body = JSON.parse(req.body);
+      } catch (e) {}
+    }
+    if (typeof req.body === 'object') {
+      return next();
+    }
+  }
+  express.json()(req, res, next);
+});
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
