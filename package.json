@@ -11,6 +11,14 @@
     "test": "npm run test --workspace backend",
     "build": "npm run build --workspace frontend"
   },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.21.2",
+    "multer": "^1.4.1",
+    "pdf-parse": "^2.4.5",
+    "pdfkit": "^0.19.1"
+  },
   "devDependencies": {
     "concurrently": "^9.0.1",
     "wait-on": "^9.1.0"
