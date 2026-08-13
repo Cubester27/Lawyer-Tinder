@@ -28,8 +28,9 @@ const Login = ({ setAuth }) => {
 
       if (response.ok) {
         setAuth(true);
+        sessionStorage.setItem('auth_token', data.token);
         localStorage.setItem('auth_token', data.token);
-        navigate('/dashboard');
+        navigate('/');
       } else {
         setError(data.error || 'Login failed');
       }
@@ -44,26 +45,26 @@ const Login = ({ setAuth }) => {
     <div className="container py-5">
       <div className="row g-4 align-items-center justify-content-center">
         <div className="col-lg-5 col-md-6">
-          <div className="card bg-dark border-secondary shadow-lg">
+          <div className="app-card shadow-lg p-2">
             <div className="card-body p-4">
               <h2 className="text-center mb-4 fw-bold">Lawyer Tinder Login</h2>
               {error && <div className="alert alert-danger p-2">{error}</div>}
               <form onSubmit={handleLogin}>
                 <div className="mb-3">
-                  <label className="form-label text-slate-300 text-white">Username</label>
+                  <label className="form-label fw-medium">Username</label>
                   <input 
                     type="text" 
-                    className="form-control bg-dark text-white border-secondary"
+                    className="form-control form-control-custom"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="form-label text-slate-300 text-white">Password</label>
+                  <label className="form-label fw-medium">Password</label>
                   <input 
                     type="password" 
-                    className="form-control bg-dark text-white border-secondary"
+                    className="form-control form-control-custom"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -89,3 +90,4 @@ const Login = ({ setAuth }) => {
 };
 
 export default Login;
+

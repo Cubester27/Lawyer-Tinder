@@ -1,4 +1,24 @@
 import { useState, useEffect } from 'react';
+import { 
+  Gavel, 
+  TrendingUp, 
+  Inbox, 
+  FileText, 
+  Calendar, 
+  Brain, 
+  Target, 
+  ShieldCheck, 
+  AlertTriangle, 
+  Swords, 
+  FileDown, 
+  FileEdit, 
+  Zap, 
+  Handshake, 
+  MessageSquare, 
+  SearchCheck, 
+  Download,
+  Eye
+} from 'lucide-react';
 import { AdvertPlayerCard } from '../components/AdvertPlayer';
 
 function formatDate(dateStr) {
@@ -25,6 +45,9 @@ function Dashboard() {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('analytics');
   
+  // Case Detail Modal state
+  const [selectedCaseModal, setSelectedCaseModal] = useState(null);
+
   // AI Draft Modal & Tone state
   const [draftModalOpen, setDraftModalOpen] = useState(false);
   const [activeCaseId, setActiveCaseId] = useState(null);
@@ -35,11 +58,6 @@ function Dashboard() {
   // AI Verification state
   const [verificationData, setVerificationData] = useState(null);
   const [isVerifying, setIsVerifying] = useState(false);
-
-  // AI Case Risk & Strategy state
-  const [riskMap, setRiskMap] = useState({});
-  const [expandedRiskId, setExpandedRiskId] = useState(null);
-  const [loadingRiskId, setLoadingRiskId] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -134,29 +152,12 @@ function Dashboard() {
     }
   }
 
-  async function handleToggleRiskAnalysis(id) {
-    if (expandedRiskId === id) {
-      setExpandedRiskId(null);
-      return;
-    }
-
-    setExpandedRiskId(id);
-    if (!riskMap[id]) {
-      setLoadingRiskId(id);
-      try {
-        const res = await fetch(`/api/cases/${id}/risk-analysis`, { method: 'POST' });
-        const data = await res.json();
-        setRiskMap(prev => ({ ...prev, [id]: data.riskAnalysis }));
-      } catch (err) {
-        console.error('Failed to load risk analysis', err);
-      } finally {
-        setLoadingRiskId(null);
-      }
-    }
-  }
+  const openCaseDetails = (c) => {
+    setSelectedCaseModal(c);
+  };
 
   if (isLoading) {
-    return <div className="text-center py-5 text-white">Loading cases...</div>;
+    return <div className="text-center py-5 text-muted">Loading cases...</div>;
   }
 
   if (error) {
@@ -166,48 +167,50 @@ function Dashboard() {
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-white mb-0 fw-bold">👨‍⚖️ Lawyer Dashboard</h2>
+        <h2 className="mb-0 fw-bold d-flex align-items-center gap-2">
+          <Gavel size={26} className="text-primary" /> Dashboard
+        </h2>
       </div>
 
       {/* Tabs */}
-      <ul className="nav nav-tabs border-secondary mb-4">
+      <ul className="nav nav-tabs mb-4">
         <li className="nav-item">
           <button 
-            className={`nav-link fw-bold ${activeTab === 'analytics' ? 'active bg-primary text-white border-primary' : 'text-slate-300 hover-white border-transparent'}`}
+            className={`nav-link fw-bold d-inline-flex align-items-center gap-1 ${activeTab === 'analytics' ? 'active bg-primary text-white border-primary' : 'text-body border-transparent'}`}
             onClick={() => setActiveTab('analytics')}
             style={activeTab === 'analytics' ? {} : { background: 'transparent' }}
           >
-            📈 Performance Analytics
+            <TrendingUp size={16} /> Performance Analytics
           </button>
         </li>
         <li className="nav-item">
           <button 
-            className={`nav-link fw-bold ${activeTab === 'assignments' ? 'active bg-primary text-white border-primary' : 'text-slate-300 hover-white border-transparent'}`}
+            className={`nav-link fw-bold d-inline-flex align-items-center gap-1 ${activeTab === 'assignments' ? 'active bg-primary text-white border-primary' : 'text-body border-transparent'}`}
             onClick={() => setActiveTab('assignments')}
             style={activeTab === 'assignments' ? {} : { background: 'transparent' }}
           >
-            📥 Recent Assignments ({cases.length})
+            <Inbox size={16} /> Recent Assignments ({cases.length})
           </button>
         </li>
       </ul>
       
       {activeTab === 'analytics' && (
         <div className="fade-in">
-          <h4 className="text-white mb-3 d-flex align-items-center gap-2">
-            📈 Lawyer Performance Analytics
+          <h4 className="mb-3 d-flex align-items-center gap-2">
+            <TrendingUp size={20} className="text-primary" /> Lawyer Performance Analytics
           </h4>
           <div className="row g-3">
             {lawyers.map(lawyer => (
               <div key={lawyer.id} className="col-md-6 col-lg-4">
-                <div className="app-card p-3 border-0 shadow-sm h-100" style={{ background: 'rgba(30, 41, 59, 0.7)', borderRadius: '12px' }}>
-                  <h6 className="fw-bold text-white mb-1">{lawyer.name}</h6>
-                  <div className="text-slate-400 small mb-3">Total Cases Handled: <strong className="text-white fs-6">{lawyer.caseHistory}</strong></div>
+                <div className="app-card p-3 shadow-sm h-100">
+                  <h6 className="fw-bold mb-1">{lawyer.name}</h6>
+                  <div className="text-muted small mb-3">Total Cases Handled: <strong className="fs-6">{lawyer.caseHistory}</strong></div>
                   
                   {lawyer.performance && Object.entries(lawyer.performance).map(([area, stats]) => (
-                    <div key={area} className="d-flex justify-content-between align-items-center mb-2 small pb-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                      <span className="text-slate-300 fw-medium text-truncate me-2" style={{ maxWidth: '120px' }} title={area}>{area}</span>
+                    <div key={area} className="d-flex justify-content-between align-items-center mb-2 small pb-1 border-bottom">
+                      <span className="fw-medium text-truncate me-2" style={{ maxWidth: '120px' }} title={area}>{area}</span>
                       <div className="d-flex gap-2">
-                        <span className="badge bg-dark border border-secondary text-slate-300">{stats.cases} cases</span>
+                        <span className="badge bg-secondary bg-opacity-20 text-body border">{stats.cases} cases</span>
                         <span className={`badge ${stats.successRate >= 80 ? 'bg-success' : 'bg-warning text-dark'}`}>{stats.successRate}% Success</span>
                       </div>
                     </div>
@@ -222,239 +225,336 @@ function Dashboard() {
       {activeTab === 'assignments' && (
         <div className="fade-in">
           {cases.length === 0 ? (
-            <div className="text-center py-5 text-secondary">
+            <div className="text-center py-5 text-muted">
               No cases assigned yet.
             </div>
           ) : (
-            <div className="row g-4">
-              {cases.slice().reverse().map(c => {
-                const risk = riskMap[c.id];
-                const isRiskExpanded = expandedRiskId === c.id;
-                const isRiskLoading = loadingRiskId === c.id;
+            <div className="app-card shadow overflow-hidden">
+              <div className="table-responsive">
+                <table className="table table-hover align-middle mb-0">
+                  <thead className="app-card-header">
+                    <tr>
+                      <th className="py-3 px-4">Case Title</th>
+                      <th className="py-3 px-3">Client</th>
+                      <th className="py-3 px-3">Assigned Lawyer</th>
+                      <th className="py-3 px-3">Governing Law</th>
+                      <th className="py-3 px-3">Deadline</th>
+                      <th className="py-3 px-3">Status</th>
+                      <th className="py-3 px-4 text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cases.slice().reverse().map(c => {
+                      const details = typeof c.caseDetails === 'string' ? JSON.parse(c.caseDetails) : (c.caseDetails || {});
+                      const governingLaw = details.applicableCode || c.applicableCode || details.governingLaw || c.governingLaw || 'General Code';
+                      const clientName = details.clientName || c.clientName || 'N/A';
+                      const primaryDate = details.primaryDeadlineDate || details.deadlines?.[0]?.date || c.primaryDeadlineDate;
 
-                return (
-                  <div key={c.id} className="col-md-6 col-lg-4">
-                    <div className="app-card h-100 border-0 shadow d-flex flex-column" style={{ background: 'linear-gradient(145deg, #1e293b, #0f172a)' }}>
-                      <div className="card-body p-4 d-flex flex-column">
-                        <div className="d-flex justify-content-between align-items-start mb-2">
-                          <h5 className="fw-bold text-white mb-0">{c.caseTitle}</h5>
-                          <span className={`badge ${c.status === 'Accepted' ? 'bg-success' : c.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
-                            {c.status || 'Pending'}
-                          </span>
-                        </div>
-                        
-                        <div className="text-slate-400 small mb-3">
-                          Assigned to: <strong className="text-white">{c.selectedLawyer}</strong>
-                        </div>
-                        
-                        {c.caseDetails && (
-                          <>
-                            <div className="law-code-badge fs-6 mb-3 w-100 justify-content-center" style={{ padding: '0.25rem 0.5rem', fontSize: '0.85rem' }}>
-                              📜 {c.caseDetails.applicableCode}
-                            </div>
-                            <p className="text-slate-300 small mb-3" style={{ flexGrow: 1, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                              {c.caseDetails.summary}
-                            </p>
-                            
-                            {(c.caseDetails.primaryDeadlineDate || c.caseDetails.deadlines?.length > 0) && (
-                              <div className="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                <span className="deadline-date-pill small">
-                                  📅 Deadline: {formatDate(c.caseDetails.primaryDeadlineDate || c.caseDetails.deadlines[0]?.date)}
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => handleDownloadIcs(c.id)}
-                                  className="btn btn-xs btn-outline-warning py-1 px-2 fw-bold d-flex align-items-center gap-1"
-                                  style={{ fontSize: '0.75rem', borderRadius: '12px' }}
-                                  title="Download .ics Calendar File"
-                                >
-                                  📅 .ics
-                                </button>
-                              </div>
+                      return (
+                        <tr 
+                          key={c.id} 
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => openCaseDetails(c)}
+                        >
+                          <td className="py-3 px-4">
+                            <div className="fw-bold">{c.caseTitle}</div>
+                            <div className="text-muted small">{details.caseFocus || details.practiceArea || 'General Litigation'}</div>
+                          </td>
+                          <td className="py-3 px-3 fw-medium">
+                            {clientName}
+                          </td>
+                          <td className="py-3 px-3">
+                            {c.selectedLawyer}
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="badge bg-primary text-white border border-primary border-opacity-30 px-2 py-1" style={{ fontSize: '0.8rem' }}>
+                              <FileText size={12} className="me-1" />
+                              {governingLaw}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3">
+                            {primaryDate ? (
+                              <span className="deadline-date-pill small d-inline-flex align-items-center gap-1">
+                                <Calendar size={13} /> {formatDate(primaryDate)}
+                              </span>
+                            ) : (
+                              <span className="text-muted small">No deadline</span>
                             )}
-
-                            {/* 🤖 AI Risk & Win Probability Toggle Button */}
-                            <button
-                              onClick={() => handleToggleRiskAnalysis(c.id)}
-                              className="btn btn-sm btn-dark border-secondary w-100 mb-3 text-info fw-bold d-flex align-items-center justify-content-between px-3"
-                              style={{ borderRadius: '8px', background: 'rgba(15, 23, 42, 0.8)' }}
-                            >
-                              <span>🤖 AI Risk & Win Strategy</span>
-                              <span>{isRiskExpanded ? '▲' : '▼'}</span>
-                            </button>
-
-                            {/* Expanded Risk Drawer */}
-                            {isRiskExpanded && (
-                              <div className="p-3 mb-3 border border-secondary border-opacity-50 rounded bg-dark text-slate-300 fade-in" style={{ fontSize: '0.82rem' }}>
-                                {isRiskLoading ? (
-                                  <div className="text-center py-2 text-info">
-                                    <span className="spinner-border spinner-border-sm me-2"></span> Evaluating win probability & opponent strategy...
-                                  </div>
-                                ) : risk ? (
-                                  <div>
-                                    <div className="d-flex justify-content-between align-items-center mb-2">
-                                      <span className="fw-bold text-white">Win Probability:</span>
-                                      <span className={`badge ${risk.winProbability >= 75 ? 'bg-success' : risk.winProbability >= 60 ? 'bg-warning text-dark' : 'bg-danger'}`}>
-                                        🎯 {risk.winProbability}%
-                                      </span>
-                                    </div>
-                                    <div className="progress mb-2" style={{ height: '6px', background: '#334155' }}>
-                                      <div className={`progress-bar ${risk.winProbability >= 75 ? 'bg-success' : risk.winProbability >= 60 ? 'bg-warning' : 'bg-danger'}`} style={{ width: `${risk.winProbability}%` }}></div>
-                                    </div>
-
-                                    <div className="mb-2">
-                                      <strong className="text-success">💪 Strengths:</strong>
-                                      <ul className="ps-3 mb-1 mt-1 text-slate-300">
-                                        {risk.strengths.map((s, idx) => <li key={idx}>{s}</li>)}
-                                      </ul>
-                                    </div>
-
-                                    <div className="mb-2">
-                                      <strong className="text-danger">⚠️ Vulnerabilities:</strong>
-                                      <ul className="ps-3 mb-1 mt-1 text-slate-300">
-                                        {risk.vulnerabilities.map((v, idx) => <li key={idx}>{v}</li>)}
-                                      </ul>
-                                    </div>
-
-                                    <div>
-                                      <strong className="text-warning">⚔️ Opponent Strategy Forecast:</strong>
-                                      <p className="mb-0 text-slate-300 mt-1 italic" style={{ fontSize: '0.8rem' }}>"{risk.opponentStrategy}"</p>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="text-muted">No risk analysis available.</div>
-                                )}
-                              </div>
-                            )}
-                          </>
-                        )}
-                        
-                        <div className="mt-auto pt-3 border-top border-secondary d-flex gap-2">
-                          <button 
-                            onClick={() => updateStatus(c.id, 'Accepted')}
-                            disabled={c.status === 'Accepted'}
-                            className="btn btn-sm btn-outline-success flex-grow-1 fw-bold"
-                          >
-                            Accept
-                          </button>
-                          <button 
-                            onClick={() => updateStatus(c.id, 'Rejected')}
-                            disabled={c.status === 'Rejected'}
-                            className="btn btn-sm btn-outline-danger flex-grow-1 fw-bold"
-                          >
-                            Reject
-                          </button>
-                        </div>
-                        
-                        {c.status === 'Accepted' && (
-                          <div className="mt-3 d-flex flex-column gap-2 pt-3" style={{ borderTop: '1px dashed rgba(255,255,255,0.1)' }}>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className={`badge ${c.status === 'Accepted' ? 'bg-success' : c.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
+                              {c.status || 'Pending'}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4 text-end">
                             <button 
-                              onClick={() => handleDownloadLetter(c.id)}
-                              className="btn btn-sm btn-outline-info w-100 fw-bold d-flex align-items-center justify-content-center gap-2"
+                              className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openCaseDetails(c);
+                              }}
                             >
-                              📄 Download Engagement Letter
+                              <Eye size={14} /> Open Details
                             </button>
-                            <button 
-                              onClick={() => handleGenerateDraft(c.id, 'standard')}
-                              className="btn btn-sm btn-outline-warning w-100 fw-bold d-flex align-items-center justify-content-center gap-2"
-                            >
-                              ✍️ AI Notice Draft & Transformer
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>
       )}
 
-      {/* 🎭 AI Multi-Tone Draft & Fact Verification Modal */}
-      {draftModalOpen && (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)' }}>
+      {/* Case Detail Modal */}
+      {selectedCaseModal && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)', zIndex: 1055 }}>
           <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div className="modal-content border-0 shadow-lg" style={{ background: '#0f172a' }}>
+            <div className="modal-content app-card shadow-lg">
               
               {/* Modal Header */}
-              <div className="modal-header border-secondary border-opacity-25 py-3">
-                <div>
-                  <h5 className="modal-title fw-bold text-white d-flex align-items-center gap-2 mb-0">
-                    ✍️ AI Legal Draft & Persona Transformer
+              <div className="modal-header app-card-header py-3">
+                <div className="d-flex align-items-center gap-2">
+                  <h5 className="modal-title fw-bold d-flex align-items-center gap-2 mb-0">
+                    <Gavel size={20} className="text-primary" /> {selectedCaseModal.caseTitle}
                   </h5>
-                  <small className="text-slate-400">Transform draft tone or audit AI factual precision</small>
+                  <span className={`badge ${selectedCaseModal.status === 'Accepted' ? 'bg-success' : selectedCaseModal.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
+                    {selectedCaseModal.status || 'Pending'}
+                  </span>
                 </div>
-                <button type="button" className="btn-close btn-close-white" onClick={() => setDraftModalOpen(false)}></button>
+                <button type="button" className="btn-close" onClick={() => setSelectedCaseModal(null)}></button>
               </div>
 
-              {/* 🎭 AI Tone Selector Bar */}
-              <div className="px-4 pt-3 pb-2 border-bottom border-secondary border-opacity-25 bg-dark">
-                <label className="text-slate-400 small fw-bold mb-2 d-block">SELECT AI DRAFT TONE / PERSONA:</label>
+              {/* Modal Body */}
+              <div className="modal-body p-4">
+                {/* Metadata Grid */}
+                <div className="row g-3 mb-4">
+                  <div className="col-md-6 col-lg-3">
+                    <div className="app-card p-2 rounded">
+                      <label className="text-muted small mb-0 d-block text-uppercase">Client Name</label>
+                      <span className="fw-bold fs-6">{selectedCaseModal.caseDetails?.clientName || 'N/A'}</span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-lg-3">
+                    <div className="app-card p-2 rounded">
+                      <label className="text-muted small mb-0 d-block text-uppercase">Assigned Attorney</label>
+                      <span className="fw-bold fs-6">{selectedCaseModal.selectedLawyer}</span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-lg-3">
+                    <div className="app-card p-2 rounded">
+                      <label className="text-muted small mb-0 d-block text-uppercase">Practice Area</label>
+                      <span className="fw-bold fs-6">{selectedCaseModal.caseDetails?.practiceArea || 'General Litigation'}</span>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-lg-3">
+                    <div className="app-card p-2 rounded">
+                      <label className="text-muted small mb-0 d-block text-uppercase">Jurisdiction</label>
+                      <span className="fw-bold fs-6">{selectedCaseModal.caseDetails?.jurisdiction || 'Germany'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Legal Code & Summary */}
+                {selectedCaseModal.caseDetails && (
+                  <>
+                    <div className="law-code-card mb-4 shadow-sm">
+                      <div className="text-uppercase small fw-bold mb-2 text-primary">Applicable Legal Code</div>
+                      <div className="law-code-badge fs-6 mb-0 w-100 justify-content-center">
+                        <FileText size={16} /> {selectedCaseModal.caseDetails.applicableCode || 'No code detected'}
+                      </div>
+                    </div>
+
+                    {selectedCaseModal.caseDetails.summary && (
+                      <div className="mb-4">
+                        <h6 className="fw-bold d-flex align-items-center gap-2 mb-2">
+                          <FileText size={16} className="text-primary" /> Case Summary
+                        </h6>
+                        <div className="p-3 app-card rounded small">
+                          {selectedCaseModal.caseDetails.summary}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Key Deadlines */}
+                    {(selectedCaseModal.caseDetails.primaryDeadlineDate || selectedCaseModal.caseDetails.deadlines?.length > 0) && (
+                      <div className="mb-4">
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                          <h6 className="fw-bold d-flex align-items-center gap-2 mb-0">
+                            <Calendar size={16} className="text-danger" /> Key Deadlines
+                          </h6>
+                          <button
+                            type="button"
+                            onClick={() => handleDownloadIcs(selectedCaseModal.id)}
+                            className="btn btn-sm btn-outline-warning py-1 px-2 fw-bold d-inline-flex align-items-center gap-1"
+                            style={{ fontSize: '0.78rem', borderRadius: '12px' }}
+                          >
+                            <Calendar size={13} /> Export All (.ics)
+                          </button>
+                        </div>
+                        <div className="d-flex flex-column gap-2">
+                          {selectedCaseModal.caseDetails.deadlines?.map((dl, idx) => (
+                            <div key={idx} className="deadline-card p-3 d-flex justify-content-between align-items-center">
+                              <div>
+                                <div className="fw-semibold">{dl.label || 'Statutory Deadline'}</div>
+                                {dl.sourceText && <div className="text-muted small fst-italic">"{dl.sourceText}"</div>}
+                              </div>
+                              <span className="deadline-date-pill small d-inline-flex align-items-center gap-1">
+                                <Calendar size={13} /> {formatDate(dl.date)}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              {/* Modal Footer / Action Bar */}
+              <div className="modal-footer app-card-header py-3 d-flex justify-content-between flex-wrap gap-2">
+                <div className="d-flex gap-2">
+                  <button 
+                    onClick={() => {
+                      updateStatus(selectedCaseModal.id, 'Accepted');
+                      setSelectedCaseModal(prev => prev ? { ...prev, status: 'Accepted' } : null);
+                    }}
+                    disabled={selectedCaseModal.status === 'Accepted'}
+                    className="btn btn-sm btn-outline-success fw-bold px-3"
+                  >
+                    Accept Case
+                  </button>
+                  <button 
+                    onClick={() => {
+                      updateStatus(selectedCaseModal.id, 'Rejected');
+                      setSelectedCaseModal(prev => prev ? { ...prev, status: 'Rejected' } : null);
+                    }}
+                    disabled={selectedCaseModal.status === 'Rejected'}
+                    className="btn btn-sm btn-outline-danger fw-bold px-3"
+                  >
+                    Reject Case
+                  </button>
+                </div>
+
+                <div className="d-flex gap-2 align-items-center">
+                  {selectedCaseModal.status === 'Accepted' && (
+                    <>
+                      <button 
+                        onClick={() => handleDownloadLetter(selectedCaseModal.id)}
+                        className="btn btn-sm btn-outline-info fw-bold d-inline-flex align-items-center gap-1"
+                      >
+                        <FileDown size={15} /> Engagement Letter
+                      </button>
+                      <button 
+                        onClick={() => {
+                          const cId = selectedCaseModal.id;
+                          setSelectedCaseModal(null);
+                          handleGenerateDraft(cId, 'standard');
+                        }}
+                        className="btn btn-sm btn-outline-warning fw-bold d-inline-flex align-items-center gap-1"
+                      >
+                        <FileEdit size={15} /> AI Notice Draft
+                      </button>
+                    </>
+                  )}
+                  <button type="button" className="btn btn-sm btn-secondary px-3" onClick={() => setSelectedCaseModal(null)}>
+                    Close
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI Multi-Tone Draft & Fact Verification Modal */}
+      {draftModalOpen && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)', zIndex: 1060 }}>
+          <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content app-card shadow-lg">
+              
+              {/* Modal Header */}
+              <div className="modal-header app-card-header py-3">
+                <div>
+                  <h5 className="modal-title fw-bold d-flex align-items-center gap-2 mb-0">
+                    <FileEdit size={20} className="text-primary" /> AI Legal Draft & Persona Transformer
+                  </h5>
+                  <small className="text-muted">Transform draft tone or audit AI factual precision</small>
+                </div>
+                <button type="button" className="btn-close" onClick={() => setDraftModalOpen(false)}></button>
+              </div>
+
+              {/* AI Tone Selector Bar */}
+              <div className="px-4 pt-3 pb-2 border-bottom app-card-header">
+                <label className="text-muted small fw-bold mb-2 d-block">SELECT AI DRAFT TONE / PERSONA:</label>
                 <div className="d-flex gap-2 flex-wrap">
                   <button
                     onClick={() => handleGenerateDraft(activeCaseId, 'standard')}
                     disabled={isDraftLoading}
-                    className={`btn btn-sm ${currentTone === 'standard' ? 'btn-primary' : 'btn-outline-secondary text-slate-300'}`}
+                    className={`btn btn-sm d-inline-flex align-items-center gap-1 ${currentTone === 'standard' ? 'btn-primary' : 'btn-outline-secondary'}`}
                   >
-                    📜 Standard Notice
+                    <FileText size={14} /> Standard Notice
                   </button>
                   <button
                     onClick={() => handleGenerateDraft(activeCaseId, 'aggressive')}
                     disabled={isDraftLoading}
-                    className={`btn btn-sm ${currentTone === 'aggressive' ? 'btn-danger' : 'btn-outline-danger text-slate-300'}`}
+                    className={`btn btn-sm d-inline-flex align-items-center gap-1 ${currentTone === 'aggressive' ? 'btn-danger' : 'btn-outline-danger'}`}
                   >
-                    ⚡ Aggressive Demand
+                    <Zap size={14} /> Aggressive Demand
                   </button>
                   <button
                     onClick={() => handleGenerateDraft(activeCaseId, 'diplomatic')}
                     disabled={isDraftLoading}
-                    className={`btn btn-sm ${currentTone === 'diplomatic' ? 'btn-success' : 'btn-outline-success text-slate-300'}`}
+                    className={`btn btn-sm d-inline-flex align-items-center gap-1 ${currentTone === 'diplomatic' ? 'btn-success' : 'btn-outline-success'}`}
                   >
-                    🤝 Diplomatic Settlement
+                    <Handshake size={14} /> Diplomatic Settlement
                   </button>
                   <button
                     onClick={() => handleGenerateDraft(activeCaseId, 'plain_english')}
                     disabled={isDraftLoading}
-                    className={`btn btn-sm ${currentTone === 'plain_english' ? 'btn-warning text-dark' : 'btn-outline-warning text-slate-300'}`}
+                    className={`btn btn-sm d-inline-flex align-items-center gap-1 ${currentTone === 'plain_english' ? 'btn-warning text-dark' : 'btn-outline-warning'}`}
                   >
-                    🗣️ Plain English Client Summary
+                    <MessageSquare size={14} /> Plain English Client Summary
                   </button>
                 </div>
               </div>
 
               {/* Modal Body */}
-              <div className="modal-body p-4 text-slate-300" style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '0.88rem', lineHeight: '1.6' }}>
+              <div className="modal-body p-4" style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '0.88rem', lineHeight: '1.6' }}>
                 {isDraftLoading ? (
                   <div className="text-center py-5">
                     <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}></div>
-                    <div className="mt-3 fw-medium text-white fs-5">AI is generating draft in <strong>{currentTone.replace('_', ' ')}</strong> tone...</div>
-                    <div className="text-secondary small mt-1">Conditioning LLM prompt persona and legal principles</div>
+                    <div className="mt-3 fw-medium fs-5">AI is generating draft in <strong>{currentTone.replace('_', ' ')}</strong> tone...</div>
+                    <div className="text-muted small mt-1">Conditioning LLM prompt persona and legal principles</div>
                   </div>
                 ) : (
-                  <div className='text-white'>
+                  <div>
                     {currentDraft}
 
-                    {/* 🔍 AI Fact Verification Guardrail Output */}
+                    {/* AI Fact Verification Guardrail Output */}
                     {verificationData && (
-                      <div className="mt-4 p-3 rounded border border-info bg-dark text-slate-200 fade-in" style={{ fontFamily: 'sans-serif' }}>
+                      <div className="mt-4 p-3 rounded border border-info app-card fade-in" style={{ fontFamily: 'sans-serif' }}>
                         <div className="d-flex justify-content-between align-items-center mb-2">
                           <strong className="text-info d-flex align-items-center gap-2 fs-6">
-                            🛡️ AI Factuality Audit Score:
+                            <ShieldCheck size={18} className="text-info" /> AI Factuality Audit Score:
                           </strong>
                           <span className={`badge fs-6 ${verificationData.confidenceScore >= 90 ? 'bg-success' : 'bg-warning text-dark'}`}>
                             {verificationData.confidenceScore}% Verified
                           </span>
                         </div>
-                        <ul className="ps-3 mb-2 small text-slate-300">
+                        <ul className="ps-3 mb-2 small text-muted">
                           {verificationData.auditNotes?.map((note, idx) => (
                             <li key={idx}>{note}</li>
                           ))}
                         </ul>
                         {verificationData.potentialHallucinations?.length > 0 && (
                           <div className="alert alert-warning py-1 px-2 mb-0 small">
-                            <strong>⚠️ Flagged Discrepancies:</strong>
+                            <strong className="d-inline-flex align-items-center gap-1">
+                              <AlertTriangle size={15} /> Flagged Discrepancies:
+                            </strong>
                             <ul className="mb-0 ps-3">
                               {verificationData.potentialHallucinations.map((h, idx) => <li key={idx}>{h}</li>)}
                             </ul>
@@ -467,7 +567,7 @@ function Dashboard() {
               </div>
 
               {/* Modal Footer */}
-              <div className="modal-footer border-secondary border-opacity-25 py-2 d-flex justify-content-between">
+              <div className="modal-footer app-card-header py-2 d-flex justify-content-between">
                 <div>
                   {!isDraftLoading && currentDraft && (
                     <button
@@ -481,16 +581,16 @@ function Dashboard() {
                           <span className="spinner-border spinner-border-sm"></span> Auditing Facts...
                         </>
                       ) : (
-                        <>🔍 Check AI Factuality Guardrail</>
+                        <><SearchCheck size={16} /> Check AI Factuality Guardrail</>
                       )}
                     </button>
                   )}
                 </div>
 
                 <div className="d-flex gap-2">
-                  <button type="button" className="btn btn-outline-light px-4" onClick={() => setDraftModalOpen(false)}>Close</button>
+                  <button type="button" className="btn btn-outline-secondary px-4" onClick={() => setDraftModalOpen(false)}>Close</button>
                   {!isDraftLoading && currentDraft && (
-                    <button type="button" className="btn btn-primary px-4" onClick={() => {
+                    <button type="button" className="btn btn-primary px-4 d-inline-flex align-items-center gap-1" onClick={() => {
                       const blob = new Blob([currentDraft], { type: 'text/markdown' });
                       const url = URL.createObjectURL(blob);
                       const a = document.createElement('a');
@@ -499,7 +599,7 @@ function Dashboard() {
                       a.click();
                       URL.revokeObjectURL(url);
                     }}>
-                      📥 Download (.md)
+                      <Download size={16} /> Download (.md)
                     </button>
                   )}
                 </div>
@@ -514,3 +614,5 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+

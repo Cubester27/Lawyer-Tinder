@@ -1,43 +1,80 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Sun, Moon, Film, LogOut } from 'lucide-react';
 import Intake from './pages/Intake';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Logo from './components/Logo';
 import { AdvertModal } from './components/AdvertPlayer';
+import { useTheme } from './context/ThemeContext';
 
 function Navigation({ isAuthenticated, setAuth, onOpenAdvert }) {
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   
   const handleLogout = () => {
+    sessionStorage.removeItem('auth_token');
     localStorage.removeItem('auth_token');
     setAuth(false);
   };
+
+  const handleNavClick = () => {
+    setIsNavCollapsed(true);
+  };
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary sticky-top">
+    <nav className="navbar navbar-expand-lg border-bottom sticky-top hero-header py-2">
       <div className="container">
-        <Link className="navbar-brand fw-bold d-flex align-items-center gap-2" to="/">
+        <Link className="navbar-brand fw-bold d-flex align-items-center gap-2" to="/" onClick={handleNavClick}>
           <Logo size={36} />
-          <span className="text-white">Lawyer Tinder</span>
+          <span className="fw-bold">Lawyer Tinder</span>
         </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          aria-expanded={!isNavCollapsed}
+          aria-label="Toggle navigation"
+          onClick={() => setIsNavCollapsed(!isNavCollapsed)}
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className={`collapse navbar-collapse ${!isNavCollapsed ? 'show' : ''}`} id="navbarNav">
           <ul className="navbar-nav ms-auto gap-2 align-items-center">
             <li className="nav-item">
               <button 
-                onClick={onOpenAdvert}
+                onClick={toggleTheme}
+                className="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 px-3 me-lg-1"
+                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun size={16} className="text-warning" />
+                    <span>Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon size={16} className="text-primary" />
+                    <span>Dark Mode</span>
+                  </>
+                )}
+              </button>
+            </li>
+            <li className="nav-item">
+              <button 
+                onClick={() => { onOpenAdvert(); handleNavClick(); }}
                 className="btn btn-outline-warning btn-sm d-flex align-items-center gap-1 px-3 me-lg-2"
                 title="Watch Lawyer Tinder Commercial"
               >
-                <span>🎬</span> Watch Advert
+                <Film size={16} />
+                <span>Watch Advert</span>
               </button>
             </li>
             <li className="nav-item">
               <Link 
-                className={`nav-link px-3 rounded ${location.pathname === '/' ? 'active bg-primary text-white' : 'text-slate-300 hover-text-white'}`} 
+                onClick={handleNavClick}
+                className={`nav-link px-3 rounded ${location.pathname === '/' ? 'active bg-primary text-white fw-medium' : 'fw-medium'}`} 
                 to="/"
               >
                 Intake Portal
@@ -47,22 +84,25 @@ function Navigation({ isAuthenticated, setAuth, onOpenAdvert }) {
               <>
                 <li className="nav-item">
                   <Link 
-                    className={`nav-link px-3 rounded ${location.pathname === '/dashboard' ? 'active bg-primary text-white' : 'text-slate-300 hover-text-white'}`} 
+                    onClick={handleNavClick}
+                    className={`nav-link px-3 rounded ${location.pathname === '/dashboard' ? 'active bg-primary text-white fw-medium' : 'fw-medium'}`} 
                     to="/dashboard"
                   >
-                    Lawyer Dashboard
+                    Dashboard
                   </Link>
                 </li>
                 <li className="nav-item ms-lg-2 mt-2 mt-lg-0">
-                  <button onClick={handleLogout} className="btn btn-outline-danger btn-sm">
-                    Logout
+                  <button onClick={() => { handleLogout(); handleNavClick(); }} className="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                    <LogOut size={14} />
+                    <span>Logout</span>
                   </button>
                 </li>
               </>
             ) : (
               <li className="nav-item">
                 <Link 
-                  className={`nav-link px-3 rounded ${location.pathname === '/login' ? 'active bg-primary text-white' : 'text-slate-300 hover-text-white'}`} 
+                  onClick={handleNavClick}
+                  className={`nav-link px-3 rounded ${location.pathname === '/login' ? 'active bg-primary text-white fw-medium' : 'fw-medium'}`} 
                   to="/login"
                 >
                   Login
@@ -88,7 +128,7 @@ function App() {
   const [isAdvertOpen, setIsAdvertOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
+    const token = sessionStorage.getItem('auth_token') || localStorage.getItem('auth_token');
     if (token) {
       setIsAuthenticated(true);
     }
@@ -96,7 +136,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-vh-100 d-flex flex-column bg-dark text-white">
+      <div className="min-vh-100 d-flex flex-column">
         <Navigation 
           isAuthenticated={isAuthenticated} 
           setAuth={setIsAuthenticated} 
@@ -131,3 +171,4 @@ function App() {
 }
 
 export default App;
+

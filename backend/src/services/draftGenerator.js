@@ -18,9 +18,9 @@ export async function generateLegalDraft(caseInput, tone = 'standard') {
 
   if (!apiKey) {
     let tonePrefix = '[Standard Legal Draft]';
-    if (tone === 'aggressive') tonePrefix = '[⚡ Aggressive Legal Demand]';
-    if (tone === 'diplomatic') tonePrefix = '[🤝 Diplomatic Settlement Proposal]';
-    if (tone === 'plain_english') tonePrefix = '[🗣️ Plain-English Client Explanation]';
+    if (tone === 'aggressive') tonePrefix = '[Aggressive Legal Demand]';
+    if (tone === 'diplomatic') tonePrefix = '[Diplomatic Settlement Proposal]';
+    if (tone === 'plain_english') tonePrefix = '[Plain-English Client Explanation]';
 
     return `${tonePrefix}\n\nRe: ${caseInput.title || 'Legal Matter'}\nClient: ${caseInput.clientName || 'Valued Client'}\n\nBased on the facts provided:\n${caseInput.summary || 'Summary unavailable'}\n\nUnder ${caseInput.applicableCode || 'applicable statutory provisions'}, we formally communicate our position.\n\nPlease direct all correspondence to Lawyer Tinder Firm.`;
   }

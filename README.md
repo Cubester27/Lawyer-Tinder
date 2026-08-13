@@ -9,9 +9,9 @@ An AI-powered legal matching and case management application designed to streaml
 
 ---
 
-## 🏛️ Project Overview
+## Project Overview
 
-The **Lawyer Tinder** is a confidential law firm workflow platform with a modern dark-themed glassmorphism UI built for AI demonstrations and prototypes.
+The **Lawyer Tinder** is a confidential law firm workflow platform with a modern glassmorphism UI built for AI demonstrations and prototypes.
 
 - **Frontend**: Built with React (Vite), React Router, Bootstrap, and custom CSS for a sleek, responsive user interface.
 - **Backend**: Powered by Node.js and Express.
@@ -19,7 +19,7 @@ The **Lawyer Tinder** is a confidential law firm workflow platform with a modern
 
 ---
 
-## 🔄 Application Workflow
+## Application Workflow
 
 ```mermaid
 flowchart TD
@@ -68,6 +68,7 @@ flowchart TD
 
     GenerateDraft --> VerifyFacts
     VerifyFacts --> DownloadDoc
+    VerifyFacts --> DownloadDoc
     GeneratePDF --> DownloadDoc
     DownloadDoc --> EndSuccess(((End:\nCase Processing\nComplete)))
 
@@ -77,44 +78,44 @@ flowchart TD
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 1. 📥 AI Intake Portal
+### 1. AI Intake Portal
 - Upload case documents (PDF/Text) or paste raw case facts.
 - **AI Information Extraction**: Automatically extracts relevant facts, key issues, deadlines, client info, and applicable governing legal codes (e.g. *BGB - Civil Code*, *StGB*).
 - **Deterministic & AI Attorney Matching**: Ranks and matches the best-fitting attorneys based on practice area expertise and historic performance data.
 
-### 2. 📊 Lawyer Dashboard & Analytics
+### 2. Lawyer Dashboard & Analytics
 - **Performance Analytics**: Visualizes lawyer stats, case volume, and success rates per practice area.
 - **Recent Assignments**: Tabbed workflow allowing attorneys to view, accept, or reject incoming cases.
 
-### 3. 🤖 AI Case Risk & Win Strategy Predictor
+### 3. AI Case Risk & Win Strategy Predictor
 - **Win Probability Assessment**: Generates an estimated **Win Rate %** (10-95%) with a visual color-coded progress gauge.
 - **Case Strengths & Vulnerabilities**: Highlights key factual advantages and potential legal risks.
 - **Opponent Strategy Forecast**: AI predicts the opposing counsel's likely counter-arguments or defense strategy.
 
-### 4. 🎭 AI Persona & Multi-Tone Draft Transformer
+### 4. AI Persona & Multi-Tone Draft Transformer
 Generate or regenerate formal notice letters in 4 distinct AI tones:
-- 📜 **Standard Notice**: Formal legal notice and position statement.
-- ⚡ **Aggressive Demand**: Firm posture emphasizing legal penalties, statutory compliance deadlines, and immediate litigation intent.
-- 🤝 **Diplomatic Settlement**: Cooperative tone emphasizing pre-litigation negotiation and mutual resolution.
-- 🗣️ **Plain English Client Summary**: Jargon-free 5th-grade reading level explanation so clients clearly understand their case status.
+- **Standard Notice**: Formal legal notice and position statement.
+- **Aggressive Demand**: Firm posture emphasizing legal penalties, statutory compliance deadlines, and immediate litigation intent.
+- **Diplomatic Settlement**: Cooperative tone emphasizing pre-litigation negotiation and mutual resolution.
+- **Plain English Client Summary**: Jargon-free 5th-grade reading level explanation so clients clearly understand their case status.
 
-### 5. 🔍 AI Factuality Verification Guardrail
+### 5. AI Factuality Verification Guardrail
 - Audits AI-generated drafts against original source intake facts.
 - Returns a **Verified Confidence Score (%)**, verification audit notes, and flags potential hallucinations or ungrounded claims (e.g., mismatched dates or fabricated names).
 
-### 6. 📄 Automated Document & Calendar Generation
+### 6. Automated Document & Calendar Generation
 - **Engagement Letters (PDF)**: Instantly generates and downloads tailored PDF retainer agreements using `pdfkit`.
 - **Calendar Deadline Export (.ics)**: One-click export of case deadlines into iCal / Outlook / Google Calendar `.ics` files.
 - **Markdown Notice Downloads**: Download AI legal drafts as `.md` files.
 
-### 7. 🔒 Security & Authentication
+### 7. Security & Authentication
 - **Protected Routes**: The application is secured behind a login screen (`admin` / `admin`).
 
 ---
 
-## 🔌 API Endpoints Summary
+## API Endpoints Summary
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -133,7 +134,7 @@ Generate or regenerate formal notice letters in 4 distinct AI tones:
 
 ---
 
-## 💾 Data Architecture & Persistence
+## Data Architecture & Persistence
 
 Data is persisted locally via JSON data files:
 - `backend/data/lawyers.json`: Attorney profiles, practice areas, and performance metrics.
@@ -141,7 +142,7 @@ Data is persisted locally via JSON data files:
 
 ---
 
-## 📦 System Prerequisites & Installation
+## System Prerequisites & Installation
 
 ### Prerequisites
 To run this application:
@@ -150,9 +151,9 @@ To run this application:
 
 ---
 
-## 🚀 Setup & Execution
+## Setup & Execution
 
-### 💻 1. Development Environment
+### 1. Development Environment
 
 1. **Clone the Repository**:
    ```bash
@@ -185,7 +186,7 @@ To run this application:
 
 ---
 
-### 🏭 2. Production Environment
+### 2. Production Environment
 
 1. **Install Production Dependencies**:
    ```bash
@@ -204,7 +205,8 @@ To run this application:
 
 ---
 
-## 🧪 Verification & Testing
+## Verification & Testing
 
 - **Backend Unit Tests**: `npm test`
 - **Frontend Production Build Check**: `npm run build --workspace frontend`
+

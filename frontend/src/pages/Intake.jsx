@@ -1,4 +1,24 @@
 import { useState } from 'react';
+import { 
+  Scale, 
+  Globe, 
+  Sparkles, 
+  FolderUp, 
+  Search, 
+  Cpu, 
+  FileText, 
+  Clock, 
+  Calendar, 
+  Download, 
+  Brain, 
+  Target, 
+  ShieldCheck, 
+  AlertTriangle, 
+  Swords, 
+  Gavel, 
+  CheckCircle2, 
+  ArrowLeft 
+} from 'lucide-react';
 import { AdvertPlayerCard } from '../components/AdvertPlayer';
 import { downloadIcsFile } from '../utils/icsExporter';
 
@@ -27,7 +47,7 @@ const OPENROUTER_MODELS = [
   { id: 'deepseek/deepseek-chat', label: 'DeepSeek V3 (Advanced General AI)' },
   { id: 'deepseek/deepseek-r1', label: 'DeepSeek R1 (Deep Legal Chain-of-Thought)' },
   { id: 'meta-llama/llama-3.3-70b-instruct', label: 'Llama 3.3 70B (Open Weights Powerhouse)' },
-  { id: 'custom', label: '⚙️ Custom OpenRouter Model ID...' }
+  { id: 'custom', label: 'Custom OpenRouter Model ID...' }
 ];
 
 function Intake() {
@@ -63,28 +83,8 @@ function Intake() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState('openai/gpt-4o-mini');
   const [customModel, setCustomModel] = useState('');
-  const [riskAnalysis, setRiskAnalysis] = useState(null);
-  const [isRiskLoading, setIsRiskLoading] = useState(false);
 
   const activeModel = selectedModel === 'custom' ? (customModel.trim() || 'openai/gpt-4o-mini') : selectedModel;
-
-  async function fetchRiskAnalysis(cInput, modelToUse) {
-    setIsRiskLoading(true);
-    setRiskAnalysis(null);
-    try {
-      const res = await fetch('/api/analyze-risk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ caseInput: cInput, model: modelToUse })
-      });
-      const data = await res.json();
-      setRiskAnalysis(data.riskAnalysis);
-    } catch (err) {
-      console.error('Failed to analyze risk', err);
-    } finally {
-      setIsRiskLoading(false);
-    }
-  }
 
   async function handleAnalyzeText(text = rawText) {
     if (!text.trim()) return;
@@ -104,7 +104,6 @@ function Intake() {
         setRecommendations(recs);
         setApprovalMessage('');
         setStatusMessage(`Analysis & Lawyer Matching complete! Code: ${data.caseInput.applicableCode}`);
-        fetchRiskAnalysis(data.caseInput, activeModel);
       }
     } catch (err) {
       setStatusMessage('Error performing AI extraction.');
@@ -135,7 +134,6 @@ function Intake() {
         setRecommendations(recs);
         setApprovalMessage('');
         setStatusMessage(`File "${data.fileName}" analyzed! Code: ${data.caseInput.applicableCode}`);
-        fetchRiskAnalysis(data.caseInput, activeModel);
       }
     } catch (err) {
       setStatusMessage('Error uploading document.');
@@ -160,7 +158,6 @@ function Intake() {
     setRawText('');
     setStatusMessage('');
     setApprovalMessage('');
-    setRiskAnalysis(null);
   }
 
   return (
@@ -170,8 +167,8 @@ function Intake() {
         <div className="container">
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div>
-              <h1 className="h3 fw-bold text-white mb-1">
-                ⚖️ Lawyer Tinder <span className="badge bg-primary fs-6 align-middle ms-2">AI Extraction & Matching</span>
+              <h1 className="h3 fw-bold mb-1 d-flex align-items-center gap-2">
+                <Scale size={24} className="text-primary" /> Lawyer Tinder <span className="badge bg-primary fs-6 align-middle ms-2">AI Extraction & Matching</span>
               </h1>
               <p className="text-secondary mb-0 small">
                 Upload a case document or paste facts – one click matching with multi-model AI.
@@ -195,22 +192,22 @@ function Intake() {
         {!caseInput ? (
           <div className="row justify-content-center align-items-center flex-grow-1">
             <div className="col-lg-8">
-              <div className="app-card text-center p-5 shadow-lg border-0" style={{background: 'linear-gradient(145deg, #1e293b, #0f172a)'}}>
-                <h2 className="text-white mb-3 fw-bold">Ready to match a new case?</h2>
-                <p className="text-slate-300 mb-4 fs-5">Select your OpenRouter AI model, paste details, or upload a document.</p>
+              <div className="app-card text-center p-5 shadow-lg border-0">
+                <h2 className="mb-3 fw-bold">Ready to match a new case?</h2>
+                <p className="text-muted mb-4 fs-5">Select your OpenRouter AI model, paste details, or upload a document.</p>
                 
                 {/* OpenRouter Model Selector */}
-                <div className="mb-4 text-start p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary border-opacity-50 shadow-sm">
+                <div className="mb-4 text-start p-3 rounded-3 border shadow-sm app-card">
                   <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
-                    <label className="form-label text-slate-200 mb-0 fw-semibold d-flex align-items-center gap-2 small">
-                      <span>🌐</span> Choose OpenRouter Model:
+                    <label className="form-label mb-0 fw-semibold d-flex align-items-center gap-2 small">
+                      <Globe size={16} className="text-primary" /> Choose OpenRouter Model:
                     </label>
-                    <span className="badge bg-primary bg-opacity-20 text-primary text-white border border-primary border-opacity-30 small">
+                    <span className="badge bg-primary bg-opacity-20 text-primary border border-primary border-opacity-30 small">
                       Active: {activeModel}
                     </span>
                   </div>
                   <select
-                    className="form-select form-select-custom bg-dark text-white border-secondary mb-2"
+                    className="form-select form-select-custom mb-2"
                     value={selectedModel}
                     onChange={(e) => setSelectedModel(e.target.value)}
                   >
@@ -225,7 +222,7 @@ function Intake() {
                     <div className="mt-2">
                       <input
                         type="text"
-                        className="form-control form-control-custom text-white"
+                        className="form-control form-control-custom"
                         placeholder="e.g. mistralai/mistral-large-2411 or qwen/qwen-2.5-72b-instruct"
                         value={customModel}
                         onChange={(e) => setCustomModel(e.target.value)}
@@ -248,22 +245,22 @@ function Intake() {
                 </div>
                 
                 <div className="d-flex justify-content-center flex-wrap gap-3 mb-5">
-                  <button onClick={() => handleAnalyzeText()} disabled={isLoading || !rawText.trim()} className="btn btn-ai btn-lg px-5 shadow">
+                  <button onClick={() => handleAnalyzeText()} disabled={isLoading || !rawText.trim()} className="btn btn-ai btn-lg px-5 shadow d-inline-flex align-items-center gap-2">
                     {isLoading ? (
                       <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Analyzing...</>
                     ) : (
-                      '✨ Analyze Text'
+                      <><Sparkles size={18} /> Analyze Text</>
                     )}
                   </button>
                   
-                  <div className="position-relative overflow-hidden btn btn-outline-light btn-lg px-4">
-                    📁 Upload Document
+                  <div className="position-relative overflow-hidden btn btn-outline-secondary btn-lg px-4 d-inline-flex align-items-center gap-2">
+                    <FolderUp size={18} /> Upload Document
                     <input type="file" className="position-absolute top-0 start-0 opacity-0 w-100 h-100" style={{cursor: 'pointer'}} accept=".pdf,.txt,.md,.csv" onChange={handleFileUpload} />
                   </div>
                 </div>
 
-                <div className="text-start mt-4 border-top border-secondary pt-4">
-                  <label className="text-slate-400 small mb-3 d-block fw-bold text-uppercase tracking-wide">Or test with a 1-click Demo Case:</label>
+                <div className="text-start mt-4 border-top pt-4">
+                  <label className="text-muted small mb-3 d-block fw-bold text-uppercase tracking-wide">Or test with a 1-click Demo Case:</label>
                   <div className="d-flex flex-wrap gap-2">
                     {DEMO_CASES.map((demo, idx) => (
                       <button
@@ -283,33 +280,37 @@ function Intake() {
         ) : (
           <div className="row g-4 fade-in">
             <div className="col-12 d-flex justify-content-between align-items-center mb-2">
-              <h4 className="text-white mb-0">Analysis Results</h4>
-              <button onClick={handleStartOver} className="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                ← Start New Case
+              <h4 className="mb-0 fw-bold">Analysis Results</h4>
+              <button onClick={handleStartOver} className="btn btn-outline-secondary btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1">
+                <ArrowLeft size={14} /> Start New Case
               </button>
             </div>
 
             {/* AI Extracted Dashboard */}
             <div className="col-lg-4">
-              <div className="app-card h-100 border-0 shadow">
-                <div className="app-card-header bg-transparent border-bottom border-secondary pb-3 pt-4 px-4 d-flex justify-content-between align-items-center">
-                  <h5 className="mb-0 fw-semibold text-white">🔍 Case Details</h5>
-                  <span className="badge bg-secondary bg-opacity-50 text-slate-300 border border-secondary small" title="OpenRouter AI Model Used">
-                    🤖 {caseInput.usedModel || activeModel}
+              <div className="app-card h-100 shadow">
+                <div className="app-card-header pb-3 pt-4 px-4 d-flex justify-content-between align-items-center">
+                  <h5 className="mb-0 fw-semibold d-inline-flex align-items-center gap-2">
+                    <Search size={18} className="text-primary" /> Case Details
+                  </h5>
+                  <span className="badge bg-secondary bg-opacity-20 text-body border small d-inline-flex align-items-center gap-1" title="OpenRouter AI Model Used">
+                    <Cpu size={13} /> {caseInput.usedModel || activeModel}
                   </span>
                 </div>
                 <div className="card-body p-4">
-                  <div className="law-code-card mb-4 border-0 shadow-sm" style={{background: 'rgba(59, 130, 246, 0.1)'}}>
-                    <div className="text-uppercase small text-blue-400 fw-bold mb-2">Applicable Legal Code</div>
-                    <div className="law-code-badge fs-6 mb-0 w-100 justify-content-center">📜 {caseInput.applicableCode || 'No code detected'}</div>
+                  <div className="law-code-card mb-4 shadow-sm">
+                    <div className="text-uppercase small fw-bold mb-2 text-primary">Applicable Legal Code</div>
+                    <div className="law-code-badge fs-6 mb-0 w-100 justify-content-center">
+                      <FileText size={16} /> {caseInput.applicableCode || 'No code detected'}
+                    </div>
                   </div>
 
                   {caseInput.summary && (
                     <div className="mb-4">
-                      <h6 className="fw-bold text-white d-flex align-items-center gap-2 mb-2">
-                        📄 Case Summary
+                      <h6 className="fw-bold d-flex align-items-center gap-2 mb-2">
+                        <FileText size={16} className="text-primary" /> Case Summary
                       </h6>
-                      <div className="p-3 bg-dark bg-opacity-50 rounded border border-secondary border-opacity-25 text-slate-300 small">
+                      <div className="p-3 app-card rounded small">
                         {caseInput.summary}
                       </div>
                     </div>
@@ -317,14 +318,14 @@ function Intake() {
 
                   <div className="mb-4">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <h6 className="fw-bold text-white d-flex align-items-center gap-2 mb-0">
-                        ⏰ Key Deadlines
+                      <h6 className="fw-bold d-flex align-items-center gap-2 mb-0">
+                        <Clock size={16} className="text-danger" /> Key Deadlines
                         <span className="badge bg-danger rounded-pill">{caseInput.deadlines?.length || 0}</span>
                       </h6>
                       {caseInput.deadlines?.length > 0 && (
                         <button
                           type="button"
-                          className="btn btn-sm btn-outline-warning d-flex align-items-center gap-1 py-1 px-2 text-nowrap fw-semibold"
+                          className="btn btn-sm btn-outline-warning d-inline-flex align-items-center gap-1 py-1 px-2 text-nowrap fw-semibold"
                           style={{ fontSize: '0.78rem' }}
                           onClick={() => downloadIcsFile(caseInput.deadlines, {
                             caseTitle: caseInput.title || 'Case Intake',
@@ -332,21 +333,23 @@ function Intake() {
                             applicableCode: caseInput.applicableCode
                           }, `${caseInput.title || 'case'}_deadlines.ics`)}
                         >
-                          📅 Export All (.ics)
+                          <Calendar size={13} /> Export All (.ics)
                         </button>
                       )}
                     </div>
                     {caseInput.deadlines?.length ? (
                       <div className="d-flex flex-column gap-2">
                         {caseInput.deadlines.map((dl, idx) => (
-                          <div key={`${dl.date}-${idx}`} className="deadline-card p-3 border-0 bg-dark bg-opacity-50">
+                          <div key={`${dl.date}-${idx}`} className="deadline-card p-3">
                             <div className="d-flex justify-content-between align-items-center mb-1">
-                              <span className="fw-semibold text-white fs-6">{dl.label || 'Deadline'}</span>
+                              <span className="fw-semibold fs-6">{dl.label || 'Deadline'}</span>
                               <div className="d-flex align-items-center gap-2">
-                                <span className="deadline-date-pill">📅 {formatDate(dl.date)}</span>
+                                <span className="deadline-date-pill d-inline-flex align-items-center gap-1">
+                                  <Calendar size={13} /> {formatDate(dl.date)}
+                                </span>
                                 <button
                                   type="button"
-                                  className="btn btn-xs btn-outline-info py-0 px-2 fw-medium"
+                                  className="btn btn-xs btn-outline-info py-0 px-2 fw-medium d-inline-flex align-items-center gap-1"
                                   style={{ fontSize: '0.75rem', borderRadius: '12px' }}
                                   title="Download .ics for this deadline"
                                   onClick={() => downloadIcsFile([dl], {
@@ -355,72 +358,32 @@ function Intake() {
                                     applicableCode: caseInput.applicableCode
                                   }, `${dl.label || 'deadline'}.ics`)}
                                 >
-                                  📥 .ics
+                                  <Download size={11} /> .ics
                                 </button>
                               </div>
                             </div>
-                            {dl.sourceText && <p className="text-secondary small mb-0 mt-2 fst-italic">"{dl.sourceText}"</p>}
+                            {dl.sourceText && <p className="text-muted small mb-0 mt-2 fst-italic">"{dl.sourceText}"</p>}
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <div className="text-muted small p-3 bg-dark bg-opacity-50 rounded border border-secondary border-opacity-25">
+                      <div className="text-muted small p-3 app-card rounded">
                         No specific deadline dates detected.
                       </div>
                     )}
                   </div>
 
-                  {/* 🤖 AI Risk & Strategy Prediction Card */}
-                  <div className="mb-4">
-                    <h6 className="fw-bold text-info d-flex align-items-center gap-2 mb-2">
-                      🤖 AI Case Strategy & Win Predictor
-                    </h6>
-                    {isRiskLoading ? (
-                      <div className="p-3 bg-dark bg-opacity-50 rounded border border-info border-opacity-25 text-info small text-center">
-                        <span className="spinner-border spinner-border-sm me-2"></span> Calculating win probability & opponent strategy...
-                      </div>
-                    ) : riskAnalysis ? (
-                      <div className="p-3 bg-dark bg-opacity-75 rounded border border-info border-opacity-30 text-slate-300 small">
-                        <div className="d-flex justify-content-between align-items-center mb-2">
-                          <span className="fw-bold text-white">Estimated Win Rate:</span>
-                          <span className={`badge ${riskAnalysis.winProbability >= 75 ? 'bg-success' : riskAnalysis.winProbability >= 60 ? 'bg-warning text-dark' : 'bg-danger'}`}>
-                            🎯 {riskAnalysis.winProbability}%
-                          </span>
-                        </div>
-                        <div className="progress mb-3" style={{ height: '6px', background: '#334155' }}>
-                          <div className={`progress-bar ${riskAnalysis.winProbability >= 75 ? 'bg-success' : riskAnalysis.winProbability >= 60 ? 'bg-warning' : 'bg-danger'}`} style={{ width: `${riskAnalysis.winProbability}%` }}></div>
-                        </div>
-                        <div className="mb-2">
-                          <strong className="text-success">💪 Case Strengths:</strong>
-                          <ul className="ps-3 mb-0 text-slate-300 mt-1">
-                            {riskAnalysis.strengths?.map((s, idx) => <li key={idx}>{s}</li>)}
-                          </ul>
-                        </div>
-                        <div className="mb-2">
-                          <strong className="text-danger">⚠️ Risk Vulnerabilities:</strong>
-                          <ul className="ps-3 mb-0 text-slate-300 mt-1">
-                            {riskAnalysis.vulnerabilities?.map((v, idx) => <li key={idx}>{v}</li>)}
-                          </ul>
-                        </div>
-                        <div>
-                          <strong className="text-warning">⚔️ Predicted Opponent Counter:</strong>
-                          <p className="mb-0 text-slate-300 mt-1 fst-italic">"{riskAnalysis.opponentStrategy}"</p>
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
-
                   <div className="row g-2 mt-auto">
                     <div className="col-6">
-                      <div className="bg-dark bg-opacity-50 p-2 rounded">
-                        <label className="form-label text-slate-400 small mb-0 d-block text-uppercase">Practice Area</label>
-                        <span className="text-white fw-medium">{caseInput.practiceArea || 'Unknown'}</span>
+                      <div className="app-card p-2 rounded">
+                        <label className="form-label text-muted small mb-0 d-block text-uppercase">Practice Area</label>
+                        <span className="fw-medium">{caseInput.practiceArea || 'Unknown'}</span>
                       </div>
                     </div>
                     <div className="col-6">
-                      <div className="bg-dark bg-opacity-50 p-2 rounded">
-                        <label className="form-label text-slate-400 small mb-0 d-block text-uppercase">Jurisdiction</label>
-                        <span className="text-white fw-medium">{caseInput.jurisdiction || 'Unknown'}</span>
+                      <div className="app-card p-2 rounded">
+                        <label className="form-label text-muted small mb-0 d-block text-uppercase">Jurisdiction</label>
+                        <span className="fw-medium">{caseInput.jurisdiction || 'Unknown'}</span>
                       </div>
                     </div>
                   </div>
@@ -430,27 +393,29 @@ function Intake() {
 
             {/* Attorney Recommendations */}
             <div className="col-lg-8">
-              <div className="app-card h-100 border-0 shadow">
-                <div className="app-card-header bg-transparent border-bottom border-secondary pb-3 pt-4 px-4 d-flex justify-content-between align-items-center">
-                  <h5 className="mb-0 fw-semibold text-white">👨‍⚖️ Matched Attorneys</h5>
+              <div className="app-card h-100 shadow">
+                <div className="app-card-header pb-3 pt-4 px-4 d-flex justify-content-between align-items-center">
+                  <h5 className="mb-0 fw-semibold d-inline-flex align-items-center gap-2">
+                    <Gavel size={20} className="text-primary" /> Matched Attorneys
+                  </h5>
                 </div>
                 <div className="card-body p-4">
                   <div className="row g-3">
                     {recommendations.length === 0 ? (
-                      <div className="col-12 text-center py-5 text-secondary">
+                      <div className="col-12 text-center py-5 text-muted">
                         No attorneys found for this case profile.
                       </div>
                     ) : (
                       recommendations.map((rec, index) => (
                         <div key={rec.id} className="col-md-6 mb-2">
-                          <div className="lawyer-card p-4 h-100 d-flex flex-column justify-content-between border border-secondary border-opacity-50 shadow-sm position-relative overflow-hidden">
+                          <div className="lawyer-card p-4 h-100 d-flex flex-column justify-content-between shadow-sm position-relative overflow-hidden">
                             {index === 0 && <div className="position-absolute top-0 end-0 bg-success text-white px-3 py-1 small fw-bold" style={{borderBottomLeftRadius: '8px'}}>Top Match</div>}
                             <div>
                               <div className="d-flex justify-content-between align-items-start mb-3">
-                                <h5 className="fw-bold text-white mb-0">{rec.name}</h5>
+                                <h5 className="fw-bold mb-0">{rec.name}</h5>
                                 <span className="badge bg-primary fs-6">Score: {rec.score}</span>
                               </div>
-                              <p className="text-slate-300 mb-4">{rec.reason}</p>
+                              <p className="text-muted mb-4">{rec.reason}</p>
                             </div>
                             <button onClick={() => handleApprove(rec.id)} className="btn btn-outline-success w-100 fw-bold">
                               Assign Case to {rec.name}
@@ -463,7 +428,7 @@ function Intake() {
 
                   {approvalMessage && (
                     <div className="alert alert-success mt-4 mb-0 d-flex align-items-center gap-2 border-0 shadow-sm">
-                      <span className="fs-5">✅</span>
+                      <CheckCircle2 size={20} className="text-success" />
                       <div className="fw-medium">{approvalMessage}</div>
                     </div>
                   )}
@@ -478,3 +443,4 @@ function Intake() {
 }
 
 export default Intake;
+
