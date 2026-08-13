@@ -59,9 +59,13 @@ export async function rankLawyersWithAI(caseInput, model = process.env.OPENROUTE
       const lawyer = lawyerProfiles.find(
         (profile) => String(profile.id) === String(targetId) || (entry.name && profile.name.toLowerCase() === String(entry.name).toLowerCase())
       );
+      const lawyerId = lawyer?.id || String(targetId);
       return {
-        id: lawyer?.id || String(targetId),
+        id: lawyerId,
         name: lawyer?.name || entry.name || String(targetId),
+        avatarUrl: lawyer?.avatarUrl || `/lawyers/lawyer-${lawyerId}.jpg`,
+        practiceAreas: lawyer?.practiceAreas || [],
+        specialties: lawyer?.specialties || [],
         score: entry.score || 0,
         reason: entry.reason || 'AI-generated recommendation based on law code & deadlines',
         source: 'ai'
@@ -98,6 +102,9 @@ function rankLawyersWithHeuristics(caseInput, lawyerProfiles) {
       return {
         id: lawyer.id,
         name: lawyer.name,
+        avatarUrl: lawyer.avatarUrl || `/lawyers/lawyer-${lawyer.id}.jpg`,
+        practiceAreas: lawyer.practiceAreas || [],
+        specialties: lawyer.specialties || [],
         score: totalScore,
         reason: `Matches ${practiceScore} practice area, ${jurisdictionScore} jurisdiction${codeDetail} with ${lawyer.caseHistory} relevant matters handled.`,
         source: 'heuristic'

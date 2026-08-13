@@ -200,12 +200,15 @@ function Dashboard() {
           <h4 className="mb-3 d-flex align-items-center gap-2">
             <TrendingUp size={20} className="text-primary" /> Lawyer Performance Analytics
           </h4>
-          <div className="app-card shadow overflow-hidden">
+          {/* Desktop Table View */}
+          <div className="app-card shadow overflow-hidden d-none d-md-block">
             <div className="table-responsive">
               <table className="table table-hover align-middle mb-0">
                 <thead className="app-card-header">
                   <tr>
-                    <th className="py-3 px-4">Lawyer Name</th>
+                    <th className="py-3 px-4">Lawyer</th>
+                    <th className="py-3 px-3">Primary Practice Areas</th>
+                    <th className="py-3 px-3 text-center">Cases Handled</th>
                     <th className="py-3 px-4 text-end">Action</th>
                   </tr>
                 </thead>
@@ -216,7 +219,37 @@ function Dashboard() {
                       style={{ cursor: 'pointer' }}
                       onClick={() => setSelectedLawyerModal(lawyer)}
                     >
-                      <td className="py-3 px-4 fw-bold" style={{ color: 'var(--text-main)' }}>{lawyer.name}</td>
+                      <td className="py-3 px-4">
+                        <div className="d-flex align-items-center gap-3">
+                          <img
+                            src={lawyer.avatarUrl || `/lawyers/lawyer-${lawyer.id}.jpg`}
+                            alt={lawyer.name}
+                            className="lawyer-avatar-md shadow-sm"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(lawyer.name)}&background=e6b729&color=112827&bold=true`;
+                            }}
+                          />
+                          <div>
+                            <div className="fw-bold fs-6" style={{ color: 'var(--text-main)' }}>{lawyer.name}</div>
+                            <div className="text-muted small">{lawyer.jurisdictions?.join(', ') || 'General'}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-3 px-3">
+                        <div className="d-flex flex-wrap gap-1">
+                          {lawyer.practiceAreas?.slice(0, 2).map((pa, idx) => (
+                            <span key={idx} className="badge bg-secondary bg-opacity-20 text-body border" style={{ fontSize: '0.75rem' }}>
+                              {pa}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+                      <td className="py-3 px-3 text-center">
+                        <span className="badge bg-primary text-body fw-bold px-3 py-2" style={{ fontSize: '0.85rem' }}>
+                          {lawyer.caseHistory} Cases
+                        </span>
+                      </td>
                       <td className="py-3 px-4 text-end">
                         <button 
                           className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
@@ -235,6 +268,53 @@ function Dashboard() {
               </table>
             </div>
           </div>
+
+          {/* Mobile Card List View */}
+          <div className="d-md-none d-flex flex-column gap-3">
+            {lawyers.map(lawyer => (
+              <div
+                key={lawyer.id}
+                className="app-card shadow-sm p-3 rounded-3 border"
+                style={{ cursor: 'pointer', borderColor: 'var(--border-card)' }}
+                onClick={() => setSelectedLawyerModal(lawyer)}
+              >
+                <div className="d-flex align-items-center gap-3 mb-2">
+                  <img
+                    src={lawyer.avatarUrl || `/lawyers/lawyer-${lawyer.id}.jpg`}
+                    alt={lawyer.name}
+                    className="lawyer-avatar-md shadow-sm"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(lawyer.name)}&background=e6b729&color=112827&bold=true`;
+                    }}
+                  />
+                  <div className="flex-grow-1 overflow-hidden">
+                    <h6 className="fw-bold mb-0 text-truncate" style={{ color: 'var(--text-main)' }}>{lawyer.name}</h6>
+                    <div className="text-muted small">{lawyer.jurisdictions?.join(', ') || 'General'}</div>
+                  </div>
+                  <span className="badge bg-primary text-body fw-bold py-1 px-2" style={{ fontSize: '0.75rem' }}>
+                    {lawyer.caseHistory} Cases
+                  </span>
+                </div>
+                <div className="d-flex flex-wrap gap-1 mb-3">
+                  {lawyer.practiceAreas?.map((pa, idx) => (
+                    <span key={idx} className="badge bg-secondary bg-opacity-20 text-body border" style={{ fontSize: '0.7rem' }}>
+                      {pa}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  className="btn btn-sm btn-outline-primary w-100 d-inline-flex align-items-center justify-content-center gap-1 fw-semibold"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedLawyerModal(lawyer);
+                  }}
+                >
+                  <Eye size={14} /> View Analytics & Profile
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -245,81 +325,173 @@ function Dashboard() {
               No cases assigned yet.
             </div>
           ) : (
-            <div className="app-card shadow overflow-hidden">
-              <div className="table-responsive">
-                <table className="table table-hover align-middle mb-0">
-                  <thead className="app-card-header">
-                    <tr>
-                      <th className="py-3 px-4">Case Title</th>
-                      <th className="py-3 px-3">Client</th>
-                      <th className="py-3 px-3">Assigned Lawyer</th>
-                      <th className="py-3 px-3">Governing Law</th>
-                      <th className="py-3 px-3">Deadline</th>
-                      <th className="py-3 px-3">Status</th>
-                      <th className="py-3 px-4 text-end">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cases.slice().reverse().map(c => {
-                      const details = typeof c.caseDetails === 'string' ? JSON.parse(c.caseDetails) : (c.caseDetails || {});
-                      const governingLaw = details.applicableCode || c.applicableCode || details.governingLaw || c.governingLaw || 'General Code';
-                      const clientName = details.clientName || c.clientName || 'N/A';
-                      const primaryDate = details.primaryDeadlineDate || details.deadlines?.[0]?.date || c.primaryDeadlineDate;
+            <>
+              {/* Desktop Table View */}
+              <div className="app-card shadow overflow-hidden d-none d-lg-block">
+                <div className="table-responsive">
+                  <table className="table table-hover align-middle mb-0">
+                    <thead className="app-card-header">
+                      <tr>
+                        <th className="py-3 px-4">Case Title</th>
+                        <th className="py-3 px-3">Client</th>
+                        <th className="py-3 px-3">Assigned Lawyer</th>
+                        <th className="py-3 px-3">Governing Law</th>
+                        <th className="py-3 px-3">Deadline</th>
+                        <th className="py-3 px-3">Status</th>
+                        <th className="py-3 px-4 text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cases.slice().reverse().map(c => {
+                        const details = typeof c.caseDetails === 'string' ? JSON.parse(c.caseDetails) : (c.caseDetails || {});
+                        const governingLaw = details.applicableCode || c.applicableCode || details.governingLaw || c.governingLaw || 'General Code';
+                        const clientName = details.clientName || c.clientName || 'N/A';
+                        const primaryDate = details.primaryDeadlineDate || details.deadlines?.[0]?.date || c.primaryDeadlineDate;
 
-                      return (
-                        <tr 
-                          key={c.id} 
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => openCaseDetails(c)}
-                        >
-                          <td className="py-3 px-4">
-                            <div className="fw-bold">{c.caseTitle}</div>
-                            <div className="text-muted small">{details.caseFocus || details.practiceArea || 'General Litigation'}</div>
-                          </td>
-                          <td className="py-3 px-3 fw-medium">
-                            {clientName}
-                          </td>
-                          <td className="py-3 px-3">
-                            {c.selectedLawyer}
-                          </td>
-                          <td className="py-3 px-3">
-                            <span className="badge bg-primary text-white border border-primary border-opacity-30 px-2 py-1" style={{ fontSize: '0.8rem' }}>
-                              <FileText size={12} className="me-1" />
-                              {governingLaw}
-                            </span>
-                          </td>
-                          <td className="py-3 px-3">
-                            {primaryDate ? (
-                              <span className="deadline-date-pill small d-inline-flex align-items-center gap-1">
-                                <Calendar size={13} /> {formatDate(primaryDate)}
+                        return (
+                          <tr 
+                            key={c.id} 
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => openCaseDetails(c)}
+                          >
+                            <td className="py-3 px-4">
+                              <div className="fw-bold">{c.caseTitle}</div>
+                              <div className="text-muted small">{details.caseFocus || details.practiceArea || 'General Litigation'}</div>
+                            </td>
+                            <td className="py-3 px-3 fw-medium">
+                              {clientName}
+                            </td>
+                            <td className="py-3 px-3">
+                              <div className="d-flex align-items-center gap-2">
+                                <img
+                                  src={c.lawyerAvatar || (c.lawyerId ? `/lawyers/lawyer-${c.lawyerId}.jpg` : `/lawyers/lawyer-${lawyers.find(l => l.name === c.selectedLawyer)?.id || 1}.jpg`)}
+                                  alt={c.selectedLawyer}
+                                  className="lawyer-avatar-sm shadow-sm"
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(c.selectedLawyer || 'Lawyer')}&background=e6b729&color=112827&bold=true`;
+                                  }}
+                                />
+                                <span className="fw-medium text-truncate" style={{ maxWidth: '140px' }}>{c.selectedLawyer}</span>
+                              </div>
+                            </td>
+                            <td className="py-3 px-3">
+                              <span className="badge bg-primary text-white border border-primary border-opacity-30 px-2 py-1" style={{ fontSize: '0.8rem' }}>
+                                <FileText size={12} className="me-1" />
+                                {governingLaw}
                               </span>
-                            ) : (
-                              <span className="text-muted small">No deadline</span>
-                            )}
-                          </td>
-                          <td className="py-3 px-3">
-                            <span className={`badge ${c.status === 'Accepted' ? 'bg-success' : c.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
-                              {c.status || 'Pending'}
-                            </span>
-                          </td>
-                          <td className="py-3 px-4 text-end">
-                            <button 
-                              className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                openCaseDetails(c);
-                              }}
-                            >
-                              <Eye size={14} /> Open Details
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            </td>
+                            <td className="py-3 px-3">
+                              {primaryDate ? (
+                                <span className="deadline-date-pill small d-inline-flex align-items-center gap-1">
+                                  <Calendar size={13} /> {formatDate(primaryDate)}
+                                </span>
+                              ) : (
+                                <span className="text-muted small">No deadline</span>
+                              )}
+                            </td>
+                            <td className="py-3 px-3">
+                              <span className={`badge ${c.status === 'Accepted' ? 'bg-success' : c.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`}>
+                                {c.status || 'Pending'}
+                              </span>
+                            </td>
+                            <td className="py-3 px-4 text-end">
+                              <button 
+                                className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openCaseDetails(c);
+                                }}
+                              >
+                                <Eye size={14} /> Open Details
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+
+              {/* Mobile Card List View (d-lg-none) */}
+              <div className="d-lg-none d-flex flex-column gap-3">
+                {cases.slice().reverse().map(c => {
+                  const details = typeof c.caseDetails === 'string' ? JSON.parse(c.caseDetails) : (c.caseDetails || {});
+                  const governingLaw = details.applicableCode || c.applicableCode || details.governingLaw || c.governingLaw || 'General Code';
+                  const clientName = details.clientName || c.clientName || 'N/A';
+                  const primaryDate = details.primaryDeadlineDate || details.deadlines?.[0]?.date || c.primaryDeadlineDate;
+
+                  return (
+                    <div 
+                      key={c.id} 
+                      className="app-card shadow-sm p-3 rounded-3 border"
+                      style={{ cursor: 'pointer', borderColor: 'var(--border-card)' }}
+                      onClick={() => openCaseDetails(c)}
+                    >
+                      <div className="d-flex justify-content-between align-items-start gap-2 mb-2">
+                        <div className="flex-grow-1 overflow-hidden">
+                          <h6 className="fw-bold mb-1 text-truncate" style={{ color: 'var(--text-main)' }}>{c.caseTitle}</h6>
+                          <div className="text-muted small">{details.caseFocus || details.practiceArea || 'General Litigation'}</div>
+                        </div>
+                        <span className={`badge flex-shrink-0 ${c.status === 'Accepted' ? 'bg-success' : c.status === 'Rejected' ? 'bg-danger' : 'bg-warning text-dark'}`} style={{ fontSize: '0.75rem' }}>
+                          {c.status || 'Pending'}
+                        </span>
+                      </div>
+
+                      {/* Attorney & Client Info Box */}
+                      <div className="p-2 rounded-2 mb-3" style={{ background: 'rgba(255, 255, 255, 0.04)', border: '1px solid var(--border-card)' }}>
+                        <div className="d-flex align-items-center gap-2 mb-2 pb-2 border-bottom" style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}>
+                          <img
+                            src={c.lawyerAvatar || (c.lawyerId ? `/lawyers/lawyer-${c.lawyerId}.jpg` : `/lawyers/lawyer-${lawyers.find(l => l.name === c.selectedLawyer)?.id || 1}.jpg`)}
+                            alt={c.selectedLawyer}
+                            className="lawyer-avatar-sm shadow-sm"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(c.selectedLawyer || 'Lawyer')}&background=e6b729&color=112827&bold=true`;
+                            }}
+                          />
+                          <div className="overflow-hidden">
+                            <div className="text-muted" style={{ fontSize: '0.7rem', textTransform: 'uppercase' }}>Assigned Attorney</div>
+                            <div className="fw-bold small text-truncate" style={{ color: 'var(--text-main)' }}>{c.selectedLawyer}</div>
+                          </div>
+                        </div>
+                        <div className="d-flex justify-content-between align-items-center small">
+                          <span className="text-muted">Client:</span>
+                          <span className="fw-medium text-truncate ms-2" style={{ maxWidth: '200px' }}>{clientName}</span>
+                        </div>
+                      </div>
+
+                      {/* Badges: Law and Deadline */}
+                      <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                        <span className="badge bg-primary text-white border border-primary border-opacity-30 px-2 py-1" style={{ fontSize: '0.75rem' }}>
+                          <FileText size={12} className="me-1" />
+                          {governingLaw}
+                        </span>
+                        {primaryDate ? (
+                          <span className="deadline-date-pill small d-inline-flex align-items-center gap-1" style={{ fontSize: '0.75rem' }}>
+                            <Calendar size={12} /> {formatDate(primaryDate)}
+                          </span>
+                        ) : (
+                          <span className="text-muted small">No deadline</span>
+                        )}
+                      </div>
+
+                      {/* Action Button */}
+                      <button 
+                        className="btn btn-sm btn-outline-primary w-100 d-inline-flex align-items-center justify-content-center gap-1 fw-semibold py-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openCaseDetails(c);
+                        }}
+                      >
+                        <Eye size={14} /> Open Details
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
       )}
@@ -354,9 +526,20 @@ function Dashboard() {
                     </div>
                   </div>
                   <div className="col-md-6 col-lg-3">
-                    <div className="app-card p-2 rounded">
-                      <label className="text-muted small mb-0 d-block text-uppercase">Assigned Attorney</label>
-                      <span className="fw-bold fs-6">{selectedCaseModal.selectedLawyer}</span>
+                    <div className="app-card p-2 rounded d-flex align-items-center gap-2">
+                      <img
+                        src={selectedCaseModal.lawyerAvatar || (selectedCaseModal.lawyerId ? `/lawyers/lawyer-${selectedCaseModal.lawyerId}.jpg` : `/lawyers/lawyer-${lawyers.find(l => l.name === selectedCaseModal.selectedLawyer)?.id || 1}.jpg`)}
+                        alt={selectedCaseModal.selectedLawyer}
+                        className="lawyer-avatar-sm shadow-sm"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedCaseModal.selectedLawyer || 'Lawyer')}&background=e6b729&color=112827&bold=true`;
+                        }}
+                      />
+                      <div className="overflow-hidden">
+                        <label className="text-muted small mb-0 d-block text-uppercase" style={{ fontSize: '0.7rem' }}>Assigned Attorney</label>
+                        <span className="fw-bold fs-6 text-truncate d-block" title={selectedCaseModal.selectedLawyer}>{selectedCaseModal.selectedLawyer}</span>
+                      </div>
                     </div>
                   </div>
                   <div className="col-md-6 col-lg-3">
@@ -629,17 +812,44 @@ function Dashboard() {
       {selectedLawyerModal && (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)', zIndex: 1055 }}>
           <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div className="modal-content app-card shadow-lg">
+            <div className="modal-content app-card shadow-lg border">
               <div className="modal-header app-card-header py-3">
                 <h5 className="modal-title fw-bold d-flex align-items-center gap-2 mb-0" style={{ color: 'var(--text-main)' }}>
-                  <TrendingUp size={20} style={{ color: 'var(--text-main)' }} /> {selectedLawyerModal.name} - Analytics
+                  <TrendingUp size={20} style={{ color: 'var(--text-main)' }} /> Attorney Profile & Analytics
                 </h5>
                 <button type="button" className="btn-close" onClick={() => setSelectedLawyerModal(null)}></button>
               </div>
               <div className="modal-body p-4">
-                <div className="text-muted small mb-4">Total Cases Handled: <strong className="fs-5" style={{ color: 'var(--text-main)' }}>{selectedLawyerModal.caseHistory}</strong></div>
+                {/* Attorney Profile Header */}
+                <div className="d-flex align-items-center gap-3 mb-4 p-3 rounded-3 app-card border" style={{ borderColor: 'var(--border-card)' }}>
+                  <img
+                    src={selectedLawyerModal.avatarUrl || `/lawyers/lawyer-${selectedLawyerModal.id}.jpg`}
+                    alt={selectedLawyerModal.name}
+                    className="lawyer-avatar-lg shadow"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedLawyerModal.name)}&background=e6b729&color=112827&bold=true`;
+                    }}
+                  />
+                  <div className="flex-grow-1 overflow-hidden">
+                    <h4 className="fw-bold mb-1 text-truncate" style={{ color: 'var(--text-main)' }}>{selectedLawyerModal.name}</h4>
+                    <div className="d-flex flex-wrap gap-1 mb-2">
+                      {selectedLawyerModal.practiceAreas?.map((pa, idx) => (
+                        <span key={idx} className="badge bg-secondary bg-opacity-20 text-body border" style={{ fontSize: '0.72rem' }}>
+                          {pa}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="d-flex flex-wrap gap-3 text-muted small">
+                      <span>Total Cases: <strong style={{ color: 'var(--text-main)' }}>{selectedLawyerModal.caseHistory}</strong></span>
+                      {selectedLawyerModal.workload && (
+                        <span>Workload: <strong style={{ color: 'var(--text-main)' }}>{selectedLawyerModal.workload} active</strong></span>
+                      )}
+                    </div>
+                  </div>
+                </div>
                 
-                <h6 className="fw-bold mb-3 border-bottom pb-2" style={{ color: 'var(--text-main)' }}>Performance by Area</h6>
+                <h6 className="fw-bold mb-3 border-bottom pb-2" style={{ color: 'var(--text-main)' }}>Performance by Practice Area</h6>
                 {selectedLawyerModal.performance && Object.entries(selectedLawyerModal.performance).map(([area, stats]) => (
                   <div key={area} className="d-flex justify-content-between align-items-center mb-3 p-3 app-card rounded border" style={{ borderColor: 'var(--border-card)' }}>
                     <span className="fw-bold" style={{ fontSize: '1rem', color: 'var(--text-main)' }}>{area}</span>

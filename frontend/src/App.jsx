@@ -26,7 +26,7 @@ function Navigation({ isAuthenticated, setAuth, onOpenAdvert }) {
   return (
     <nav className="navbar navbar-expand-lg border-bottom sticky-top hero-header py-2">
       <div className="container">
-        <Link className="navbar-brand fw-bold d-flex align-items-center gap-2" to="/" onClick={handleNavClick}>
+        <Link className="navbar-brand fw-bold d-flex align-items-center gap-2" to={isAuthenticated ? "/" : "/login"} onClick={handleNavClick}>
           <Logo size={36} />
           <span className="fw-bold">Lawyer Tinder</span>
         </Link>
@@ -71,17 +71,17 @@ function Navigation({ isAuthenticated, setAuth, onOpenAdvert }) {
                 <span>Watch Advert</span>
               </button>
             </li>
-            <li className="nav-item">
-              <Link 
-                onClick={handleNavClick}
-                className={`nav-link px-3 rounded ${location.pathname === '/' ? 'active bg-primary text-white fw-medium' : 'fw-medium'}`} 
-                to="/"
-              >
-                Intake Portal
-              </Link>
-            </li>
             {isAuthenticated ? (
               <>
+                <li className="nav-item">
+                  <Link 
+                    onClick={handleNavClick}
+                    className={`nav-link px-3 rounded ${location.pathname === '/' ? 'active bg-primary text-white fw-medium' : 'fw-medium'}`} 
+                    to="/"
+                  >
+                    Intake Portal
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link 
                     onClick={handleNavClick}
@@ -124,14 +124,18 @@ const ProtectedRoute = ({ isAuthenticated, children }) => {
 };
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return Boolean(sessionStorage.getItem('auth_token') || localStorage.getItem('auth_token'));
+  });
   const [isAdvertOpen, setIsAdvertOpen] = useState(false);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('auth_token') || localStorage.getItem('auth_token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    const handleStorageChange = () => {
+      const token = sessionStorage.getItem('auth_token') || localStorage.getItem('auth_token');
+      setIsAuthenticated(Boolean(token));
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   return (
@@ -144,7 +148,16 @@ function App() {
         />
         <div className="flex-grow-1">
           <Routes>
-            <Route path="/login" element={<Login setAuth={setIsAuthenticated} onOpenAdvert={() => setIsAdvertOpen(true)} />} />
+            <Route 
+              path="/login" 
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <Login setAuth={setIsAuthenticated} onOpenAdvert={() => setIsAdvertOpen(true)} />
+                )
+              } 
+            />
             <Route 
               path="/" 
               element={
@@ -161,7 +174,7 @@ function App() {
                 </ProtectedRoute>
               } 
             />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />} />
           </Routes>
         </div>
         <AdvertModal isOpen={isAdvertOpen} onClose={() => setIsAdvertOpen(false)} />

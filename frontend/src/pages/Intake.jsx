@@ -78,6 +78,7 @@ function Intake() {
   const [caseInput, setCaseInput] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [approvalMessage, setApprovalMessage] = useState('');
+  const [approvedLawyer, setApprovedLawyer] = useState(null);
   const [notes, setNotes] = useState('Urgent deadline - Please prioritize case intake.');
   const [statusMessage, setStatusMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -103,6 +104,7 @@ function Intake() {
         const recs = data.recommendations || data.caseInput.recommendations || [];
         setRecommendations(recs);
         setApprovalMessage('');
+        setApprovedLawyer(null);
         setStatusMessage(`Analysis & Lawyer Matching complete! Code: ${data.caseInput.applicableCode}`);
       }
     } catch (err) {
@@ -133,6 +135,7 @@ function Intake() {
         const recs = data.recommendations || data.caseInput.recommendations || [];
         setRecommendations(recs);
         setApprovalMessage('');
+        setApprovedLawyer(null);
         setStatusMessage(`File "${data.fileName}" analyzed! Code: ${data.caseInput.applicableCode}`);
       }
     } catch (err) {
@@ -150,6 +153,11 @@ function Intake() {
     });
     const data = await response.json();
     setApprovalMessage(`Case assigned to ${data.approval.selectedLawyer} for "${data.approval.caseTitle}".`);
+    const matched = recommendations.find(r => String(r.id) === String(lawyerId));
+    setApprovedLawyer({
+      name: data.approval.selectedLawyer,
+      avatarUrl: data.approval.lawyerAvatar || matched?.avatarUrl || `/lawyers/lawyer-${lawyerId}.jpg`
+    });
   }
 
   function handleStartOver() {
@@ -158,6 +166,7 @@ function Intake() {
     setRawText('');
     setStatusMessage('');
     setApprovalMessage('');
+    setApprovedLawyer(null);
   }
 
   return (
@@ -410,16 +419,38 @@ function Intake() {
                       recommendations.map((rec, index) => (
                         <div key={rec.id} className="col-md-6 mb-2">
                           <div className="lawyer-card p-4 h-100 d-flex flex-column justify-content-between shadow-sm position-relative overflow-hidden">
-                            {index === 0 && <div className="position-absolute top-0 end-0 bg-success text-white px-3 py-1 small fw-bold" style={{borderBottomLeftRadius: '8px'}}>Top Match</div>}
-                            <div>
-                              <div className="d-flex justify-content-between align-items-start mb-3">
-                                <h5 className="fw-bold mb-0">{rec.name}</h5>
-                                <span className="badge bg-primary fs-6">Score: {rec.score}</span>
+                            {index === 0 && (
+                              <div className="position-absolute top-0 end-0 bg-success text-white px-3 py-1 small fw-bold" style={{borderBottomLeftRadius: '8px', zIndex: 1}}>
+                                Top Match
                               </div>
-                              <p className="text-muted mb-4">{rec.reason}</p>
+                            )}
+                            <div>
+                              <div className="d-flex align-items-center gap-3 mb-3">
+                                <img
+                                  src={rec.avatarUrl || `/lawyers/lawyer-${rec.id}.jpg`}
+                                  alt={rec.name}
+                                  className="lawyer-avatar-card shadow-sm"
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(rec.name)}&background=e6b729&color=112827&bold=true`;
+                                  }}
+                                />
+                                <div className="flex-grow-1 overflow-hidden">
+                                  <h5 className="fw-bold mb-1 text-truncate" title={rec.name} style={{ color: 'var(--text-main)' }}>{rec.name}</h5>
+                                  <div className="d-flex flex-wrap align-items-center gap-2">
+                                    <span className="badge bg-primary text-body fw-bold" style={{ fontSize: '0.75rem' }}>Match Score: {rec.score}</span>
+                                    {rec.practiceAreas && rec.practiceAreas[0] && (
+                                      <span className="badge bg-secondary bg-opacity-20 text-body border small text-truncate" style={{ fontSize: '0.72rem', maxWidth: '130px' }}>
+                                        {rec.practiceAreas[0]}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <p className="text-muted small mb-4" style={{ lineHeight: '1.5' }}>{rec.reason}</p>
                             </div>
-                            <button onClick={() => handleApprove(rec.id)} className="btn btn-outline-success w-100 fw-bold">
-                              Assign Case to {rec.name}
+                            <button onClick={() => handleApprove(rec.id)} className="btn btn-outline-success w-100 fw-bold d-flex align-items-center justify-content-center gap-2">
+                              <CheckCircle2 size={16} /> Assign Case to {rec.name}
                             </button>
                           </div>
                         </div>
@@ -428,9 +459,21 @@ function Intake() {
                   </div>
 
                   {approvalMessage && (
-                    <div className="alert alert-success mt-4 mb-0 d-flex align-items-center gap-2 border-0 shadow-sm">
-                      <CheckCircle2 size={20} className="text-success" />
-                      <div className="fw-medium">{approvalMessage}</div>
+                    <div className="alert alert-success mt-4 mb-0 d-flex align-items-center gap-3 border-0 shadow-sm p-3 rounded-3">
+                      {approvedLawyer?.avatarUrl ? (
+                        <img
+                          src={approvedLawyer.avatarUrl}
+                          alt={approvedLawyer.name}
+                          className="lawyer-avatar-sm shadow-sm"
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
+                      ) : (
+                        <CheckCircle2 size={24} className="text-success" />
+                      )}
+                      <div>
+                        <div className="fw-bold fs-6">{approvalMessage}</div>
+                        <div className="small text-muted">Case assigned successfully and synced with the attorney's docket in Dashboard.</div>
+                      </div>
                     </div>
                   )}
                 </div>

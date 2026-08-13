@@ -149,13 +149,72 @@ body {
 .lawyer-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 12px;
-  transition: all 0.2s ease;
+  border-radius: 14px;
+  transition: all 0.25s ease;
 }
 
 .lawyer-card:hover {
-  border-color: #3b82f6;
-  box-shadow: var(--shadow-custom);
+  border-color: var(--text-main);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Lawyer Headshot & Avatar Styles */
+.lawyer-avatar-img {
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(230, 183, 41, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.lawyer-card:hover .lawyer-avatar-img {
+  transform: scale(1.05);
+  border-color: var(--text-main);
+  box-shadow: 0 6px 16px rgba(230, 183, 41, 0.3);
+}
+
+.lawyer-avatar-sm {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(230, 183, 41, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lawyer-avatar-md {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(230, 183, 41, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lawyer-avatar-lg {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--text-main);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lawyer-avatar-card {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(230, 183, 41, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .extracted-pill {

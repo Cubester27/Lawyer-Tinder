@@ -2,6 +2,7 @@
   {
     "id": "1",
     "name": "Dr. Ava Patel",
+    "avatarUrl": "/lawyers/lawyer-1.jpg",
     "practiceAreas": [
       "Employment",
       "Civil Rights",
@@ -18,7 +19,7 @@
       "Works Council Act",
       "Wrongful Termination"
     ],
-    "caseHistory": 38,
+    "caseHistory": 40,
     "workload": 3,
     "performance": {
       "Employment": {
@@ -38,6 +39,7 @@
   {
     "id": "2",
     "name": "Marcus Lee, Esq.",
+    "avatarUrl": "/lawyers/lawyer-2.jpg",
     "practiceAreas": [
       "Commercial Litigation",
       "Commercial Law",
@@ -73,6 +75,7 @@
   {
     "id": "3",
     "name": "Sofia Ramirez",
+    "avatarUrl": "/lawyers/lawyer-3.jpg",
     "practiceAreas": [
       "Employment",
       "Labor Law"
@@ -102,6 +105,7 @@
   {
     "id": "4",
     "name": "Dr. Maximilian von Berg",
+    "avatarUrl": "/lawyers/lawyer-4.jpg",
     "practiceAreas": [
       "Civil Law",
       "Contract Law",
@@ -137,6 +141,7 @@
   {
     "id": "5",
     "name": "Prof. Dr. Elena Schneider",
+    "avatarUrl": "/lawyers/lawyer-5.jpg",
     "practiceAreas": [
       "Criminal Law",
       "Murder",
@@ -168,6 +173,7 @@
   {
     "id": "6",
     "name": "Lukas Weber",
+    "avatarUrl": "/lawyers/lawyer-6.jpg",
     "practiceAreas": [
       "Employment Law",
       "Employment"
@@ -197,6 +203,7 @@
   {
     "id": "7",
     "name": "Sarah Jenkins",
+    "avatarUrl": "/lawyers/lawyer-7.jpg",
     "practiceAreas": [
       "Medical",
       "Medical Malpractice"
@@ -226,6 +233,7 @@
   {
     "id": "8",
     "name": "Dr. Christian Lindner-Hoffmann",
+    "avatarUrl": "/lawyers/lawyer-8.jpg",
     "practiceAreas": [
       "Data Protection",
       "Data Protection",
@@ -258,6 +266,7 @@
   {
     "id": "9",
     "name": "Katharina Meier",
+    "avatarUrl": "/lawyers/lawyer-9.jpg",
     "practiceAreas": [
       "Commercial Law",
       "Corporate Law",
@@ -292,6 +301,7 @@
   {
     "id": "10",
     "name": "David Althaus",
+    "avatarUrl": "/lawyers/lawyer-10.jpg",
     "practiceAreas": [
       "Administrative Law",
       "Public Law"
@@ -321,6 +331,7 @@
   {
     "id": "11",
     "name": "Julia Fischer",
+    "avatarUrl": "/lawyers/lawyer-11.jpg",
     "practiceAreas": [
       "Civil Procedure Law",
       "General Litigation"
@@ -350,6 +361,7 @@
   {
     "id": "12",
     "name": "Alexander Kovac",
+    "avatarUrl": "/lawyers/lawyer-12.jpg",
     "practiceAreas": [
       "Family Law",
       "Family Law"
@@ -375,6 +387,7 @@
   {
     "id": "13",
     "name": "Dr. Hannah Neumann",
+    "avatarUrl": "/lawyers/lawyer-13.jpg",
     "practiceAreas": [
       "Criminal Law",
       "White-Collar Crime"
@@ -405,6 +418,7 @@
   {
     "id": "14",
     "name": "Thomas Wagner",
+    "avatarUrl": "/lawyers/lawyer-14.jpg",
     "practiceAreas": [
       "Employment Law",
       "Works Constitution Law"
@@ -435,6 +449,7 @@
   {
     "id": "15",
     "name": "Rachel Zane",
+    "avatarUrl": "/lawyers/lawyer-15.jpg",
     "practiceAreas": [
       "Commercial Litigation",
       "Corporate Law"

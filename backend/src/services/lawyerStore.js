@@ -51,6 +51,7 @@ export function recordApproval(caseInput, lawyerId, notes = '', lawyerPath = def
     caseTitle: caseInput.title || 'Untitled case',
     selectedLawyer: selectedLawyer.name,
     lawyerId: selectedLawyer.id,
+    lawyerAvatar: selectedLawyer.avatarUrl || `/lawyers/lawyer-${selectedLawyer.id}.jpg`,
     notes,
     approvedAt: new Date().toISOString(),
     status: 'approved',
