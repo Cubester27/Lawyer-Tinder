@@ -14,5 +14,9 @@
     "concurrently": "^9.0.1",
     "wait-on": "^9.1.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.5",
+    "unpdf": "^1.8.0"
+  }
 }
