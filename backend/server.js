@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
+import { PDFParse } from 'pdf-parse';
 import { approveRecommendation, rankLawyersForCase } from './src/services/caseMatcher.js';
 import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
 import { loadApprovals, updateApprovalStatus, loadLawyerProfiles, updateApprovalDraft } from './src/services/lawyerStore.js';
@@ -189,7 +190,6 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 
   if (isPdf) {
     try {
-      const { PDFParse } = await import('pdf-parse');
       const parser = new PDFParse({ data: file.buffer });
       const pdfData = await parser.getText();
       text = pdfData.text || '';
@@ -220,10 +220,6 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-  app.listen(port, () => {
-    console.log(`Backend running on http://localhost:${port}`);
-  });
-}
-
-export default app;
+app.listen(port, () => {
+  console.log(`Backend running on http://localhost:${port}`);
+});

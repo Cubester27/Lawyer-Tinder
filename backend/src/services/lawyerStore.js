@@ -3,56 +3,33 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const defaultLawyerPath = join(process.cwd(), 'backend', 'data', 'lawyers.json');
-const defaultApprovalPath = join(process.cwd(), 'backend', 'data', 'approvals.json');
-
-let cachedLawyers = null;
-let cachedApprovals = null;
+const defaultLawyerPath = join(__dirname, '..', '..', 'data', 'lawyers.json');
+const defaultApprovalPath = join(__dirname, '..', '..', 'data', 'approvals.json');
 
 export function loadLawyerProfiles(filePath = defaultLawyerPath) {
-  if (cachedLawyers) return cachedLawyers;
   if (!existsSync(filePath)) {
     return [];
   }
-  try {
-    cachedLawyers = JSON.parse(readFileSync(filePath, 'utf8'));
-    return cachedLawyers;
-  } catch (err) {
-    return cachedLawyers || [];
-  }
+
+  return JSON.parse(readFileSync(filePath, 'utf8'));
 }
 
 export function saveLawyerProfiles(profiles, filePath = defaultLawyerPath) {
-  cachedLawyers = profiles;
-  try {
-    mkdirSync(dirname(filePath), { recursive: true });
-    writeFileSync(filePath, JSON.stringify(profiles, null, 2));
-  } catch (err) {
-    console.warn('Persistent write skipped (read-only filesystem on Vercel):', err.message);
-  }
+  mkdirSync(dirname(filePath), { recursive: true });
+  writeFileSync(filePath, JSON.stringify(profiles, null, 2));
 }
 
 export function loadApprovals(filePath = defaultApprovalPath) {
-  if (cachedApprovals) return cachedApprovals;
   if (!existsSync(filePath)) {
     return [];
   }
-  try {
-    cachedApprovals = JSON.parse(readFileSync(filePath, 'utf8'));
-    return cachedApprovals;
-  } catch (err) {
-    return cachedApprovals || [];
-  }
+
+  return JSON.parse(readFileSync(filePath, 'utf8'));
 }
 
 export function saveApprovals(approvals, filePath = defaultApprovalPath) {
-  cachedApprovals = approvals;
-  try {
-    mkdirSync(dirname(filePath), { recursive: true });
-    writeFileSync(filePath, JSON.stringify(approvals, null, 2));
-  } catch (err) {
-    console.warn('Persistent write skipped (read-only filesystem on Vercel):', err.message);
-  }
+  mkdirSync(dirname(filePath), { recursive: true });
+  writeFileSync(filePath, JSON.stringify(approvals, null, 2));
 }
 
 export function recordApproval(caseInput, lawyerId, notes = '', lawyerPath = defaultLawyerPath, approvalPath = defaultApprovalPath) {

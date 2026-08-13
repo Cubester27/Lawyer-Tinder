@@ -1,7 +1,6 @@
 {
   "name": "law-firm-case-matcher",
   "private": true,
-  "type": "module",
   "workspaces": [
     "backend",
     "frontend"
@@ -10,14 +9,6 @@
     "dev": "concurrently -n \"backend,frontend\" -c \"blue,magenta\" \"npm run dev --workspace backend\" \"wait-on http-get://127.0.0.1:3001/health && npm run dev --workspace frontend\"",
     "test": "npm run test --workspace backend",
     "build": "npm run build --workspace frontend"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.1",
-    "express": "^4.21.2",
-    "multer": "^1.4.1",
-    "pdf-parse": "^2.4.5",
-    "pdfkit": "^0.19.1"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",

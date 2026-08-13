@@ -1,5 +1,6 @@
-export async function generateEngagementLetter(caseApproval) {
-  const { default: PDFDocument } = await import('pdfkit');
+import PDFDocument from 'pdfkit';
+
+export function generateEngagementLetter(caseApproval) {
   return new Promise((resolve, reject) => {
     try {
       const doc = new PDFDocument({ margin: 50 });
