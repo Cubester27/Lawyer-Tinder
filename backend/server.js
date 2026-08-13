@@ -196,7 +196,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   if (isPdf) {
     try {
       const pdfData = await extractText(file.buffer);
-      text = pdfData.text || '';
+      text = pdfData.text || ''|| "";
     } catch (error) {
       text = file.buffer.toString('utf8').replace(/[^\x20-\x7E\s]/g, ' ').trim();
     }
