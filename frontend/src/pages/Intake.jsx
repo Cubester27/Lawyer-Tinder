@@ -167,9 +167,6 @@ function Intake() {
         <div className="container">
           <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div>
-              <h1 className="h3 fw-bold mb-1 d-flex align-items-center gap-2">
-                <Scale size={24} className="text-primary" /> Lawyer Tinder <span className="badge bg-primary fs-6 align-middle ms-2">AI Extraction & Matching</span>
-              </h1>
               <p className="text-secondary mb-0 small">
                 Upload a case document or paste facts – one click matching with multi-model AI.
               </p>
@@ -205,6 +202,10 @@ function Intake() {
                     <span className="badge bg-primary bg-opacity-20 text-primary border border-primary border-opacity-30 small">
                       Active: {activeModel}
                     </span>
+                  </div>
+                  <div className="alert alert-warning py-2 px-3 small mb-3 d-flex align-items-center gap-2 border-warning shadow-sm">
+                    <AlertTriangle size={16} className="text-warning flex-shrink-0" />
+                    <span><strong>Preview Mode:</strong> This is only a preview of this app. If you want to use it productively then you should use local models and implement Governance.</span>
                   </div>
                   <select
                     className="form-select form-select-custom mb-2"

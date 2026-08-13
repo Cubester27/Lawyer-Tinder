@@ -47,6 +47,7 @@ function Dashboard() {
   
   // Case Detail Modal state
   const [selectedCaseModal, setSelectedCaseModal] = useState(null);
+  const [selectedLawyerModal, setSelectedLawyerModal] = useState(null);
 
   // AI Draft Modal & Tone state
   const [draftModalOpen, setDraftModalOpen] = useState(false);
@@ -199,25 +200,40 @@ function Dashboard() {
           <h4 className="mb-3 d-flex align-items-center gap-2">
             <TrendingUp size={20} className="text-primary" /> Lawyer Performance Analytics
           </h4>
-          <div className="row g-3">
-            {lawyers.map(lawyer => (
-              <div key={lawyer.id} className="col-md-6 col-lg-4">
-                <div className="app-card p-3 shadow-sm h-100">
-                  <h6 className="fw-bold mb-1">{lawyer.name}</h6>
-                  <div className="text-muted small mb-3">Total Cases Handled: <strong className="fs-6">{lawyer.caseHistory}</strong></div>
-                  
-                  {lawyer.performance && Object.entries(lawyer.performance).map(([area, stats]) => (
-                    <div key={area} className="d-flex justify-content-between align-items-center mb-2 small pb-1 border-bottom">
-                      <span className="fw-medium text-truncate me-2" style={{ maxWidth: '120px' }} title={area}>{area}</span>
-                      <div className="d-flex gap-2">
-                        <span className="badge bg-secondary bg-opacity-20 text-body border">{stats.cases} cases</span>
-                        <span className={`badge ${stats.successRate >= 80 ? 'bg-success' : 'bg-warning text-dark'}`}>{stats.successRate}% Success</span>
-                      </div>
-                    </div>
+          <div className="app-card shadow overflow-hidden">
+            <div className="table-responsive">
+              <table className="table table-hover align-middle mb-0">
+                <thead className="app-card-header">
+                  <tr>
+                    <th className="py-3 px-4">Lawyer Name</th>
+                    <th className="py-3 px-4 text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lawyers.map(lawyer => (
+                    <tr 
+                      key={lawyer.id} 
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => setSelectedLawyerModal(lawyer)}
+                    >
+                      <td className="py-3 px-4 fw-bold" style={{ color: 'var(--text-main)' }}>{lawyer.name}</td>
+                      <td className="py-3 px-4 text-end">
+                        <button 
+                          className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedLawyerModal(lawyer);
+                          }}
+                          style={{ borderColor: 'var(--text-main)', color: 'var(--text-main)' }}
+                        >
+                          <Eye size={14} /> View Details
+                        </button>
+                      </td>
+                    </tr>
                   ))}
-                </div>
-              </div>
-            ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -605,6 +621,38 @@ function Dashboard() {
                 </div>
               </div>
 
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Lawyer Detail Modal */}
+      {selectedLawyerModal && (
+        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)', zIndex: 1055 }}>
+          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content app-card shadow-lg">
+              <div className="modal-header app-card-header py-3">
+                <h5 className="modal-title fw-bold d-flex align-items-center gap-2 mb-0" style={{ color: 'var(--text-main)' }}>
+                  <TrendingUp size={20} style={{ color: 'var(--text-main)' }} /> {selectedLawyerModal.name} - Analytics
+                </h5>
+                <button type="button" className="btn-close" onClick={() => setSelectedLawyerModal(null)}></button>
+              </div>
+              <div className="modal-body p-4">
+                <div className="text-muted small mb-4">Total Cases Handled: <strong className="fs-5" style={{ color: 'var(--text-main)' }}>{selectedLawyerModal.caseHistory}</strong></div>
+                
+                <h6 className="fw-bold mb-3 border-bottom pb-2" style={{ color: 'var(--text-main)' }}>Performance by Area</h6>
+                {selectedLawyerModal.performance && Object.entries(selectedLawyerModal.performance).map(([area, stats]) => (
+                  <div key={area} className="d-flex justify-content-between align-items-center mb-3 p-3 app-card rounded border" style={{ borderColor: 'var(--border-card)' }}>
+                    <span className="fw-bold" style={{ fontSize: '1rem', color: 'var(--text-main)' }}>{area}</span>
+                    <div className="d-flex gap-2">
+                      <span className="badge bg-secondary bg-opacity-20 text-body border p-2" style={{ fontSize: '0.85rem' }}>{stats.cases} cases</span>
+                      <span className={`badge p-2 ${stats.successRate >= 80 ? 'bg-success' : 'bg-warning text-dark'}`} style={{ fontSize: '0.85rem' }}>{stats.successRate}% Success</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="modal-footer app-card-header py-2">
+                <button type="button" className="btn btn-secondary px-4" onClick={() => setSelectedLawyerModal(null)}>Close</button>
+              </div>
             </div>
           </div>
         </div>

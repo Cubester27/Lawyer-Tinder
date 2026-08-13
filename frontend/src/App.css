@@ -1,43 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root, [data-bs-theme="dark"] {
-  --bg-body: #0f172a;
-  --bg-card: #1e293b;
-  --bg-card-header: rgba(30, 41, 59, 0.7);
-  --border-card: #334155;
-  --text-main: #f8fafc;
-  --text-muted-custom: #94a3b8;
-  --input-bg: #0f172a;
-  --input-border: #334155;
-  --input-text: #f8fafc;
-  --law-code-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(15, 23, 42, 0.6) 100%);
-  --deadline-card-bg: rgba(30, 41, 59, 0.8);
-  --deadline-card-border: #475569;
+  --bg-body: #112827;
+  --bg-card: #2E6361;
+  --bg-card-header: rgba(17, 40, 39, 0.7);
+  --border-card: #1c4240;
+  --text-main: #E6B729;
+  --text-muted-custom: #a8cdcc;
+  --input-bg: #112827;
+  --input-border: #1c4240;
+  --input-text: #E6B729;
+  --law-code-bg: linear-gradient(135deg, rgba(22, 50, 49, 0.8) 0%, rgba(17, 40, 39, 0.9) 100%);
+  --deadline-card-bg: rgba(30, 60, 60, 0.8);
+  --deadline-card-border: #477070;
   --deadline-pill-bg: #7f1d1d;
   --deadline-pill-color: #fca5a5;
-  --nav-bg: #1e293b;
-  --nav-border: #334155;
-  --shadow-custom: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  --nav-bg: #2E6361;
+  --nav-border: #1c4240;
+  --shadow-custom: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 [data-bs-theme="light"] {
-  --bg-body: #f8fafc;
-  --bg-card: #ffffff;
-  --bg-card-header: #f1f5f9;
-  --border-card: #cbd5e1;
-  --text-main: #0f172a;
-  --text-muted-custom: #64748b;
-  --input-bg: #ffffff;
-  --input-border: #cbd5e1;
-  --input-text: #0f172a;
-  --law-code-bg: linear-gradient(135deg, rgba(219, 234, 254, 0.7) 0%, rgba(239, 246, 255, 0.9) 100%);
-  --deadline-card-bg: #ffffff;
-  --deadline-card-border: #cbd5e1;
+  --bg-body: #e4f0ef;
+  --bg-card: #2E6361;
+  --bg-card-header: rgba(17, 40, 39, 0.4);
+  --border-card: #1d4342;
+  --text-main: #E6B729;
+  --text-muted-custom: #9bc2c0;
+  --input-bg: #1c4240;
+  --input-border: #112827;
+  --input-text: #E6B729;
+  --law-code-bg: linear-gradient(135deg, rgba(30, 65, 65, 0.9) 0%, rgba(46, 99, 97, 0.9) 100%);
+  --deadline-card-bg: rgba(40, 90, 85, 0.9);
+  --deadline-card-border: #1c4240;
   --deadline-pill-bg: #fee2e2;
   --deadline-pill-color: #991b1b;
-  --nav-bg: #ffffff;
-  --nav-border: #e2e8f0;
-  --shadow-custom: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --nav-bg: #2E6361;
+  --nav-border: #1c4240;
+  --shadow-custom: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -167,3 +167,69 @@ body {
   border-radius: 9999px;
 }
 
+/* Custom Bootstrap Overrides for Gold/Teal Theme */
+.text-primary, .text-info {
+  color: var(--text-main) !important;
+}
+
+.bg-primary, .bg-info {
+  background-color: var(--text-main) !important;
+  color: var(--bg-body) !important;
+}
+
+.border-primary, .border-info {
+  border-color: var(--text-main) !important;
+}
+
+.text-muted, .text-secondary {
+  color: var(--text-muted-custom) !important;
+}
+
+.btn-primary, .btn-info {
+  background-color: var(--text-main);
+  border-color: var(--text-main);
+  color: #112827; /* Dark Teal for contrast */
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-info:hover, .btn-info:focus {
+  background-color: #d1a31d;
+  border-color: #d1a31d;
+  color: #112827;
+}
+
+.btn-outline-primary, .btn-outline-info, .btn-outline-warning, .btn-outline-success {
+  color: var(--text-main);
+  border-color: var(--text-main);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, 
+.btn-outline-info:hover, .btn-outline-info:focus,
+.btn-outline-warning:hover, .btn-outline-warning:focus,
+.btn-outline-success:hover, .btn-outline-success:focus {
+  background-color: var(--text-main);
+  border-color: var(--text-main);
+  color: #112827;
+}
+
+.btn-outline-secondary {
+  color: var(--text-muted-custom);
+  border-color: var(--text-muted-custom);
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:focus {
+  background-color: var(--text-muted-custom);
+  color: #112827;
+}
+
+/* Ensure table colors are correct */
+.table {
+  color: var(--text-main) !important;
+}
+.table-hover tbody tr:hover {
+  background-color: rgba(230, 183, 41, 0.1) !important;
+  color: var(--text-main) !important;
+}
+.table td, .table th {
+  background-color: transparent !important;
+  border-bottom: 1px solid var(--border-card) !important;
+}
