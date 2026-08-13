@@ -31,7 +31,7 @@ export async function generateLegalDraft(caseInput, tone = 'standard') {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
-        'HTTP-Referer': 'http://localhost:3001',
+        'HTTP-Referer': process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001',
         'X-Title': 'Lawyer Tinder App'
       },
       body: JSON.stringify({
@@ -86,7 +86,7 @@ export async function verifyDraftFactuality(draftText, caseInput) {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
-        'HTTP-Referer': 'http://localhost:3001',
+        'HTTP-Referer': process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001',
         'X-Title': 'Lawyer Tinder App'
       },
       body: JSON.stringify({

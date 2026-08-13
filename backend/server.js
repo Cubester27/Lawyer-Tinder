@@ -1,6 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
+import { DOMMatrix } from '@napi-rs/canvas';
+
+if (typeof global.DOMMatrix === 'undefined') {
+  global.DOMMatrix = DOMMatrix;
+}
 import { PDFParse } from 'pdf-parse';
 import { approveRecommendation, rankLawyersForCase } from './src/services/caseMatcher.js';
 import { extractLegalInfoWithAI } from './src/services/aiExtractor.js';
@@ -56,16 +61,16 @@ app.get('/api/lawyers', (req, res) => {
 app.patch('/api/cases/:id/status', (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  
+
   if (!status) {
     return res.status(400).json({ error: 'Status is required' });
   }
-  
+
   const updated = updateApprovalStatus(id, status);
   if (!updated) {
     return res.status(404).json({ error: 'Case not found' });
   }
-  
+
   res.json({ case: updated });
 });
 
@@ -113,13 +118,13 @@ app.post('/api/cases/:id/draft', async (req, res) => {
   const cases = loadApprovals();
   const caseApproval = cases.find(c => c.id === req.params.id);
   if (!caseApproval) return res.status(404).json({ error: 'Case not found' });
-  
+
   const tone = req.body.tone || 'standard';
-  
+
   if (caseApproval.draft && !req.body.forceRegenerate && !req.body.tone) {
     return res.json({ draft: caseApproval.draft, tone: 'standard' });
   }
-  
+
   try {
     const draftText = await generateLegalDraft({
       title: caseApproval.caseTitle,
@@ -190,14 +195,11 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 
   if (isPdf) {
     try {
-      const parser = new PDFParse({ data: file.buffer });
-      const pdfData = await parser.getText();
-      text = pdfData.text || '';
+      const pdfData = await extractText(file.buffer);
+      text = pdfData.text || ''|| "";
     } catch (error) {
       text = file.buffer.toString('utf8').replace(/[^\x20-\x7E\s]/g, ' ').trim();
     }
-  } else {
-    text = file.buffer.toString('utf8').trim();
   }
 
   const selectedModel = req.body?.model;
@@ -220,6 +222,10 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Backend running on http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`The Backend running on http://localhost:${port}`);
+  });
+}
+
+export default app;

@@ -60,7 +60,7 @@ export async function analyzeCaseRiskWithAI(caseDetails, model = process.env.OPE
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
-        'HTTP-Referer': 'http://localhost:3001',
+        'HTTP-Referer': process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001',
         'X-Title': 'Lawyer Tinder App'
       },
       body: JSON.stringify({
